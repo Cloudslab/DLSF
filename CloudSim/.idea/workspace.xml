@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17edca80-2262-4585-8983-30b48e73f358" name="Default Changelist" comment="Added DL interface code for live vm migration. Todo:&#10;- Parsing code for output migration map&#10;- reward calculation code in DLRunner&#10;- input generation code for DL model in DLRunner including: &#10;  - CNN input: DL">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-    </list>
+    <list default="true" id="17edca80-2262-4585-8983-30b48e73f358" name="Default Changelist" comment="Added DL interface code for live vm migration. Todo:&#10;- Parsing code for output migration map&#10;- reward calculation code in DLRunner&#10;- input generation code for DL model in DLRunner including: &#10;  - CNN input: DL" />
     <ignored path="$PROJECT_DIR$/distribution/target/" />
     <ignored path="$PROJECT_DIR$/modules/target/" />
     <ignored path="$PROJECT_DIR$/documentation/target/" />
@@ -57,6 +55,7 @@
     <session id="-472565923">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -81,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/cloudsim-package.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+              <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -901,7 +900,7 @@
     <entry file="file://$PROJECT_DIR$/cloudsim-package.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <caret line="11" column="9" lean-forward="true" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
         </state>
       </provider>
     </entry>

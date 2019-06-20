@@ -2,6 +2,7 @@ package org.cloudbus.cloudsim.power;
 
 import org.cloudbus.cloudsim.*;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.cost.models.CostModel;
 import org.cloudbus.cloudsim.lists.PeList;
 import org.cloudbus.cloudsim.power.models.PowerModel;
 import org.cloudbus.cloudsim.provisioners.BwProvisioner;
@@ -22,6 +23,9 @@ public class DRLHost extends PowerHost{
     /** The host utilization state history. */
     private final List<HostStateHistoryEntry> stateHistory = new LinkedList<HostStateHistoryEntry>();
 
+    /** Cost Model of this host **/
+    private CostModel costModel;
+
     /**
      * Instantiates a new PowerHost.
      *
@@ -40,10 +44,29 @@ public class DRLHost extends PowerHost{
             long storage,
             List<? extends Pe> peList,
             VmScheduler vmScheduler,
-            PowerModel powerModel) {
+            PowerModel powerModel,
+            CostModel costModel) {
         super(id, ramProvisioner, bwProvisioner, storage, peList, vmScheduler, powerModel);
+        setCostModel(costModel);
     }
 
+    /**
+     * Get cost model of this host
+     *
+     * @return cost model
+     */
+    protected CostModel getCostModel(){
+        return costModel;
+    }
+
+    /**
+     * Set cost model of this host
+     *
+     * @param cm cost model to set
+     */
+    protected void setCostModel(CostModel cm){
+        this.costModel = cm;
+    }
 
     /** Host Dynamic Workload mehtods **/
     @Override

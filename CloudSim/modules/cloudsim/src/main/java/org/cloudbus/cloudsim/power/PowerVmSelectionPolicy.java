@@ -62,7 +62,9 @@ public abstract class PowerVmSelectionPolicy {
 	 *
 	 * @return the VMs to migrate from hosts
 	 */
-	protected abstract List<? extends Vm>
-	getAllVmaToMigrate(List<PowerHost> hosts);
+	protected List<? extends Vm>
+	getAllVmaToMigrate(List<PowerHost> hosts){
+		return null;
+	};
 
 }

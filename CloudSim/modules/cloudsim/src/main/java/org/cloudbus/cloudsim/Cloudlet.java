@@ -1732,6 +1732,9 @@ public class Cloudlet {
      * @return the utilization of diskbw
      */
     public double getUtilizationOfDiskBw(final double time) {
+        if(getUtilizationModelDiskBw() == null){
+            return 0;
+        }
         return getUtilizationModelDiskBw().getUtilization(time);
     }
 

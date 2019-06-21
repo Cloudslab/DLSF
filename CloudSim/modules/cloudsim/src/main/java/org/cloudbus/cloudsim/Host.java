@@ -561,7 +561,25 @@ public class Host {
 	 * @return the bw provisioner
 	 */
 	public DiskProvisioner getDiskBwProvisioner() {
-		return diskBwProvisioner;
+	    if(this.diskBwProvisioner != null){
+	        return this.diskBwProvisioner;
+        }
+        else{
+	        return new DiskProvisioner(0) {
+                @Override
+                public boolean allocateDiskBwForVm(Vm vm, long DiskBw) {return true;}
+
+                @Override
+                public long getAllocatedDiskBwForVm(Vm vm) {return 0;}
+
+                @Override
+                public void deallocateDiskBwForVm(Vm vm) {}
+
+                @Override
+                public boolean isSuitableForVm(Vm vm, long DiskBw) {return true;}
+            };
+        }
+
 	}
 
 

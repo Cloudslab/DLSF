@@ -192,6 +192,7 @@ public class Vm {
 		setBeingInstantiated(true);
 
 		setCurrentAllocatedBw(0);
+		setCurrentAllocatedDiskBw(0);
 		setCurrentAllocatedMips(null);
 		setCurrentAllocatedRam(0);
 		setCurrentAllocatedSize(0);

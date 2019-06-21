@@ -1,7 +1,5 @@
 package org.cloudbus.cloudsim.cost.models;
 
-import sun.security.x509.CertificatePolicySet;
-
 /**
  * The CostModel interface needs to be implemented in order to provide a model of cost
  * of hosts, depending on utilization of a critical system component, such as CPU, RAM and network.

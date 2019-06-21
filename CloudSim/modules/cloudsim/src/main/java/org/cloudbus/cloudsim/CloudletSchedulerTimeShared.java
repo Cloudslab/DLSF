@@ -358,4 +358,13 @@ public class CloudletSchedulerTimeShared extends CloudletScheduler {
 		return bw;
 	}
 
+	@Override
+	public double getCurrentRequestedUtilizationOfDiskBw() {
+		double diskbw = 0;
+		for (ResCloudlet cloudlet : cloudletExecList) {
+			diskbw += cloudlet.getCloudlet().getUtilizationOfDiskBw(CloudSim.clock());
+		}
+		return diskbw;
+	}
+
 }

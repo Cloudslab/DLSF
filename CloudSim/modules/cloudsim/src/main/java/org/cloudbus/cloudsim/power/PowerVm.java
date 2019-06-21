@@ -79,6 +79,23 @@ public class PowerVm extends Vm {
 		setSchedulingInterval(schedulingInterval);
 	}
 
+	public PowerVm(
+			final int id,
+			final int userId,
+			final double mips,
+			final int pesNumber,
+			final int ram,
+			final long bw,
+			final long diskbw,
+			final long size,
+			final int priority,
+			final String vmm,
+			final CloudletScheduler cloudletScheduler,
+			final double schedulingInterval) {
+		super(id, userId, mips, pesNumber, ram, bw, diskbw, size, vmm, cloudletScheduler);
+		setSchedulingInterval(schedulingInterval);
+	}
+
 	@Override
 	public double updateVmProcessing(final double currentTime, final List<Double> mipsShare) {
 		double time = super.updateVmProcessing(currentTime, mipsShare);

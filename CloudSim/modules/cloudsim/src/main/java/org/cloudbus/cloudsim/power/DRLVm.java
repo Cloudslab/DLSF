@@ -26,11 +26,12 @@ public class DRLVm extends PowerVm {
             final int pesNumber,
             final int ram,
             final long bw,
+            final long diskBw,
             final long size,
             final int priority,
             final String vmm,
             final CloudletScheduler cloudletScheduler,
             final double schedulingInterval) {
-        super(id, userId, mips, pesNumber, ram, bw, size, priority, vmm, cloudletScheduler, schedulingInterval);
+        super(id, userId, mips, pesNumber, ram, bw, diskBw, size, priority, vmm, cloudletScheduler, schedulingInterval);
     }
 }

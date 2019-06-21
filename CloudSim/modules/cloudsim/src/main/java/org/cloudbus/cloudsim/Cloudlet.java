@@ -236,6 +236,12 @@ public class Cloudlet {
      */
     private UtilizationModel utilizationModelBw;
 
+    /**
+     * The utilization model that defines how the cloudlet will use the VM's
+     * disk bandwidth (diskbw).
+     */
+    private UtilizationModel utilizationModelDiskBw;
+
     // Data cloudlet
     /**
      * The required files to be used by the cloudlet (if any). The time to
@@ -458,6 +464,74 @@ public class Cloudlet {
         setUtilizationModelCpu(utilizationModelCpu);
         setUtilizationModelRam(utilizationModelRam);
         setUtilizationModelBw(utilizationModelBw);
+    }
+
+    /**
+     * Allocates a new Cloudlet object. The Cloudlet length, input and output
+     * file sizes should be greater than or equal to 1.
+     *
+     * @param cloudletId the unique ID of this cloudlet
+     * @param cloudletLength the length or size (in MI) of this cloudlet to be
+     * executed in a PowerDatacenter
+     * @param cloudletFileSize the file size (in byte) of this cloudlet
+     * <tt>BEFORE</tt> submitting to a PowerDatacenter
+     * @param cloudletOutputSize the file size (in byte) of this cloudlet
+     * <tt>AFTER</tt> finish executing by a PowerDatacenter
+     * @param record record the history of this object or not
+     * @param pesNumber the pes number
+     * @param utilizationModelCpu the utilization model of cpu
+     * @param utilizationModelRam the utilization model of ram
+     * @param utilizationModelBw the utilization model of bw
+     * @param utilizationModelDiskBw the utilization model of disk bw
+     *
+     * @pre cloudletID >= 0
+     * @pre cloudletLength >= 0.0
+     * @pre cloudletFileSize >= 1
+     * @pre cloudletOutputSize >= 1
+     * @post $none
+     */
+    public Cloudlet(
+            final int cloudletId,
+            final long cloudletLength,
+            final int pesNumber,
+            final long cloudletFileSize,
+            final long cloudletOutputSize,
+            final UtilizationModel utilizationModelCpu,
+            final UtilizationModel utilizationModelRam,
+            final UtilizationModel utilizationModelBw,
+            final UtilizationModel utilizationModelDiskBw,
+            final boolean record) {
+        userId = -1;          // to be set by a Broker or user
+        status = CREATED;
+        this.cloudletId = cloudletId;
+        numberOfPes = pesNumber;
+        execStartTime = 0.0;
+        finishTime = -1.0;    // meaning this Cloudlet hasn't finished yet
+        classType = 0;
+        netToS = 0;
+
+        // Cloudlet length, Input and Output size should be at least 1 byte.
+        this.cloudletLength = Math.max(1, cloudletLength);
+        this.cloudletFileSize = Math.max(1, cloudletFileSize);
+        this.cloudletOutputSize = Math.max(1, cloudletOutputSize);
+
+        // Normally, a Cloudlet is only executed on a resource without being
+        // migrated to others. Hence, to reduce memory consumption, set the
+        // size of this ArrayList to be less than the default one.
+        resList = new ArrayList<Resource>(2);
+        index = -1;
+        this.record = record;
+
+        vmId = -1;
+        accumulatedBwCost = 0.0;
+        costPerBw = 0.0;
+
+        requiredFiles = new LinkedList<String>();
+
+        setUtilizationModelCpu(utilizationModelCpu);
+        setUtilizationModelRam(utilizationModelRam);
+        setUtilizationModelBw(utilizationModelBw);
+        setUtilizationModelDisk(utilizationModelDiskBw);
     }
 
 	// ////////////////////// INTERNAL CLASS ///////////////////////////////////
@@ -762,8 +836,6 @@ public class Cloudlet {
      * cancel or to move this Cloudlet into different CloudResources.
      *
      * @param length length of this Cloudlet
-     * @see gridsim.AllocPolicy
-     * @see gridsim.ResCloudlet
      * @pre length >= 0.0
      * @post $none
      */
@@ -1596,12 +1668,31 @@ public class Cloudlet {
     }
 
     /**
+     * Gets the utilization model of disk bw.
+     *
+     * @return the utilization model of bw
+     */
+    public UtilizationModel getUtilizationModelDiskBw() {
+        return utilizationModelDiskBw;
+    }
+
+
+    /**
      * Sets the utilization model of bw.
      *
      * @param utilizationModelBw the new utilization model of bw
      */
     public void setUtilizationModelBw(final UtilizationModel utilizationModelBw) {
         this.utilizationModelBw = utilizationModelBw;
+    }
+
+    /**
+     * Sets the utilization model of disk bw.
+     *
+     * @param utilizationModelDiskBw the new utilization model of bw
+     */
+    public void setUtilizationModelDisk(final UtilizationModel utilizationModelDiskBw) {
+        this.utilizationModelDiskBw = utilizationModelDiskBw;
     }
 
     /**
@@ -1632,6 +1723,16 @@ public class Cloudlet {
      */
     public double getUtilizationOfBw(final double time) {
         return getUtilizationModelBw().getUtilization(time);
+    }
+
+    /**
+     * Gets the utilization percentage of diskbw.
+     *
+     * @param time the time
+     * @return the utilization of diskbw
+     */
+    public double getUtilizationOfDiskBw(final double time) {
+        return getUtilizationModelDiskBw().getUtilization(time);
     }
 
 }

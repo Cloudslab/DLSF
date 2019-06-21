@@ -13,6 +13,7 @@ import java.util.List;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.lists.PeList;
 import org.cloudbus.cloudsim.provisioners.BwProvisioner;
+import org.cloudbus.cloudsim.provisioners.DiskProvisioner;
 import org.cloudbus.cloudsim.provisioners.RamProvisioner;
 
 /**
@@ -38,6 +39,9 @@ public class Host {
 
 	/** The bw provisioner. */
 	private BwProvisioner bwProvisioner;
+
+	/** The disk bw provisioner. */
+	private DiskProvisioner diskBwProvisioner;
 
 	/** The allocation policy for scheduling VM execution. */
 	private VmScheduler vmScheduler;
@@ -78,6 +82,35 @@ public class Host {
 		setId(id);
 		setRamProvisioner(ramProvisioner);
 		setBwProvisioner(bwProvisioner);
+		setStorage(storage);
+		setVmScheduler(vmScheduler);
+
+		setPeList(peList);
+		setFailed(false);
+	}
+
+	/**
+	 * Instantiates a new host.
+	 *
+	 * @param id the host id
+	 * @param ramProvisioner the ram provisioner
+	 * @param bwProvisioner the bw provisioner
+	 * @param storage the storage capacity
+	 * @param peList the host's PEs list
+	 * @param vmScheduler the vm scheduler
+	 */
+	public Host(
+			int id,
+			RamProvisioner ramProvisioner,
+			BwProvisioner bwProvisioner,
+			DiskProvisioner diskProvisioner,
+			long storage,
+			List<? extends Pe> peList,
+			VmScheduler vmScheduler) {
+		setId(id);
+		setRamProvisioner(ramProvisioner);
+		setBwProvisioner(bwProvisioner);
+		setDiskBwProvisioner(diskProvisioner);
 		setStorage(storage);
 		setVmScheduler(vmScheduler);
 
@@ -141,6 +174,12 @@ public class Host {
 				System.exit(0);
 			}
 
+			if (!getDiskBwProvisioner().allocateDiskBwForVm(vm, vm.getCurrentRequestedDiskBw())) {
+				Log.printLine("[VmScheduler.addMigratingInVm] Allocation of VM #" + vm.getId() + " to Host #"
+						+ getId() + " failed by Disk-BW");
+				System.exit(0);
+			}
+
 			getVmScheduler().getVmsMigratingIn().add(vm.getUid());
 			if (!getVmScheduler().allocatePesForVm(vm, vm.getCurrentRequestedMips())) {
 				Log.printLine("[VmScheduler.addMigratingInVm] Allocation of VM #" + vm.getId() + " to Host #"
@@ -184,6 +223,7 @@ public class Host {
 			}
 			getRamProvisioner().allocateRamForVm(vm, vm.getCurrentRequestedRam());
 			getBwProvisioner().allocateBwForVm(vm, vm.getCurrentRequestedBw());
+			getDiskBwProvisioner().allocateDiskBwForVm(vm, vm.getCurrentRequestedDiskBw());
 			getVmScheduler().allocatePesForVm(vm, vm.getCurrentRequestedMips());
 			setStorage(getStorage() - vm.getSize());
 		}
@@ -199,8 +239,9 @@ public class Host {
 	public boolean isSuitableForVm(Vm vm) {
 		return (getVmScheduler().getPeCapacity() >= vm.getCurrentRequestedMaxMips()
 				&& getVmScheduler().getAvailableMips() >= vm.getCurrentRequestedTotalMips()
-				&& getRamProvisioner().isSuitableForVm(vm, vm.getCurrentRequestedRam()) && getBwProvisioner()
-				.isSuitableForVm(vm, vm.getCurrentRequestedBw()));
+				&& getRamProvisioner().isSuitableForVm(vm, vm.getCurrentRequestedRam())
+				&& getBwProvisioner().isSuitableForVm(vm, vm.getCurrentRequestedBw())
+				&& getDiskBwProvisioner().isSuitableForVm(vm, vm.getCurrentRequestedDiskBw()));
 	}
 
 	/**
@@ -231,11 +272,19 @@ public class Host {
 			return false;
 		}
 
+		if (!getDiskBwProvisioner().allocateDiskBwForVm(vm, vm.getCurrentAllocatedDiskBw())) {
+			Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
+					" failed by Disk-BW");
+			getRamProvisioner().deallocateRamForVm(vm);
+			return false;
+		}
+
 		if (!getVmScheduler().allocatePesForVm(vm, vm.getCurrentRequestedMips())) {
 			Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
 					" failed by MIPS");
 			getRamProvisioner().deallocateRamForVm(vm);
 			getBwProvisioner().deallocateBwForVm(vm);
+			getDiskBwProvisioner().deallocateDiskBwForVm(vm);
 			return false;
 		}
 
@@ -283,6 +332,7 @@ public class Host {
 	protected void vmDeallocate(Vm vm) {
 		getRamProvisioner().deallocateRamForVm(vm);
 		getBwProvisioner().deallocateBwForVm(vm);
+		getDiskBwProvisioner().deallocateDiskBwForVm(vm);
 		getVmScheduler().deallocatePesForVm(vm);
 		setStorage(getStorage() + vm.getSize());
 	}
@@ -293,6 +343,7 @@ public class Host {
 	protected void vmDeallocateAll() {
 		getRamProvisioner().deallocateRamForAllVms();
 		getBwProvisioner().deallocateBwForAllVms();
+		getDiskBwProvisioner().deallocateDiskBwForAllVms();
 		getVmScheduler().deallocatePesForAllVms();
 	}
 
@@ -417,6 +468,18 @@ public class Host {
 	}
 
 	/**
+	 * Gets the host disk bw.
+	 *
+	 * @return the host disk bw
+	 * @pre $none
+	 * @post $result > 0
+	 */
+	public long getDiskBw() {
+		return getDiskBwProvisioner().getDiskBw();
+	}
+
+
+	/**
 	 * Gets the host memory.
 	 * 
 	 * @return the host memory
@@ -490,6 +553,25 @@ public class Host {
 	 */
 	protected void setBwProvisioner(BwProvisioner bwProvisioner) {
 		this.bwProvisioner = bwProvisioner;
+	}
+
+	/**
+	 * Gets the bw provisioner.
+	 *
+	 * @return the bw provisioner
+	 */
+	public DiskProvisioner getDiskBwProvisioner() {
+		return diskBwProvisioner;
+	}
+
+
+	/**
+	 * Sets the bw provisioner.
+	 *
+	 * @param diskProvisioner the new bw provisioner
+	 */
+	protected void setDiskBwProvisioner(DiskProvisioner diskProvisioner) {
+		this.diskBwProvisioner = diskProvisioner;
 	}
 
 	/**

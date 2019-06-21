@@ -464,4 +464,11 @@ public class CloudletSchedulerSpaceShared extends CloudletScheduler {
 		return 0;
 	}
 
+	@Override
+	public double getCurrentRequestedUtilizationOfDiskBw() {
+		//@todo the method isn't in fact implemented
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

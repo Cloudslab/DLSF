@@ -598,6 +598,12 @@ public class NetworkCloudletSpaceSharedScheduler extends CloudletScheduler {
 	}
 
 	@Override
+	public double getCurrentRequestedUtilizationOfDiskBw() {
+		//@todo The method doesn't appear to be implemented in fact
+		return 0;
+	}
+
+	@Override
 	public double getCurrentRequestedUtilizationOfRam() {
                 //@todo The method doesn't appear to be implemented in fact
 		return 0;

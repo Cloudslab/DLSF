@@ -251,6 +251,13 @@ public abstract class CloudletScheduler {
 	public abstract double getCurrentRequestedUtilizationOfBw();
 
 	/**
+	 * Gets the current requested bw.
+	 *
+	 * @return the current requested bw
+	 */
+	public abstract double getCurrentRequestedUtilizationOfDiskBw();
+
+	/**
 	 * Gets the previous time.
 	 * 
 	 * @return the previous time

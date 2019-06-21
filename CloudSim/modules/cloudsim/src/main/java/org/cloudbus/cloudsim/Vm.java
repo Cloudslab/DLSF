@@ -46,6 +46,9 @@ public class Vm {
 	/** The required bw. */
 	private long bw;
 
+	/** The required Diskbw. */
+	private long Diskbw;
+
 	/** The Virtual Machine Monitor (VMM) that manages the VM. */
 	private String vmm;
 
@@ -66,6 +69,9 @@ public class Vm {
 
 	/** The current allocated bw. */
 	private long currentAllocatedBw;
+
+	/** The current allocated Diskbw. */
+	private long currentAllocatedDiskBw;
 
 	/** The current allocated mips for each VM's PE. */
 	private List<Double> currentAllocatedMips;
@@ -123,6 +129,61 @@ public class Vm {
 		setNumberOfPes(numberOfPes);
 		setRam(ram);
 		setBw(bw);
+		setSize(size);
+		setVmm(vmm);
+		setCloudletScheduler(cloudletScheduler);
+
+		setInMigration(false);
+		setBeingInstantiated(true);
+
+		setCurrentAllocatedBw(0);
+		setCurrentAllocatedMips(null);
+		setCurrentAllocatedRam(0);
+		setCurrentAllocatedSize(0);
+	}
+
+	/**
+	 * Creates a new Vm object.
+	 *
+	 * @param id unique ID of the VM
+	 * @param userId ID of the VM's owner
+	 * @param mips the mips
+	 * @param numberOfPes amount of CPUs
+	 * @param ram amount of ram
+	 * @param bw amount of bandwidth
+	 * @param size The size the VM image size (the amount of storage it will use, at least initially).
+	 * @param vmm virtual machine monitor
+	 * @param cloudletScheduler cloudletScheduler policy for cloudlets scheduling
+	 *
+	 * @pre id >= 0
+	 * @pre userId >= 0
+	 * @pre size > 0
+	 * @pre ram > 0
+	 * @pre bw > 0
+	 * @pre cpus > 0
+	 * @pre priority >= 0
+	 * @pre cloudletScheduler != null
+	 * @post $none
+	 */
+	public Vm(
+			int id,
+			int userId,
+			double mips,
+			int numberOfPes,
+			int ram,
+			long bw,
+			long diskbw,
+			long size,
+			String vmm,
+			CloudletScheduler cloudletScheduler) {
+		setId(id);
+		setUserId(userId);
+		setUid(getUid(userId, id));
+		setMips(mips);
+		setNumberOfPes(numberOfPes);
+		setRam(ram);
+		setBw(bw);
+		setDiskBw(diskbw);
 		setSize(size);
 		setVmm(vmm);
 		setCloudletScheduler(cloudletScheduler);
@@ -207,6 +268,18 @@ public class Vm {
 			return getBw();
 		}
 		return (long) (getCloudletScheduler().getCurrentRequestedUtilizationOfBw() * getBw());
+	}
+
+	/**
+	 * Gets the current requested disk bw.
+	 *
+	 * @return the current requested disk bw
+	 */
+	public long getCurrentRequestedDiskBw() {
+		if (isBeingInstantiated()) {
+			return getDiskBw();
+		}
+		return (long) (getCloudletScheduler().getCurrentRequestedUtilizationOfDiskBw() * getDiskBw());
 	}
 
 	/**
@@ -390,6 +463,28 @@ public class Vm {
 	}
 
 	/**
+	 * Gets the amount of disk bandwidth.
+	 *
+	 * @return amount of disk bandwidth
+	 * @pre $none
+	 * @post $none
+	 */
+	public long getDiskBw() {
+		return Diskbw;
+	}
+
+	/**
+	 * Sets the amount of diskbandwidth.
+	 *
+	 * @param Diskbw new amount of bandwidth
+	 * @pre bw > 0
+	 * @post $none
+	 */
+	public void setDiskBw(long Diskbw) {
+		this.Diskbw = Diskbw;
+	}
+
+	/**
 	 * Gets the amount of storage.
 	 * 
 	 * @return amount of storage
@@ -539,6 +634,24 @@ public class Vm {
 	 */
 	public void setCurrentAllocatedBw(long currentAllocatedBw) {
 		this.currentAllocatedBw = currentAllocatedBw;
+	}
+
+	/**
+	 * Gets the current allocated Disk bw.
+	 *
+	 * @return the current allocated Disk bw
+	 */
+	public long getCurrentAllocatedDiskBw() {
+		return currentAllocatedDiskBw;
+	}
+
+	/**
+	 * Sets the current allocated bw.
+	 *
+	 * @param currentAllocatedDiskBw the new current allocated bw
+	 */
+	public void setCurrentAllocatedDiskBw(long currentAllocatedDiskBw) {
+		this.currentAllocatedDiskBw = currentAllocatedDiskBw;
 	}
 
 	/**

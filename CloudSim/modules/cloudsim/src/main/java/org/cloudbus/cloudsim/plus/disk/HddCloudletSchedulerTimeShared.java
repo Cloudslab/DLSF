@@ -743,6 +743,16 @@ public class HddCloudletSchedulerTimeShared extends CloudletScheduler {
         return bw;
     }
 
+    @Override
+    public double getCurrentRequestedUtilizationOfDiskBw() {
+        double diskbw = 0;
+        for (ResCloudlet cloudlet : cloudletExecList) {
+            diskbw += cloudlet.getCloudlet().getUtilizationOfDiskBw(CloudSim.clock());
+        }
+        return diskbw;
+    }
+
+
     public List<Double> getCurrentRequestedIOMips() {
         List<Double> ioMipsShare = new ArrayList<>();
         return ioMipsShare;

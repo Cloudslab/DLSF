@@ -30,7 +30,7 @@ public class DeepRLRunner extends RunnerAbstract {
      * @param vmSelectionPolicy selection policy name
      * @param parameter parameter for running tests
      */
-    private DeepRLRunner(
+    public DeepRLRunner(
             boolean enableOutput,
             boolean outputToFile,
             String inputFolder,
@@ -58,9 +58,10 @@ public class DeepRLRunner extends RunnerAbstract {
             broker = Helper.createBroker();
             int brokerId = broker.getId();
 
-            cloudletList = DeepRLHelper.createCloudletList(brokerId, DeepRLConstants.NUMBER_OF_VMS);
-            vmList = Helper.createVmList(brokerId, cloudletList.size());
-            hostList = Helper.createHostList(DeepRLConstants.NUMBER_OF_HOSTS);
+            // Data center creation  at RunnerAbstract.start()
+            cloudletList = DeepRLHelper.createCloudletListBitBrain(brokerId, inputFolder); //ThermalHelper.createCloudletList(brokerId, ThermalConstants.NUMBER_OF_VMS);
+            vmList = DeepRLHelper.createVmList(brokerId, cloudletList.size());
+            hostList = DeepRLHelper.createHostList(DeepRLConstants.NUMBER_OF_HOSTS);
         } catch (Exception e) {
             e.printStackTrace();
             Log.printLine("The simulation has been terminated due to an unexpected error");

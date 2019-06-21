@@ -58,10 +58,9 @@ public class DeepRLHelper {
                         outputSize,
                         new UtilizationModelCPUBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelRamBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
-//                            utilizationModelNull,
-                        new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples)
-//                            utilizationModelNull,
-//                            files[i].getAbsolutePath()
+                        new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        new UtilizationModelDiskRxBitBrainInMemeory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        false
                 );
             } catch (Exception e) {
                 e.printStackTrace();

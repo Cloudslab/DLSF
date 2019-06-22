@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DRLHost extends PowerHost{
+public class DRLHost extends PowerHostUtilizationHistory{
 
     /** The utilization mips. */
     private double utilizationMips;
@@ -49,22 +49,6 @@ public class DRLHost extends PowerHost{
             CostModel costModel) {
         super(id, ramProvisioner, bwProvisioner, storage, peList, vmScheduler, powerModel);
         setCostModel(costModel);
-    }
-
-    /**
-     * Gets the host CPU utilization percentage history.
-     *
-     * @return the host CPU utilization percentage history
-     */
-    protected double[] getUtilizationHistory() {
-        double[] utilizationHistory = new double[DRLVm.HISTORY_LENGTH];
-        double hostMips = getTotalMips();
-        for (DRLVm vm : this.<DRLVm> getVmList()) {
-            for (int i = 0; i < vm.getUtilizationHistory().size(); i++) {
-                utilizationHistory[i] += vm.getUtilizationHistory().get(i) * vm.getMips() / hostMips;
-            }
-        }
-        return MathUtil.trimZeroTail(utilizationHistory);
     }
 
     /**

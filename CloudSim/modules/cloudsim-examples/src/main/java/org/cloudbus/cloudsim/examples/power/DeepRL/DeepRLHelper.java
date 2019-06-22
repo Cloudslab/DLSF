@@ -47,12 +47,12 @@ public class DeepRLHelper {
 
         File inputFolder = new File(inputFolderName);
         File[] files = inputFolder.listFiles();
-        Log.printLine("@ " + ThermalMinimizePeakTemperature.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
+        Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
 
         for (int i = 0; i < files.length; i++) {
             Cloudlet cloudlet = null;
             try {
-                System.out.println("@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );
+                System.out.println("\n@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );
                 cloudlet = new Cloudlet(
                         i,
                         DeepRLConstants.CLOUDLET_LENGTH,

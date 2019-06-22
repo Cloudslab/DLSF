@@ -38,20 +38,22 @@ public class UtilizationModelNetworkRxBitBrainInMemory implements UtilizationMod
         // should be less than or equal to number of entry in cpuUtilizationData file
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputPath));
         int n = bandwidthRXUtilizationData.length;
+        String[] nextRow = null;
 
         for (int i = 0; i < n - 1; i++) {
             //Skip the CSV header
             String line= bufferedReader.readLine(); // TODO check null condition
             if (i==0)
                 continue;
-            String[] nextRow = line.split(";");
+            if(line != null)
+                nextRow = line.split(";");
             bandwidthRXUtilizationData[i] =  Double.parseDouble(nextRow[9]);
             bandwidthTXUtilizationData[i] = Double.parseDouble(nextRow[10]);
-            Log.print("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
-                    " Array size: " + nextRow.length +
-                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.print("NetwrokRx Util Data: Cloudlet- " + i + " = " + bandwidthRXUtilizationData[i] +
-                    " Transmitted: " + bandwidthTXUtilizationData[i]);
+//            Log.printLine("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
+//                    " Array size: " + nextRow.length +
+//                    " Array  Data: " + Arrays.toString(nextRow));
+            Log.printLine("NetworkRx Util Data: Cloudlet- " + i + " = " + bandwidthRXUtilizationData[i] +
+                    " Transmitted: " + bandwidthTXUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         bandwidthRXUtilizationData[n - 1] = bandwidthRXUtilizationData[n - 2];

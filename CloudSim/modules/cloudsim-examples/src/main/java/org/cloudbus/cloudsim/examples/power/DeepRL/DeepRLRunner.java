@@ -92,7 +92,7 @@ public class DeepRLRunner extends RunnerAbstract {
             broker.submitVmList(vmList);
             broker.submitCloudletList(cloudletList);
 
-            CloudSim.terminateSimulation(Constants.SIMULATION_LIMIT);
+            CloudSim.terminateSimulation(DeepRLConstants.SIMULATION_LIMIT);
             double lastClock = CloudSim.startSimulation();
 
             List<Cloudlet> newList = broker.getCloudletReceivedList();
@@ -231,10 +231,10 @@ public class DeepRLRunner extends RunnerAbstract {
     public static void main(String[] args) throws IOException {
         boolean enableOutput = true;
         boolean outputToFile = false;
-        String inputFolder = DeepRLRunner.class.getClassLoader().getResource("workload/bitbrain").getPath();
+        String inputFolder = "C:\\Users\\Shreshth Tuli\\Desktop\\Mel Project\\DLSF\\CloudSim\\modules\\cloudsim-examples\\src\\main\\java\\workload\\bitbrain";//DeepRLRunner.class.getClassLoader().getResource("workload/bitbrain").getPath();
         String outputFolder = "output";
-        String workload = "fastStorage"; // Random workload
-        String vmAllocationPolicy = "dvfs"; // Local Regression (LR) VM allocation policy
+        String workload = "fastStorage\\2013-8"; // Random workload
+        String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
 

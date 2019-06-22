@@ -1,5 +1,5 @@
 # DSL custom
-CloudSim/modules/workload/
+**/workload/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

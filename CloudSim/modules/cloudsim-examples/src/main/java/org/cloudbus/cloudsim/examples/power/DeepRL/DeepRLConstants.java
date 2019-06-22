@@ -14,14 +14,14 @@ public class DeepRLConstants {
 
     public final static long CLOUDLET_UTILIZATION_SEED = 1;
 
-    public final static int NUMBER_OF_HOSTS = 50;
+    public final static int NUMBER_OF_HOSTS = 100;
 
 
     public final static boolean ENABLE_OUTPUT = true;
     public final static boolean OUTPUT_CSV    = true; //
 
-    public final static double SCHEDULING_INTERVAL = 600;
-    public final static double SIMULATION_LIMIT = 24*60*60; // 4  15 = 6 hrs, 30 = 12 hrs    24 * 60 * 60; = 24 hrs
+    public final static double SCHEDULING_INTERVAL = 300;
+    public final static double SIMULATION_LIMIT = 1*60*60; // 4  15 = 6 hrs, 30 = 12 hrs    24 * 60 * 60; = 24 hrs
 
     public final static int CLOUDLET_LENGTH	=  2500 * (int) SIMULATION_LIMIT; // 2500 * (int) SIMULATION_LIMIT;
     public final static int CLOUDLET_PES	= 1;

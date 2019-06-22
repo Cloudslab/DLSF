@@ -34,15 +34,14 @@ public class UtilizationModelCPUBitBrainInMemory implements UtilizationModel {
         // should be less than or equal to number of entry in cpuUtilizationData file
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputPath));
         int n = cpuUtilizationData.length;
+        Log.printLine("Number of simulation intervals = "+ n);
         int count =0;
+        String[] nextRow = null;
         for (int i = 0; i < n - 1; i++) {
             //Skip the CSV header
             String line= bufferedReader.readLine(); // TODO check null condition
-            if (line == null)
-                System.out.println(UtilizationModelCPUBitBrainInMemory.class.getName() + " ine is null- i- " + i );
             if (i==0)
                 continue;
-            String[] nextRow = null;
             if (line!=null)
                 nextRow = line.split(";");
 //            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@ nextrow: " + nextRow + " count: " + count++);
@@ -52,7 +51,7 @@ public class UtilizationModelCPUBitBrainInMemory implements UtilizationModel {
 //            Log.printDebugMessages("@ "+ UtilizationModelCPUBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
 //                    " Array size: " + nextRow.length +
 //                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.print("CPU Util Data: Cloudlet- " + i + " = " + cpuUtilizationData[i]);
+            Log.printLine("CPU Util Data: Cloudlet- " + i + " = " + cpuUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         cpuUtilizationData[n - 1] = cpuUtilizationData[n - 2];

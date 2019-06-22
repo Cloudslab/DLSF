@@ -35,20 +35,22 @@ public class UtilizationModelRamBitBrainInMemory implements UtilizationModel {
         // should be less than or equal to number of entry in cpuUtilizationData file
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputPath));
         int n = memoryUtilizationData.length;
+        String[] nextRow = null;
 
         for (int i = 0; i < n - 1; i++) {
             //Skip the CSV header
             String line= bufferedReader.readLine(); // TODO check null condition
             if (i==0)
                 continue;
-            String[] nextRow = line.split(";");
+            if (line != null)
+                nextRow = line.split(";");
             memoryUtilizationData[i] = Double.parseDouble(nextRow[6]);
             memoryProvisionedData[i] = Double.parseDouble(nextRow[5]);
 
-            Log.print("@ "+ UtilizationModelRamBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
-                    " Array size: " + nextRow.length +
-                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.print("Ram Util Data: Cloudlet- " + i + " = " + memoryUtilizationData[i]);
+//            Log.print("@ "+ UtilizationModelRamBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
+//                    " Array size: " + nextRow.length +
+//                    " Array  Data: " + Arrays.toString(nextRow));
+            Log.printLine("Ram Util Data: Cloudlet- " + i + " = " + memoryUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         memoryUtilizationData[n - 1] = memoryUtilizationData[n - 2];

@@ -38,19 +38,21 @@ public class UtilizationModelDiskRxBitBrainInMemeory implements UtilizationModel
         // should be less than or equal to number of entry in cpuUtilizationData file
         BufferedReader bufferedReader = new BufferedReader(new FileReader(inputPath));
         int n = diskBandwidthRXUtilizationData.length;
+        String[] nextRow = null;
 
         for (int i = 0; i < n - 1; i++) {
             //Skip the CSV header
             String line= bufferedReader.readLine(); // TODO check null condition
             if (i==0)
                 continue;
-            String[] nextRow = line.split(";");
+            if(line != null)
+                nextRow = line.split(";");
             diskBandwidthRXUtilizationData[i] =  Double.parseDouble(nextRow[7]);
             diskBandwidthTXUtilizationData[i] = Double.parseDouble(nextRow[8]);
-            Log.print("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
-                    " Array size: " + nextRow.length +
-                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.print("NetwrokRx Util Data: Cloudlet- " + i + " = " + diskBandwidthRXUtilizationData[i] +
+//            Log.print("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
+//                    " Array size: " + nextRow.length +
+//                    " Array  Data: " + Arrays.toString(nextRow));
+            Log.printLine("NetwrokRx Util Data: Cloudlet- " + i + " = " + diskBandwidthRXUtilizationData[i] +
                     " Transmitted: " + diskBandwidthTXUtilizationData[i]);
 
         }

@@ -10,6 +10,10 @@ import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
 
 public class DeepRLConstants {
 
+    public final static double meanGaussian = 5;
+
+    public final static double stdGaussian = 2;
+
     public final static int NUMBER_OF_VMS = 50;
 
     public final static long CLOUDLET_UTILIZATION_SEED = 1;

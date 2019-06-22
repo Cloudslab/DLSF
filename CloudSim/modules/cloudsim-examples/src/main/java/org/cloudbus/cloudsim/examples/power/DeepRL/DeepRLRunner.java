@@ -1,6 +1,7 @@
 package org.cloudbus.cloudsim.examples.power.DeepRL;
 
 import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.core.CloudSim;
@@ -15,6 +16,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Shreshth Tuli
@@ -22,6 +24,10 @@ import java.util.List;
  */
 
 public class DeepRLRunner extends RunnerAbstract {
+
+    public static boolean dynamic = true;
+
+    public static String inputFolder = "";
 
     /**
      * @param enableOutput enable output or not
@@ -81,6 +87,20 @@ public class DeepRLRunner extends RunnerAbstract {
      */
     @Override
     protected void start(String experimentName, String outputFolder, VmAllocationPolicy vmAllocationPolicy) {
+        if(dynamic)
+            startDynamic(experimentName, outputFolder, vmAllocationPolicy);
+        else
+            startStatic(experimentName, outputFolder, vmAllocationPolicy);
+    }
+
+    /**
+     * Starts a static simulation.
+     *
+     * @param experimentName the experiment name
+     * @param outputFolder the output folder
+     * @param vmAllocationPolicy the vm allocation policy
+     */
+    protected void startStatic(String experimentName, String outputFolder, VmAllocationPolicy vmAllocationPolicy) {
         System.out.println("Starting " + experimentName);
 
         try {
@@ -101,6 +121,102 @@ public class DeepRLRunner extends RunnerAbstract {
 
             List<Cloudlet> newList = broker.getCloudletReceivedList();
             Log.printLine("Received " + newList.size() + " cloudlets");
+
+            CloudSim.stopSimulation();
+
+            Helper.printResults(
+                    datacenter,
+                    vmList,
+                    lastClock,
+                    experimentName,
+                    Constants.OUTPUT_CSV,
+                    outputFolder);
+
+            Log.printLine("Number of VMs left (datacenter) : " + datacenter.getVmList().size());
+            Log.printLine("Number of VMs left (broker) : " + broker.getVmList().size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.printLine("The simulation has been terminated due to an unexpected error");
+            System.exit(0);
+        }
+
+        Log.printLine("Finished " + experimentName);
+    }
+
+    /**
+     * Starts a dynamic simulation.
+     *
+     * @param experimentName the experiment name
+     * @param outputFolder the output folder
+     * @param vmAllocationPolicy the vm allocation policy
+     */
+    protected void startDynamic(String experimentName, String outputFolder, VmAllocationPolicy vmAllocationPolicy) {
+        System.out.println("Starting " + experimentName);
+
+        try {
+            DRLDatacenter datacenter = (DRLDatacenter) DeepRLHelper.createDatacenter(
+                    "Datacenter",
+                    DRLDatacenter.class,
+                    hostList,
+                    vmAllocationPolicy,
+                    broker);
+
+            datacenter.setDisableMigrations(false);
+
+            broker.submitVmList(vmList);
+            broker.submitCloudletList(cloudletList);
+
+            // A thread that will create a new broker at 200 clock time
+            Runnable monitor = new Runnable(){
+                @Override
+                public void run() {
+                    for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300){
+                        CloudSim.pauseSimulation(i);
+                        while (true) {
+                            if (CloudSim.isPaused()) {
+                                break;
+                            }
+                            try {
+                                Thread.sleep(10);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        try {
+                            int brokerId = DeepRLRunner.broker.getId();
+
+                            List<Cloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder);
+                            List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size());
+
+                            DeepRLRunner.broker.submitVmList(vmListDynamic);
+                            DeepRLRunner.broker.submitCloudletList(cloudletListDynamic);
+
+                            DeepRLRunner.cloudletList.addAll(cloudletListDynamic);
+                            DeepRLRunner.vmList.addAll(vmListDynamic);
+
+                            Log.printLine("Dynamically submitted total " + cloudletListDynamic.size() + " cloudlets and VMs");
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Log.printLine("The simulation has been terminated due to an unexpected error in dynamic creation of cloudlet and vm");
+                            System.exit(0);
+                        }
+
+                        CloudSim.resumeSimulation();
+                    }
+                }
+            };
+
+            new Thread(monitor).start();
+
+            CloudSim.terminateSimulation(DeepRLConstants.SIMULATION_LIMIT);
+            double lastClock = CloudSim.startSimulation();
+
+            List<Cloudlet> newList = broker.getCloudletReceivedList();
+            Log.printLine("Received " + newList.size() + " cloudlets at start");
 
             CloudSim.stopSimulation();
 
@@ -244,6 +360,9 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
+        dynamic = false; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
+
+        DeepRLRunner.inputFolder = inputFolder + "/" + workload;
 
         Log.setDisabled(false);
         OutputStream os = new FileOutputStream("output.txt");

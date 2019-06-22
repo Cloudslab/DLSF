@@ -10,7 +10,6 @@ import org.cloudbus.cloudsim.examples.power.Constants;
 import org.cloudbus.cloudsim.power.DRLHost;
 import org.cloudbus.cloudsim.power.DRLVm;
 import org.cloudbus.cloudsim.power.PowerHost;
-import org.cloudbus.cloudsim.power.PowerVm;
 import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
@@ -21,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Shreshth Tuli
@@ -28,6 +28,16 @@ import java.util.List;
  */
 
 public class DeepRLHelper {
+
+    public static int lastCloudletId = 0;
+
+    public static int lastvmId = 0;
+
+    public static int lastfileId = 0;
+
+    public static Random rnd = new Random();
+
+    public static int numCloudLets = 0;
 
     /**
      * Creates the cloudlet list bitbrain dataset
@@ -44,7 +54,7 @@ public class DeepRLHelper {
         long fileSize = 300;
         long outputSize = 300;
         int datasamples = DeepRLConstants.NUMBER_OF_DATA_SAMPLES;
-        Log.printLine("@ " + ThermalMinimizePeakTemperature.class.getSimpleName() + " inputFolder: " + inputFolderName);
+        Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolderName);
         UtilizationModel utilizationModelNull = new UtilizationModelNull();
 
         File inputFolder = new File(inputFolderName);
@@ -64,7 +74,7 @@ public class DeepRLHelper {
                         new UtilizationModelCPUBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelRamBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
-                        new UtilizationModelDiskRxBitBrainInMemeory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        new UtilizationModelDiskRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         false
                 );
             } catch (Exception e) {
@@ -79,6 +89,54 @@ public class DeepRLHelper {
         return list;
     }
 
+    public static List<Cloudlet> createCloudletListBitBrainDynamic(int brokerId, String inputFolderName)
+            throws FileNotFoundException {
+        List<Cloudlet> list = new ArrayList<Cloudlet>();
+
+        long fileSize = 300;
+        long outputSize = 300;
+        int datasamples = DeepRLConstants.NUMBER_OF_DATA_SAMPLES;
+        Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolderName);
+        UtilizationModel utilizationModelNull = new UtilizationModelNull();
+
+        File inputFolder = new File(inputFolderName);
+        File[] files = inputFolder.listFiles();
+        Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
+
+        numCloudLets = (int) (rnd.nextGaussian() * DeepRLConstants.stdGaussian + DeepRLConstants.meanGaussian);
+
+        for (int i = 0; i < numCloudLets; i++) {
+            Cloudlet cloudlet = null;
+            try {
+                // lastfileId is the file index which circles around all files
+                System.out.println("\n@SSI- Filenumber- " + lastfileId + " filepath- " + files[lastfileId].getAbsolutePath() );
+                lastfileId = (lastfileId + 1) % files.length;
+
+                // Cloudlet id and vm id are same and equal to lastCloudletId
+                cloudlet = new Cloudlet(
+                        lastCloudletId,
+                        DeepRLConstants.CLOUDLET_LENGTH,
+                        DeepRLConstants.CLOUDLET_PES,
+                        fileSize,
+                        outputSize,
+                        new UtilizationModelCPUBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        new UtilizationModelRamBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        new UtilizationModelDiskRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
+                        false
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+            cloudlet.setUserId(brokerId);
+            cloudlet.setVmId(lastCloudletId);
+            lastCloudletId = lastCloudletId + 1;
+            list.add(cloudlet);
+        }
+
+        return list;
+    }
 
     /**
      * Creates the vm list.
@@ -92,8 +150,9 @@ public class DeepRLHelper {
         List<Vm> vms = new ArrayList<Vm>();
         for (int i = 0; i < vmsNumber; i++) {
             int vmType = i / (int) Math.ceil((double) vmsNumber / DeepRLConstants.VM_TYPES);
+            Log.printLine("Creating VM with VMID = " + lastvmId);
             vms.add(new DRLVm(
-                    i,
+                    lastvmId,
                     brokerId,
                     DeepRLConstants.VM_MIPS[vmType],
                     DeepRLConstants.VM_PES[vmType],
@@ -105,6 +164,7 @@ public class DeepRLHelper {
                     "Xen",
                     new CloudletSchedulerDynamicWorkload(DeepRLConstants.VM_MIPS[vmType], DeepRLConstants.VM_PES[vmType]),
                     DeepRLConstants.SCHEDULING_INTERVAL));
+            lastvmId = lastvmId + 1;
         }
         return vms;
     }
@@ -150,7 +210,6 @@ public class DeepRLHelper {
      * @param datacenterClass the datacenter class
      * @param hostList the host list
      * @param vmAllocationPolicy the vm allocation policy
-     * @param simulationLength
      *
      * @return the power datacenter
      *

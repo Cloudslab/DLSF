@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class UtilizationModelDiskRxBitBrainInMemeory implements UtilizationModel{
+public class UtilizationModelDiskRxBitBrainInMemory implements UtilizationModel{
 
     /** The scheduling interval. */
     private double schedulingInterval;
@@ -27,7 +27,7 @@ public class UtilizationModelDiskRxBitBrainInMemeory implements UtilizationModel
      */
 
     //TODO load other cpuUtilizationData fields and modify the cpuUtilizationData of bitbrains for 24 hour
-    public UtilizationModelDiskRxBitBrainInMemeory(String inputPath, double schedulingInterval, int dataSamples)
+    public UtilizationModelDiskRxBitBrainInMemory(String inputPath, double schedulingInterval, int dataSamples)
             throws NumberFormatException,
             IOException {
         setSchedulingInterval(schedulingInterval);

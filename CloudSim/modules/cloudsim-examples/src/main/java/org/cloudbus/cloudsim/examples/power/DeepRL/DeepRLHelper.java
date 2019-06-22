@@ -6,6 +6,7 @@ import org.cloudbus.cloudsim.UtilizationModelNull;
 import org.cloudbus.cloudsim.*;
 
 import org.cloudbus.cloudsim.cost.models.CostModelAzure.*;
+import org.cloudbus.cloudsim.examples.power.Constants;
 import org.cloudbus.cloudsim.power.DRLHost;
 import org.cloudbus.cloudsim.power.DRLVm;
 import org.cloudbus.cloudsim.power.PowerHost;
@@ -18,6 +19,7 @@ import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -140,4 +142,66 @@ public class DeepRLHelper {
         Log.print("Number of hosts created-> " + hostList.size());
         return hostList;
     }
+
+    /**
+     * Creates the datacenter.
+     *
+     * @param name the name
+     * @param datacenterClass the datacenter class
+     * @param hostList the host list
+     * @param vmAllocationPolicy the vm allocation policy
+     * @param simulationLength
+     *
+     * @return the power datacenter
+     *
+     * @throws Exception the exception
+     */
+    public static Datacenter createDatacenter(
+            String name,
+            Class<? extends Datacenter> datacenterClass,
+            List<PowerHost> hostList,
+            VmAllocationPolicy vmAllocationPolicy, DatacenterBroker broker) throws Exception {
+        String arch = "x86"; // system architecture
+        String os = "Linux"; // operating system
+        String vmm = "Xen";
+        double time_zone = 10.0; // time zone this resource located
+        double cost = 3.0; // the cost of using processing in this resource
+        double costPerMem = 0.05; // the cost of using memory in this resource
+        double costPerStorage = 0.001; // the cost of using storage in this resource
+        double costPerBw = 0.0; // the cost of using bw in this resource
+
+        DatacenterCharacteristics characteristics = new DatacenterCharacteristics(
+                arch,
+                os,
+                vmm,
+                hostList,
+                time_zone,
+                cost,
+                costPerMem,
+                costPerStorage,
+                costPerBw);
+
+        Datacenter datacenter = null;
+        try {
+            datacenter = datacenterClass.getConstructor(
+                    String.class,
+                    DatacenterCharacteristics.class,
+                    VmAllocationPolicy.class,
+                    List.class,
+                    Double.TYPE,
+                    DatacenterBroker.class).newInstance(
+                    name,
+                    characteristics,
+                    vmAllocationPolicy,
+                    new LinkedList<Storage>(),
+                    Constants.SCHEDULING_INTERVAL,
+                    broker);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        return datacenter;
+    }
+
 }

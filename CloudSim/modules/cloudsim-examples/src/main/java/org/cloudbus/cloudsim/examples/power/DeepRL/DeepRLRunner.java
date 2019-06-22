@@ -9,7 +9,10 @@ import org.cloudbus.cloudsim.examples.power.Helper;
 import org.cloudbus.cloudsim.examples.power.RunnerAbstract;
 import org.cloudbus.cloudsim.power.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -81,11 +84,12 @@ public class DeepRLRunner extends RunnerAbstract {
         System.out.println("Starting " + experimentName);
 
         try {
-            DRLDatacenter datacenter = (DRLDatacenter) Helper.createDatacenter(
+            DRLDatacenter datacenter = (DRLDatacenter) DeepRLHelper.createDatacenter(
                     "Datacenter",
                     DRLDatacenter.class,
                     hostList,
-                    vmAllocationPolicy);
+                    vmAllocationPolicy,
+                    broker);
 
             datacenter.setDisableMigrations(false);
 
@@ -107,6 +111,9 @@ public class DeepRLRunner extends RunnerAbstract {
                     experimentName,
                     Constants.OUTPUT_CSV,
                     outputFolder);
+
+            Log.printLine("Number of VMs left (datacenter) : " + datacenter.getVmList().size());
+            Log.printLine("Number of VMs left (broker) : " + broker.getVmList().size());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -237,6 +244,10 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
+
+        Log.setDisabled(false);
+        OutputStream os = new FileOutputStream("output.txt");
+        Log.setOutput(os);
 
         new DeepRLRunner(
                 enableOutput,

@@ -460,7 +460,7 @@ public class Helper {
 			Log.printLine();
 		}
 
-		Log.setDisabled(true);
+		Log.setDisabled(false);
 	}
 
 	/**

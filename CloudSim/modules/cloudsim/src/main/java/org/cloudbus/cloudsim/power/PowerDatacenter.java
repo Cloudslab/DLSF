@@ -236,6 +236,7 @@ public class PowerDatacenter extends Datacenter {
 				getVmAllocationPolicy().deallocateHostForVm(vm);
 				getVmList().remove(vm);
 				Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + host.getId());
+				Log.printLine("VMs left = " + getVmList().size());
 			}
 		}
 

@@ -20,10 +20,10 @@ public class DeepRLConstants {
     public final static boolean ENABLE_OUTPUT = true;
     public final static boolean OUTPUT_CSV    = true; //
 
-    public final static double SCHEDULING_INTERVAL = 300;
-    public final static double SIMULATION_LIMIT = 1*60*60; // 4  15 = 6 hrs, 30 = 12 hrs    24 * 60 * 60; = 24 hrs
+    public final static double SCHEDULING_INTERVAL = 300; // 5 min
+    public final static double SIMULATION_LIMIT = 1*60*60; // 1 hr
 
-    public final static int CLOUDLET_LENGTH	=  2500 * (int) SIMULATION_LIMIT; // 2500 * (int) SIMULATION_LIMIT;
+    public final static int CLOUDLET_LENGTH	=  15 * 60 * 2000; // 15 min
     public final static int CLOUDLET_PES	= 1;
 
     public  final  static  int NUMBER_OF_DATA_SAMPLES = (int) Math.ceil( SIMULATION_LIMIT / SCHEDULING_INTERVAL)+1; //  289;

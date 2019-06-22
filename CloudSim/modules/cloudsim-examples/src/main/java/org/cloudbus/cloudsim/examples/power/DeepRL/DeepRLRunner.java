@@ -231,12 +231,12 @@ public class DeepRLRunner extends RunnerAbstract {
     public static void main(String[] args) throws IOException {
         boolean enableOutput = true;
         boolean outputToFile = false;
-        String inputFolder = "";
-        String outputFolder = "";
-        String workload = "random"; // Random workload
-        String vmAllocationPolicy = "lr"; // Local Regression (LR) VM allocation policy
-        String vmSelectionPolicy = "mmt"; // Minimum Migration Time (MMT) VM selection policy
-        String parameter = "1.2"; // the safety parameter of the LR policy
+        String inputFolder = DeepRLRunner.class.getClassLoader().getResource("workload/bitbrain").getPath();
+        String outputFolder = "output";
+        String workload = "fastStorage"; // Random workload
+        String vmAllocationPolicy = "dvfs"; // Local Regression (LR) VM allocation policy
+        String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
+        String parameter = "200"; // the safety parameter of the LR policy
 
         new DeepRLRunner(
                 enableOutput,

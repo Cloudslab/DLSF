@@ -13,7 +13,7 @@ import java.util.List;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.lists.PeList;
 import org.cloudbus.cloudsim.provisioners.BwProvisioner;
-import org.cloudbus.cloudsim.provisioners.DiskProvisioner;
+import org.cloudbus.cloudsim.provisioners.DiskBwProvisioner;
 import org.cloudbus.cloudsim.provisioners.RamProvisioner;
 
 /**
@@ -41,7 +41,7 @@ public class Host {
 	private BwProvisioner bwProvisioner;
 
 	/** The disk bw provisioner. */
-	private DiskProvisioner diskBwProvisioner;
+	private DiskBwProvisioner diskBwProvisioner;
 
 	/** The allocation policy for scheduling VM execution. */
 	private VmScheduler vmScheduler;
@@ -103,14 +103,14 @@ public class Host {
 			int id,
 			RamProvisioner ramProvisioner,
 			BwProvisioner bwProvisioner,
-			DiskProvisioner diskProvisioner,
+			DiskBwProvisioner diskBwProvisioner,
 			long storage,
 			List<? extends Pe> peList,
 			VmScheduler vmScheduler) {
 		setId(id);
 		setRamProvisioner(ramProvisioner);
 		setBwProvisioner(bwProvisioner);
-		setDiskBwProvisioner(diskProvisioner);
+		setDiskBwProvisioner(diskBwProvisioner);
 		setStorage(storage);
 		setVmScheduler(vmScheduler);
 
@@ -560,12 +560,12 @@ public class Host {
 	 *
 	 * @return the bw provisioner
 	 */
-	public DiskProvisioner getDiskBwProvisioner() {
+	public DiskBwProvisioner getDiskBwProvisioner() {
 	    if(this.diskBwProvisioner != null){
 	        return this.diskBwProvisioner;
         }
         else{
-	        return new DiskProvisioner(0) {
+	        return new DiskBwProvisioner(0) {
                 @Override
                 public boolean allocateDiskBwForVm(Vm vm, long DiskBw) {return true;}
 
@@ -586,10 +586,10 @@ public class Host {
 	/**
 	 * Sets the bw provisioner.
 	 *
-	 * @param diskProvisioner the new bw provisioner
+	 * @param diskBwProvisioner the new bw provisioner
 	 */
-	protected void setDiskBwProvisioner(DiskProvisioner diskProvisioner) {
-		this.diskBwProvisioner = diskProvisioner;
+	protected void setDiskBwProvisioner(DiskBwProvisioner diskBwProvisioner) {
+		this.diskBwProvisioner = diskBwProvisioner;
 	}
 
 	/**

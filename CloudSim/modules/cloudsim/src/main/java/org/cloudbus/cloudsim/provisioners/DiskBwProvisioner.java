@@ -3,7 +3,7 @@ package org.cloudbus.cloudsim.provisioners;
 import org.cloudbus.cloudsim.Vm;
 
 /**
- * DiskProvisioner is an abstract class that represents the provisioning policy used by a host
+ * DiskBwProvisioner is an abstract class that represents the provisioning policy used by a host
  * to allocate bandwidth (DiskBw) to virtual machines inside it. 
  * Each host has to have its own instance of a DiskDiskBwProvisioner.
  * When extending this class, care must be taken to guarantee that
@@ -13,7 +13,7 @@ import org.cloudbus.cloudsim.Vm;
  * @author Shreshth Tuli
  * @since CloudSim Toolkit 1.0
  */
-public abstract class DiskProvisioner {
+public abstract class DiskBwProvisioner {
     /** The total bandwidth capacity from the host that the provisioner can allocate to VMs. */
     private long DiskBw;
 
@@ -28,7 +28,7 @@ public abstract class DiskProvisioner {
      * @pre DiskBw >= 0
      * @post $none
      */
-    public DiskProvisioner(long DiskBw) {
+    public DiskBwProvisioner(long DiskBw) {
         setDiskBw(DiskBw);
         setAvailableDiskBw(DiskBw);
     }

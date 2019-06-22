@@ -1,12 +1,11 @@
 package org.cloudbus.cloudsim.provisioners;
 
 import org.cloudbus.cloudsim.Vm;
-import org.cloudbus.cloudsim.provisioners.DiskProvisioner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DiskProvisionerSimple extends DiskProvisioner {
+public class DiskBwProvisionerSimple extends DiskBwProvisioner {
 
     /** The DiskBw map, where each key is a VM id and each value
      * is the amount of DiskBw allocated to that VM. */
@@ -17,7 +16,7 @@ public class DiskProvisionerSimple extends DiskProvisioner {
      *
      * @param DiskBw The total DiskBw capacity from the host that the provisioner can allocate to VMs.
      */
-    public DiskProvisionerSimple(long DiskBw) {
+    public DiskBwProvisionerSimple(long DiskBw) {
         super(DiskBw);
         setDiskBwTable(new HashMap<String, Long>());
     }

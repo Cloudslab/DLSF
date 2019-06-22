@@ -58,7 +58,7 @@ public class DeepRLRunner extends RunnerAbstract {
             broker = Helper.createBroker();
             int brokerId = broker.getId();
 
-            // Data center creation  at RunnerAbstract.start()
+            // Data center creation at RunnerAbstract.start()
             cloudletList = DeepRLHelper.createCloudletListBitBrain(brokerId, inputFolder); //ThermalHelper.createCloudletList(brokerId, ThermalConstants.NUMBER_OF_VMS);
             vmList = DeepRLHelper.createVmList(brokerId, cloudletList.size());
             hostList = DeepRLHelper.createHostList(DeepRLConstants.NUMBER_OF_HOSTS);
@@ -189,7 +189,11 @@ public class DeepRLRunner extends RunnerAbstract {
         } else if (vmAllocationPolicyName.equals("dvfs")) {
             vmAllocationPolicy = new PowerVmAllocationPolicySimple(hostList);
         } else if(vmAllocationPolicyName.equals("deepRL-alloc")){
-            // Get DRL result and use it's allocation
+            PowerVmAllocationPolicyMigrationAbstract fallbackVmSelectionPolicy = new PowerVmAllocationPolicyMigrationStaticThreshold(
+                    hostList,
+                    vmSelectionPolicy,
+                    0.7);
+            vmAllocationPolicy = new DRLVmAllocationPolicy(hostList, fallbackVmSelectionPolicy);
         } else {
             System.out.println("Unknown VM allocation policy: " + vmAllocationPolicyName);
             System.exit(0);
@@ -216,7 +220,7 @@ public class DeepRLRunner extends RunnerAbstract {
         } else if (vmSelectionPolicyName.equals("rs")) {
             vmSelectionPolicy = new PowerVmSelectionPolicyRandomSelection();
         } else if(vmSelectionPolicyName.equals("deepRL-sel")){
-            // Get DRL result and use it's selection
+            vmSelectionPolicy = new DRLVmSelectionPolicy();
         } else {
             System.out.println("Unknown VM selection policy: " + vmSelectionPolicyName);
             System.exit(0);

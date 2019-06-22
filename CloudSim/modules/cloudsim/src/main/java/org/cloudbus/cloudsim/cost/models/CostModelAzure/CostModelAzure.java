@@ -1,7 +1,8 @@
-package org.cloudbus.cloudsim.cost.models;
+package org.cloudbus.cloudsim.cost.models.CostModelAzure;
 
+import org.cloudbus.cloudsim.cost.models.CostModel;
 
-public class CostModelAzure extends CostModel{
+public class CostModelAzure extends CostModel {
 
     public CostModelAzure(
             Region region,
@@ -111,28 +112,4 @@ public class CostModelAzure extends CostModel{
         }
         return 0;
     }
-}
-
-enum Region
-{
-    Australia_SouthEast,
-    EastUS
-}
-
-enum OS
-{
-    Windows,
-    Linux
-}
-
-enum Tier
-{
-    Basic,
-    Low_Priority,
-    Standard
-}
-
-enum Instance
-{
-    A0, A1, A2, B1S, B2S
 }

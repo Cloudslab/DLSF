@@ -60,6 +60,7 @@ public class DeepRLConstants {
     //Assumed 1 GB = 1000 MB in decimal
     public final static int[] VM_RAM	= { 4000, 8000, 16000, 32000};
     public final static int VM_BW		= 100000; // 100 Mbit/s
+    public final static int VM_DISKBW  = 100000; // 100 Mbit/s
     public final static int VM_SIZE		= 2500; // 2.5 GB
     /*
      * Host types:

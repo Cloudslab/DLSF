@@ -7,6 +7,7 @@ import org.cloudbus.cloudsim.lists.PeList;
 import org.cloudbus.cloudsim.power.models.PowerModel;
 import org.cloudbus.cloudsim.provisioners.BwProvisioner;
 import org.cloudbus.cloudsim.provisioners.RamProvisioner;
+import org.cloudbus.cloudsim.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,6 +49,22 @@ public class DRLHost extends PowerHost{
             CostModel costModel) {
         super(id, ramProvisioner, bwProvisioner, storage, peList, vmScheduler, powerModel);
         setCostModel(costModel);
+    }
+
+    /**
+     * Gets the host CPU utilization percentage history.
+     *
+     * @return the host CPU utilization percentage history
+     */
+    protected double[] getUtilizationHistory() {
+        double[] utilizationHistory = new double[DRLVm.HISTORY_LENGTH];
+        double hostMips = getTotalMips();
+        for (DRLVm vm : this.<DRLVm> getVmList()) {
+            for (int i = 0; i < vm.getUtilizationHistory().size(); i++) {
+                utilizationHistory[i] += vm.getUtilizationHistory().get(i) * vm.getMips() / hostMips;
+            }
+        }
+        return MathUtil.trimZeroTail(utilizationHistory);
     }
 
     /**

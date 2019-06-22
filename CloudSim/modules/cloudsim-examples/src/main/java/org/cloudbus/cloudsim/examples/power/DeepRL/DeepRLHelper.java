@@ -5,9 +5,12 @@ import org.cloudbus.cloudsim.UtilizationModel;
 import org.cloudbus.cloudsim.UtilizationModelNull;
 import org.cloudbus.cloudsim.*;
 
+import org.cloudbus.cloudsim.cost.models.CostModelAzure.*;
+import org.cloudbus.cloudsim.power.DRLHost;
+import org.cloudbus.cloudsim.power.DRLVm;
 import org.cloudbus.cloudsim.power.PowerHost;
-import org.cloudbus.cloudsim.power.PowerHostUtilizationHistory;
 import org.cloudbus.cloudsim.power.PowerVm;
+import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
@@ -87,13 +90,14 @@ public class DeepRLHelper {
         List<Vm> vms = new ArrayList<Vm>();
         for (int i = 0; i < vmsNumber; i++) {
             int vmType = i / (int) Math.ceil((double) vmsNumber / DeepRLConstants.VM_TYPES);
-            vms.add(new PowerVm(
+            vms.add(new DRLVm(
                     i,
                     brokerId,
                     DeepRLConstants.VM_MIPS[vmType],
                     DeepRLConstants.VM_PES[vmType],
                     DeepRLConstants.VM_RAM[vmType],
                     DeepRLConstants.VM_BW,
+                    DeepRLConstants.VM_DISKBW,
                     DeepRLConstants.VM_SIZE,
                     1,
                     "Xen",
@@ -123,14 +127,15 @@ public class DeepRLHelper {
                 peList.add(new Pe(j, new PeProvisionerSimple(DeepRLConstants.HOST_MIPS[hostType])));
             }
 
-            hostList.add(new PowerHostUtilizationHistory(
+            hostList.add(new DRLHost(
                     i,
                     new RamProvisionerSimple(DeepRLConstants.HOST_RAM[hostType]),
                     new BwProvisionerSimple(DeepRLConstants.HOST_BW),
                     DeepRLConstants.HOST_STORAGE,
                     peList,
                     new VmSchedulerTimeSharedOverSubscription(peList),
-                    DeepRLConstants.HOST_POWER[hostType]));
+                    new PowerModelSpecPowerDellPowerEdgeC6320(),
+                    new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.A0)));
         }
         Log.print("Number of hosts created-> " + hostList.size());
         return hostList;

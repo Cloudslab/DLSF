@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.cloudbus.cloudsim.Vm;
+import org.python.util.PythonInterpreter;
 
 /**
  * An abstract VM selection policy used to select VMs from a list of migratable VMs.
@@ -63,7 +64,7 @@ public abstract class PowerVmSelectionPolicy {
 	 * @return the VMs to migrate from hosts
 	 */
 	protected List<? extends Vm>
-	getAllVmaToMigrate(List<PowerHost> hosts){
+	getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList, PythonInterpreter interpreter){
 		return null;
 	};
 

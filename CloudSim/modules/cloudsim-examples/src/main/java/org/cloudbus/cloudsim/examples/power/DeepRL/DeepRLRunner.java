@@ -328,7 +328,7 @@ public class DeepRLRunner extends RunnerAbstract {
                     hostList,
                     vmSelectionPolicy,
                     0.7);
-            vmAllocationPolicy = new DRLVmAllocationPolicy(hostList, fallbackVmSelectionPolicy);
+            vmAllocationPolicy = new DRLVmAllocationPolicy(hostList, fallbackVmSelectionPolicy, DeepRLConstants.pythonCode);
         } else {
             System.out.println("Unknown VM allocation policy: " + vmAllocationPolicyName);
             System.exit(0);
@@ -372,7 +372,7 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
-        dynamic = true; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
+        dynamic = false; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
 
         DeepRLRunner.inputFolder = inputFolder + "/" + workload;
 

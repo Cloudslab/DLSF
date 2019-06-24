@@ -40,7 +40,7 @@ public class CostModel {
      * Gets cost to use each MegaBit of bandwidth
      * @return the cost to use bandwidth
      */
-    protected double getCostPerBw(){
+    public double getCostPerBw(){
         return costPerBw;
     }
 
@@ -48,7 +48,7 @@ public class CostModel {
      * Gets cost to use CPU
      * @return the cost to use cpu
      */
-    protected double getCostPerCPUtime(){
+    public double getCostPerCPUtime(){
         return costPerCPUtime;
     }
 
@@ -56,7 +56,7 @@ public class CostModel {
      * Gets cost to use RAM
      * @return the cost to ram
      */
-    protected double getCostPerRam(){
+    public double getCostPerRam(){
         return costPerRam;
     }
 
@@ -64,7 +64,7 @@ public class CostModel {
      * Sets cost to use each MegaBit of bandwidth
      * @param cost to use bandwidth
      */
-    protected void setCostPerBw(double cost){
+    public void setCostPerBw(double cost){
         this.costPerBw = cost;
     }
 
@@ -72,7 +72,7 @@ public class CostModel {
      * Sets cost to use cpu
      * @param cost to use cpu per hour
      */
-    protected void setCostPerCPUTime(double cost){
+    public void setCostPerCPUTime(double cost){
         this.costPerCPUtime = cost;
     }
 
@@ -80,7 +80,7 @@ public class CostModel {
      * Sets cost to use RAM
      * @param cost to use ram
      */
-    protected void setCostPerRam(double cost){
+    public void setCostPerRam(double cost){
         this.costPerRam = cost;
     }
 }

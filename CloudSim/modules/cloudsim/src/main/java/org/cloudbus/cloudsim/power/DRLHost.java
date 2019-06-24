@@ -205,6 +205,15 @@ public class DRLHost extends PowerHostUtilizationHistory{
     }
 
     /**
+     * Gets the utilization of bw (in absolute values).
+     *
+     * @return the utilization of bw
+     */
+    public double getUtilizationOfDiskBw() {
+        return getDiskBwProvisioner().getUsedDiskBw();
+    }
+
+    /**
      * Get current utilization of CPU in percentage.
      *
      * @return current utilization of CPU in percents

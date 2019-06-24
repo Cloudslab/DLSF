@@ -226,11 +226,57 @@ NetwrokRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.13333333333333333
 NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.13333333333333333
 NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.06666666666666667
 NetwrokRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.13333333333333333
+Number of simulation intervals = 13
+CPU Util Data: Cloudlet- 1 = 0.02
+CPU Util Data: Cloudlet- 2 = 0.015
+CPU Util Data: Cloudlet- 3 = 0.021
+CPU Util Data: Cloudlet- 4 = 0.015666666666666666
+CPU Util Data: Cloudlet- 5 = 0.021333333333333333
+CPU Util Data: Cloudlet- 6 = 0.017666666666666667
+CPU Util Data: Cloudlet- 7 = 0.021
+CPU Util Data: Cloudlet- 8 = 0.015
+CPU Util Data: Cloudlet- 9 = 0.021
+CPU Util Data: Cloudlet- 10 = 0.015666666666666666
+CPU Util Data: Cloudlet- 11 = 0.021
+Ram Util Data: Cloudlet- 1 = 301988.5333333333
+Ram Util Data: Cloudlet- 2 = 296396.26666666666
+Ram Util Data: Cloudlet- 3 = 223695.73333333334
+Ram Util Data: Cloudlet- 4 = 548054.4
+Ram Util Data: Cloudlet- 5 = 346727.4666666667
+Ram Util Data: Cloudlet- 6 = 318765.06666666665
+Ram Util Data: Cloudlet- 7 = 223695.73333333334
+Ram Util Data: Cloudlet- 8 = 268433.86666666664
+Ram Util Data: Cloudlet- 9 = 206917.86666666667
+Ram Util Data: Cloudlet- 10 = 301989.06666666665
+Ram Util Data: Cloudlet- 11 = 229287.2
+NetworkRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.6
+NetworkRx Util Data: Cloudlet- 6 = 0.13333333333333333 Transmitted: 0.6666666666666666
+NetworkRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.6
+NetworkRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.5333333333333333
+NetwrokRx Util Data: Cloudlet- 1 = 0.26666666666666666 Transmitted: 9.666666666666668
+NetwrokRx Util Data: Cloudlet- 2 = 0.06666666666666667 Transmitted: 6.8
+NetwrokRx Util Data: Cloudlet- 3 = 0.26666666666666666 Transmitted: 10.266666666666666
+NetwrokRx Util Data: Cloudlet- 4 = 0.3333333333333333 Transmitted: 6.4
+NetwrokRx Util Data: Cloudlet- 5 = 0.4 Transmitted: 10.266666666666667
+NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 7.533333333333334
+NetwrokRx Util Data: Cloudlet- 7 = 0.13333333333333333 Transmitted: 10.066666666666668
+NetwrokRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 8.0
+NetwrokRx Util Data: Cloudlet- 9 = 0.06666666666666667 Transmitted: 10.266666666666666
+NetwrokRx Util Data: Cloudlet- 10 = 0.06666666666666667 Transmitted: 6.733333333333333
+NetwrokRx Util Data: Cloudlet- 11 = 0.2 Transmitted: 9.666666666666666
 Creating VM with VMID = 0
 Creating VM with VMID = 1
 Creating VM with VMID = 2
 Creating VM with VMID = 3
 Creating VM with VMID = 4
+Creating VM with VMID = 5
 Number of hosts created-> 100Starting CloudSim version 3.0
 Broker is starting...
 Datacenter is starting...
@@ -241,21 +287,25 @@ Entities started.
 0.0: Broker: Trying to Create VM #2 in Datacenter
 0.0: Broker: Trying to Create VM #3 in Datacenter
 0.0: Broker: Trying to Create VM #4 in Datacenter
+0.0: Broker: Trying to Create VM #5 in Datacenter
 0.00: VM #0 has been allocated to the host #0
 0.00: VM #1 has been allocated to the host #1
 0.00: VM #2 has been allocated to the host #2
 0.00: VM #3 has been allocated to the host #3
 0.00: VM #4 has been allocated to the host #4
+0.00: VM #5 has been allocated to the host #5
 0.1: Broker: VM #0 has been created in Datacenter #3, Host #0
 0.1: Broker: VM #1 has been created in Datacenter #3, Host #1
 0.1: Broker: VM #2 has been created in Datacenter #3, Host #2
 0.1: Broker: VM #3 has been created in Datacenter #3, Host #3
 0.1: Broker: VM #4 has been created in Datacenter #3, Host #4
+0.1: Broker: VM #5 has been created in Datacenter #3, Host #5
 0.1: Broker: Sending cloudlet 0 to VM #0
 0.1: Broker: Sending cloudlet 1 to VM #1
 0.1: Broker: Sending cloudlet 2 to VM #2
 0.1: Broker: Sending cloudlet 3 to VM #3
 0.1: Broker: Sending cloudlet 4 to VM #4
+0.1: Broker: Sending cloudlet 5 to VM #5
 @ DeepRLRunner inputFolder: C:\Users\Shreshth Tuli\Desktop\Mel Project\DLSF\CloudSim\modules\cloudsim-examples\src\main\java\workload\bitbrain/fastStorage\2013-8
 @ DeepRLRunner inputFolder: C:\Users\Shreshth Tuli\Desktop\Mel Project\DLSF\CloudSim\modules\cloudsim-examples\src\main\java\workload\bitbrain\fastStorage\2013-8 Number of files: 1250
 Number of simulation intervals = 13
@@ -393,11 +443,149 @@ NetwrokRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 2.7333333333333334
 NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 3.0666666666666664
 NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 2.7333333333333334
 NetwrokRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 2.866666666666667
-Creating VM with VMID = 5
+Number of simulation intervals = 13
+CPU Util Data: Cloudlet- 1 = 5.0E-4
+CPU Util Data: Cloudlet- 2 = 0.0026666666666666666
+CPU Util Data: Cloudlet- 3 = 0.0015
+CPU Util Data: Cloudlet- 4 = 0.002
+CPU Util Data: Cloudlet- 5 = 0.006500000000000001
+CPU Util Data: Cloudlet- 6 = 0.16266666666666665
+CPU Util Data: Cloudlet- 7 = 0.0305
+CPU Util Data: Cloudlet- 8 = 0.024666666666666667
+CPU Util Data: Cloudlet- 9 = 8.333333333333334E-4
+CPU Util Data: Cloudlet- 10 = 0.0021666666666666666
+CPU Util Data: Cloudlet- 11 = 0.005166666666666666
+Ram Util Data: Cloudlet- 1 = 905966.4
+Ram Util Data: Cloudlet- 2 = 285210.6666666667
+Ram Util Data: Cloudlet- 3 = 184548.0
+Ram Util Data: Cloudlet- 4 = 215306.13333333333
+Ram Util Data: Cloudlet- 5 = 153789.86666666667
+Ram Util Data: Cloudlet- 6 = 1462412.5333333334
+Ram Util Data: Cloudlet- 7 = 959095.4666666667
+Ram Util Data: Cloudlet- 8 = 377485.6
+Ram Util Data: Cloudlet- 9 = 184548.0
+Ram Util Data: Cloudlet- 10 = 123031.73333333334
+Ram Util Data: Cloudlet- 11 = 95068.8
+NetworkRx Util Data: Cloudlet- 1 = 1.2666666666666666 Transmitted: 2.8666666666666667
+NetworkRx Util Data: Cloudlet- 2 = 1.4 Transmitted: 3.0
+NetworkRx Util Data: Cloudlet- 3 = 1.2 Transmitted: 2.933333333333333
+NetworkRx Util Data: Cloudlet- 4 = 1.4666666666666666 Transmitted: 2.933333333333333
+NetworkRx Util Data: Cloudlet- 5 = 1.4666666666666666 Transmitted: 4.666666666666667
+NetworkRx Util Data: Cloudlet- 6 = 4.666666666666667 Transmitted: 9.066666666666666
+NetworkRx Util Data: Cloudlet- 7 = 27.666666666666668 Transmitted: 77.8
+NetworkRx Util Data: Cloudlet- 8 = 17.666666666666668 Transmitted: 44.733333333333334
+NetworkRx Util Data: Cloudlet- 9 = 1.2 Transmitted: 2.6666666666666665
+NetworkRx Util Data: Cloudlet- 10 = 1.5333333333333334 Transmitted: 3.066666666666667
+NetworkRx Util Data: Cloudlet- 11 = 1.3333333333333333 Transmitted: 3.533333333333333
+NetwrokRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.9333333333333333
+NetwrokRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 10.466666666666667
+NetwrokRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 21.8
+NetwrokRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 1.2666666666666666
+NetwrokRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 526.6666666666666
+NetwrokRx Util Data: Cloudlet- 6 = 4.333333333333334 Transmitted: 370.5333333333333
+NetwrokRx Util Data: Cloudlet- 7 = 0.9333333333333333 Transmitted: 51.733333333333334
+NetwrokRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 25.6
+NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 1.0
+NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 1.4
+NetwrokRx Util Data: Cloudlet- 11 = 9.666666666666668 Transmitted: 494.1333333333333
+Number of simulation intervals = 13
+CPU Util Data: Cloudlet- 1 = 0.004
+CPU Util Data: Cloudlet- 2 = 0.0
+CPU Util Data: Cloudlet- 3 = 0.004
+CPU Util Data: Cloudlet- 4 = 0.0
+CPU Util Data: Cloudlet- 5 = 0.004
+CPU Util Data: Cloudlet- 6 = 0.0
+CPU Util Data: Cloudlet- 7 = 0.004
+CPU Util Data: Cloudlet- 8 = 0.0
+CPU Util Data: Cloudlet- 9 = 0.004
+CPU Util Data: Cloudlet- 10 = 0.0
+CPU Util Data: Cloudlet- 11 = 0.004
+Ram Util Data: Cloudlet- 1 = 120235.46666666666
+Ram Util Data: Cloudlet- 2 = 86680.26666666666
+Ram Util Data: Cloudlet- 3 = 103457.86666666667
+Ram Util Data: Cloudlet- 4 = 39144.0
+Ram Util Data: Cloudlet- 5 = 92272.8
+Ram Util Data: Cloudlet- 6 = 95069.06666666667
+Ram Util Data: Cloudlet- 7 = 299192.0
+Ram Util Data: Cloudlet- 8 = 167770.66666666666
+Ram Util Data: Cloudlet- 9 = 100661.6
+Ram Util Data: Cloudlet- 10 = 64310.13333333333
+Ram Util Data: Cloudlet- 11 = 61513.86666666667
+NetworkRx Util Data: Cloudlet- 1 = 0.2 Transmitted: 0.13333333333333333
+NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
+NetworkRx Util Data: Cloudlet- 3 = 0.2 Transmitted: 0.13333333333333333
+NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
+NetworkRx Util Data: Cloudlet- 5 = 0.2 Transmitted: 0.13333333333333333
+NetworkRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.06666666666666667
+NetworkRx Util Data: Cloudlet- 7 = 0.26666666666666666 Transmitted: 0.2
+NetworkRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.0
+NetworkRx Util Data: Cloudlet- 9 = 0.2 Transmitted: 0.13333333333333333
+NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.0
+NetworkRx Util Data: Cloudlet- 11 = 0.2 Transmitted: 0.06666666666666667
+NetwrokRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.3333333333333333
+NetwrokRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.06666666666666667
+NetwrokRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.06666666666666667
+NetwrokRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.13333333333333333
+NetwrokRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.06666666666666667
+NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 1.8666666666666667
+NetwrokRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 1.3333333333333333
+NetwrokRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.13333333333333333
+NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.13333333333333333
+NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.06666666666666667
+NetwrokRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.13333333333333333
+Number of simulation intervals = 13
+CPU Util Data: Cloudlet- 1 = 0.02
+CPU Util Data: Cloudlet- 2 = 0.015
+CPU Util Data: Cloudlet- 3 = 0.021
+CPU Util Data: Cloudlet- 4 = 0.015666666666666666
+CPU Util Data: Cloudlet- 5 = 0.021333333333333333
+CPU Util Data: Cloudlet- 6 = 0.017666666666666667
+CPU Util Data: Cloudlet- 7 = 0.021
+CPU Util Data: Cloudlet- 8 = 0.015
+CPU Util Data: Cloudlet- 9 = 0.021
+CPU Util Data: Cloudlet- 10 = 0.015666666666666666
+CPU Util Data: Cloudlet- 11 = 0.021
+Ram Util Data: Cloudlet- 1 = 301988.5333333333
+Ram Util Data: Cloudlet- 2 = 296396.26666666666
+Ram Util Data: Cloudlet- 3 = 223695.73333333334
+Ram Util Data: Cloudlet- 4 = 548054.4
+Ram Util Data: Cloudlet- 5 = 346727.4666666667
+Ram Util Data: Cloudlet- 6 = 318765.06666666665
+Ram Util Data: Cloudlet- 7 = 223695.73333333334
+Ram Util Data: Cloudlet- 8 = 268433.86666666664
+Ram Util Data: Cloudlet- 9 = 206917.86666666667
+Ram Util Data: Cloudlet- 10 = 301989.06666666665
+Ram Util Data: Cloudlet- 11 = 229287.2
+NetworkRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.6
+NetworkRx Util Data: Cloudlet- 6 = 0.13333333333333333 Transmitted: 0.6666666666666666
+NetworkRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.6
+NetworkRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.4666666666666667
+NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.5333333333333333
+NetworkRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.5333333333333333
+NetwrokRx Util Data: Cloudlet- 1 = 0.26666666666666666 Transmitted: 9.666666666666668
+NetwrokRx Util Data: Cloudlet- 2 = 0.06666666666666667 Transmitted: 6.8
+NetwrokRx Util Data: Cloudlet- 3 = 0.26666666666666666 Transmitted: 10.266666666666666
+NetwrokRx Util Data: Cloudlet- 4 = 0.3333333333333333 Transmitted: 6.4
+NetwrokRx Util Data: Cloudlet- 5 = 0.4 Transmitted: 10.266666666666667
+NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 7.533333333333334
+NetwrokRx Util Data: Cloudlet- 7 = 0.13333333333333333 Transmitted: 10.066666666666668
+NetwrokRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 8.0
+NetwrokRx Util Data: Cloudlet- 9 = 0.06666666666666667 Transmitted: 10.266666666666666
+NetwrokRx Util Data: Cloudlet- 10 = 0.06666666666666667 Transmitted: 6.733333333333333
+NetwrokRx Util Data: Cloudlet- 11 = 0.2 Transmitted: 9.666666666666666
 Creating VM with VMID = 6
 Creating VM with VMID = 7
-Dynamically submitted total 3 cloudlets and VMs
-Num vms 8
+Creating VM with VMID = 8
+Creating VM with VMID = 9
+Creating VM with VMID = 10
+Creating VM with VMID = 11
+Dynamically submitted total 6 cloudlets and VMs
+Num vms 12
 
 
 --------------------------------------------------------------
@@ -435,7 +623,11 @@ New resource usage for the time frame starting at 300.00:
 300.00: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 32.00. PE #0: 32.00. PE #0: 32.00. PE #0: 32.00.
 300.00: [Host #4] utilization is 0.02%
 
-300.00: [Host #5] utilization is 0.00%
+300.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 160.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 160.00. PE #0: 160.00. PE #0: 160.00. PE #0: 160.00.
+300.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 160.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 160.00. PE #0: 160.00. PE #0: 160.00. PE #0: 160.00.
+300.00: [Host #5] utilization is 0.09%
 
 300.00: [Host #6] utilization is 0.00%
 
@@ -642,8 +834,8 @@ Energy consumption for the last time frame from 0.00 to 300.00:
 300.00: [Host #4] utilization at 0.00 was 0.02%, now is 0.02%
 300.00: [Host #4] energy is 63090.79 W*sec
 
-300.00: [Host #5] utilization at 0.00 was 0.00%, now is 0.00%
-300.00: [Host #5] energy is 0.00 W*sec
+300.00: [Host #5] utilization at 0.00 was 0.09%, now is 0.09%
+300.00: [Host #5] energy is 63453.95 W*sec
 
 300.00: [Host #6] utilization at 0.00 was 0.00%, now is 0.00%
 300.00: [Host #6] energy is 0.00 W*sec
@@ -927,10 +1119,10 @@ Energy consumption for the last time frame from 0.00 to 300.00:
 300.00: [Host #99] utilization at 0.00 was 0.00%, now is 0.00%
 300.00: [Host #99] energy is 0.00 W*sec
 
-300.00: Data center's energy is 253535.38 W*sec
+300.00: Data center's energy is 316989.33 W*sec
 
 VM #1 has been deallocated from host #1
-VMs left = 4
+VMs left = 5
 
 Over-utilized hosts:
 
@@ -945,6 +1137,11 @@ Under-utilized host: host #4
 
 Reallocation of VMs from the under-utilized host: 4 
 VM #4 allocated to host #2
+
+Under-utilized host: host #5
+
+Reallocation of VMs from the under-utilized host: 5 
+VM #5 allocated to host #0
 
 300.00: Migration of VM #3 from Host #3 to Host #0 is started
 300.00: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 466.17, was requested 466.17 out of total 500.00 (93.23%)
@@ -982,21 +1179,58 @@ VM #4 allocated to host #2
 300.00: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.80. PE #0: 28.80. PE #0: 28.80. PE #0: 28.80.
 300.00: [Host #4] Under allocated MIPS for VM #4: 3.20
 300.00: [Host #4] VM #4 is in migration
+300.00: Migration of VM #5 from Host #5 to Host #0 is started
+300.00: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 466.17, was requested 466.17 out of total 500.00 (93.23%)
+300.00: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.17.
+300.00: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
+300.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
+300.00: [Host #0] VM #3 is being migrated to Host #0
+300.00: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.00: [Host #0] VM #5 is being migrated to Host #0
+300.00: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 466.17, was requested 466.17 out of total 500.00 (93.23%)
+300.00: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.17.
+300.00: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
+300.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
+300.00: [Host #0] VM #3 is being migrated to Host #0
+300.00: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.00: [Host #0] VM #5 is being migrated to Host #0
+300.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 144.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 144.00. PE #0: 144.00. PE #0: 144.00. PE #0: 144.00.
+300.00: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.00: [Host #5] VM #5 is in migration
+300.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 144.00, was requested 160.00 out of total 2000.00 (8.00%)
+300.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 144.00. PE #0: 144.00. PE #0: 144.00. PE #0: 144.00.
+300.00: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.00: [Host #5] VM #5 is in migration
 Adding: Broker1
 Broker1 is starting...
 300.0: Broker1: Cloud Resource List received with 1 resource(s)
-300.0: Broker1: Trying to Create VM #5 in Datacenter
 300.0: Broker1: Trying to Create VM #6 in Datacenter
 300.0: Broker1: Trying to Create VM #7 in Datacenter
-300.00: VM #5 has been allocated to the host #4
-300.00: VM #6 has been allocated to the host #3
-300.00: VM #7 has been allocated to the host #1
-300.1: Broker1: VM #5 has been created in Datacenter #3, Host #4
-300.1: Broker1: VM #6 has been created in Datacenter #3, Host #3
-300.1: Broker1: VM #7 has been created in Datacenter #3, Host #1
-300.1: Broker1: Sending cloudlet 5 to VM #5
+300.0: Broker1: Trying to Create VM #8 in Datacenter
+300.0: Broker1: Trying to Create VM #9 in Datacenter
+300.0: Broker1: Trying to Create VM #10 in Datacenter
+300.0: Broker1: Trying to Create VM #11 in Datacenter
+300.00: VM #6 has been allocated to the host #5
+300.00: VM #7 has been allocated to the host #4
+300.00: VM #8 has been allocated to the host #3
+300.00: VM #9 has been allocated to the host #1
+300.00: VM #10 has been allocated to the host #6
+300.00: VM #11 has been allocated to the host #7
+300.1: Broker1: VM #6 has been created in Datacenter #3, Host #5
+300.1: Broker1: VM #7 has been created in Datacenter #3, Host #4
+300.1: Broker1: VM #8 has been created in Datacenter #3, Host #3
+300.1: Broker1: VM #9 has been created in Datacenter #3, Host #1
+300.1: Broker1: VM #10 has been created in Datacenter #3, Host #6
+300.1: Broker1: VM #11 has been created in Datacenter #3, Host #7
 300.1: Broker1: Sending cloudlet 6 to VM #6
 300.1: Broker1: Sending cloudlet 7 to VM #7
+300.1: Broker1: Sending cloudlet 8 to VM #8
+300.1: Broker1: Sending cloudlet 9 to VM #9
+300.1: Broker1: Sending cloudlet 10 to VM #10
+300.1: Broker1: Sending cloudlet 11 to VM #11
 
 
 --------------------------------------------------------------
@@ -1009,17 +1243,23 @@ New resource usage for the time frame starting at 300.10:
 300.10: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
 300.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.10: [Host #0] VM #3 is being migrated to Host #0
+300.10: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.10: [Host #0] VM #5 is being migrated to Host #0
 300.10: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 466.17, was requested 466.17 out of total 500.00 (93.23%)
 300.10: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.17.
 300.10: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
 300.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.10: [Host #0] VM #3 is being migrated to Host #0
-300.10: [Host #0] utilization is 0.27%
+300.10: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.10: [Host #0] VM #5 is being migrated to Host #0
+300.10: [Host #0] utilization is 0.28%
 
-300.10: [Host #1] Total allocated MIPS for VM #7 (Host #1) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-300.10: [Host #1] MIPS for VM #7 by PEs (64 * 2660.0).
-300.10: [Host #1] Total allocated MIPS for VM #7 (Host #1) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-300.10: [Host #1] MIPS for VM #7 by PEs (64 * 2660.0).
+300.10: [Host #1] Total allocated MIPS for VM #9 (Host #1) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+300.10: [Host #1] MIPS for VM #9 by PEs (64 * 2660.0).
+300.10: [Host #1] Total allocated MIPS for VM #9 (Host #1) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+300.10: [Host #1] MIPS for VM #9 by PEs (64 * 2660.0).
 300.10: [Host #1] utilization is 0.00%
 
 300.10: [Host #2] Total allocated MIPS for VM #2 (Host #2) is 42.00, was requested 42.00 out of total 1000.00 (4.20%)
@@ -1038,34 +1278,54 @@ New resource usage for the time frame starting at 300.10:
 300.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.90. PE #0: 0.90.
 300.10: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.10: [Host #3] VM #3 is in migration
-300.10: [Host #3] Total allocated MIPS for VM #6 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-300.10: [Host #3] MIPS for VM #6 by PEs (64 * 2660.0).
+300.10: [Host #3] Total allocated MIPS for VM #8 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+300.10: [Host #3] MIPS for VM #8 by PEs (64 * 2660.0).
 300.10: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.90, was requested 1.00 out of total 1000.00 (0.10%)
 300.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.90. PE #0: 0.90.
 300.10: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.10: [Host #3] VM #3 is in migration
-300.10: [Host #3] Total allocated MIPS for VM #6 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-300.10: [Host #3] MIPS for VM #6 by PEs (64 * 2660.0).
+300.10: [Host #3] Total allocated MIPS for VM #8 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+300.10: [Host #3] MIPS for VM #8 by PEs (64 * 2660.0).
 300.10: [Host #3] utilization is 0.00%
 
 300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
 300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
 300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
 300.10: [Host #4] VM #4 is in migration
-300.10: [Host #4] Total allocated MIPS for VM #5 (Host #4) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-300.10: [Host #4] MIPS for VM #5 by PEs (64 * 2660.0).
+300.10: [Host #4] Total allocated MIPS for VM #7 (Host #4) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+300.10: [Host #4] MIPS for VM #7 by PEs (64 * 2660.0).
 300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
 300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
 300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
 300.10: [Host #4] VM #4 is in migration
-300.10: [Host #4] Total allocated MIPS for VM #5 (Host #4) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-300.10: [Host #4] MIPS for VM #5 by PEs (64 * 2660.0).
+300.10: [Host #4] Total allocated MIPS for VM #7 (Host #4) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+300.10: [Host #4] MIPS for VM #7 by PEs (64 * 2660.0).
 300.10: [Host #4] utilization is 0.02%
 
-300.10: [Host #5] utilization is 0.00%
+300.10: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.99, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.99. PE #0: 143.99. PE #0: 143.99. PE #0: 143.99.
+300.10: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.10: [Host #5] VM #5 is in migration
+300.10: [Host #5] Total allocated MIPS for VM #6 (Host #5) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+300.10: [Host #5] MIPS for VM #6 by PEs (64 * 2660.0).
+300.10: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.99, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.99. PE #0: 143.99. PE #0: 143.99. PE #0: 143.99.
+300.10: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.10: [Host #5] VM #5 is in migration
+300.10: [Host #5] Total allocated MIPS for VM #6 (Host #5) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+300.10: [Host #5] MIPS for VM #6 by PEs (64 * 2660.0).
+300.10: [Host #5] utilization is 0.09%
 
+300.10: [Host #6] Total allocated MIPS for VM #10 (Host #6) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+300.10: [Host #6] MIPS for VM #10 by PEs (64 * 2660.0).
+300.10: [Host #6] Total allocated MIPS for VM #10 (Host #6) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+300.10: [Host #6] MIPS for VM #10 by PEs (64 * 2660.0).
 300.10: [Host #6] utilization is 0.00%
 
+300.10: [Host #7] Total allocated MIPS for VM #11 (Host #7) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+300.10: [Host #7] MIPS for VM #11 by PEs (64 * 2660.0).
+300.10: [Host #7] Total allocated MIPS for VM #11 (Host #7) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+300.10: [Host #7] MIPS for VM #11 by PEs (64 * 2660.0).
 300.10: [Host #7] utilization is 0.00%
 
 300.10: [Host #8] utilization is 0.00%
@@ -1254,8 +1514,8 @@ New resource usage for the time frame starting at 300.10:
 
 Energy consumption for the last time frame from 300.00 to 300.10:
 
-300.10: [Host #0] utilization at 300.00 was 0.27%, now is 0.27%
-300.10: [Host #0] energy is 21.44 W*sec
+300.10: [Host #0] utilization at 300.00 was 0.28%, now is 0.28%
+300.10: [Host #0] energy is 21.46 W*sec
 
 300.10: [Host #1] utilization at 300.00 was 0.00%, now is 0.00%
 300.10: [Host #1] energy is 0.00 W*sec
@@ -1269,8 +1529,8 @@ Energy consumption for the last time frame from 300.00 to 300.10:
 300.10: [Host #4] utilization at 300.00 was 0.02%, now is 0.02%
 300.10: [Host #4] energy is 21.03 W*sec
 
-300.10: [Host #5] utilization at 300.00 was 0.00%, now is 0.00%
-300.10: [Host #5] energy is 0.00 W*sec
+300.10: [Host #5] utilization at 300.00 was 0.09%, now is 0.09%
+300.10: [Host #5] energy is 21.15 W*sec
 
 300.10: [Host #6] utilization at 300.00 was 0.00%, now is 0.00%
 300.10: [Host #6] energy is 0.00 W*sec
@@ -1554,14 +1814,20 @@ Energy consumption for the last time frame from 300.00 to 300.10:
 300.10: [Host #99] utilization at 300.00 was 0.00%, now is 0.00%
 300.10: [Host #99] energy is 0.00 W*sec
 
-300.10: Data center's energy is 84.51 W*sec
+300.10: Data center's energy is 105.68 W*sec
 
-VM #7 has been deallocated from host #1
+VM #9 has been deallocated from host #1
+VMs left = 10
+VM #8 has been deallocated from host #3
+VMs left = 9
+VM #7 has been deallocated from host #4
+VMs left = 8
+VM #6 has been deallocated from host #5
+VMs left = 7
+VM #10 has been deallocated from host #6
 VMs left = 6
-VM #6 has been deallocated from host #3
+VM #11 has been deallocated from host #7
 VMs left = 5
-VM #5 has been deallocated from host #4
-VMs left = 4
 
 Over-utilized hosts:
 
@@ -1570,28 +1836,28 @@ Reallocation of VMs from the over-utilized hosts:
 Under-utilized host: host #2
 
 Reallocation of VMs from the under-utilized host: 2 
-VM #2 allocated to host #4
+VM #2 allocated to host #5
 
 Under-utilized host: host #0
 
 Reallocation of VMs from the under-utilized host: 0 
-VM #0 allocated to host #3
+VM #0 allocated to host #4
 
-300.10: Migration of VM #2 from Host #2 to Host #4 is started
-300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
-300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
-300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
-300.10: [Host #4] VM #4 is in migration
-300.10: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.10: [Host #4] VM #2 is being migrated to Host #4
-300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
-300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
-300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
-300.10: [Host #4] VM #4 is in migration
-300.10: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.10: [Host #4] VM #2 is being migrated to Host #4
+300.10: Migration of VM #2 from Host #2 to Host #5 is started
+300.10: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.99, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.99. PE #0: 143.99. PE #0: 143.99. PE #0: 143.99.
+300.10: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.10: [Host #5] VM #5 is in migration
+300.10: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.10: [Host #5] VM #2 is being migrated to Host #5
+300.10: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.99, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.99. PE #0: 143.99. PE #0: 143.99. PE #0: 143.99.
+300.10: [Host #5] Under allocated MIPS for VM #5: 16.00
+300.10: [Host #5] VM #5 is in migration
+300.10: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.10: [Host #5] VM #2 is being migrated to Host #5
 300.10: [Host #2] Total allocated MIPS for VM #4 (Host #4) is 3.20, was requested 31.99 out of total 2000.00 (1.60%)
 300.10: [Host #2] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 3.20. PE #0: 3.20. PE #0: 3.20. PE #0: 3.20.
 300.10: [Host #2] VM #4 is being migrated to Host #2
@@ -1606,24 +1872,27 @@ VM #0 allocated to host #3
 300.10: [Host #2] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 37.80. PE #0: 37.80.
 300.10: [Host #2] Under allocated MIPS for VM #2: 4.20
 300.10: [Host #2] VM #2 is in migration
-300.10: Migration of VM #0 from Host #0 to Host #3 is started
-300.10: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.90, was requested 1.00 out of total 1000.00 (0.10%)
-300.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.90. PE #0: 0.90.
-300.10: [Host #3] Under allocated MIPS for VM #3: 0.10
-300.10: [Host #3] VM #3 is in migration
-300.10: [Host #3] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.17 out of total 500.00 (93.23%)
-300.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
-300.10: [Host #3] VM #0 is being migrated to Host #3
-300.10: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.90, was requested 1.00 out of total 1000.00 (0.10%)
-300.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.90. PE #0: 0.90.
-300.10: [Host #3] Under allocated MIPS for VM #3: 0.10
-300.10: [Host #3] VM #3 is in migration
-300.10: [Host #3] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.17 out of total 500.00 (93.23%)
-300.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
-300.10: [Host #3] VM #0 is being migrated to Host #3
+300.10: Migration of VM #0 from Host #0 to Host #4 is started
+300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
+300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
+300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
+300.10: [Host #4] VM #4 is in migration
+300.10: [Host #4] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.17 out of total 500.00 (93.23%)
+300.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
+300.10: [Host #4] VM #0 is being migrated to Host #4
+300.10: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.79, was requested 31.99 out of total 2000.00 (1.60%)
+300.10: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.79. PE #0: 28.79. PE #0: 28.79. PE #0: 28.79.
+300.10: [Host #4] Under allocated MIPS for VM #4: 3.20
+300.10: [Host #4] VM #4 is in migration
+300.10: [Host #4] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.17 out of total 500.00 (93.23%)
+300.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
+300.10: [Host #4] VM #0 is being migrated to Host #4
 300.10: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
 300.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.10: [Host #0] VM #3 is being migrated to Host #0
+300.10: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.10: [Host #0] VM #5 is being migrated to Host #0
 300.10: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 419.55, was requested 466.17 out of total 500.00 (93.23%)
 300.10: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 419.55.
 300.10: [Host #0] Under allocated MIPS for VM #0: 46.62
@@ -1631,10 +1900,16 @@ VM #0 allocated to host #3
 300.10: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.00 out of total 1000.00 (0.10%)
 300.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.10: [Host #0] VM #3 is being migrated to Host #0
+300.10: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 16.00, was requested 159.99 out of total 2000.00 (8.00%)
+300.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 16.00. PE #0: 16.00. PE #0: 16.00. PE #0: 16.00.
+300.10: [Host #0] VM #5 is being migrated to Host #0
 300.10: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 419.55, was requested 466.17 out of total 500.00 (93.23%)
 300.10: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 419.55.
 300.10: [Host #0] Under allocated MIPS for VM #0: 46.62
 300.10: [Host #0] VM #0 is in migration
+Datacenter.processCloudletSubmit(): Exception error.
+Datacenter.processCloudletSubmit(): Exception error.
+Datacenter.processCloudletSubmit(): Exception error.
 Datacenter.processCloudletSubmit(): Exception error.
 Datacenter.processCloudletSubmit(): Exception error.
 Datacenter.processCloudletSubmit(): Exception error.
@@ -1648,6 +1923,9 @@ New resource usage for the time frame starting at 300.74:
 300.74: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.74: [Host #0] VM #3 is being migrated to Host #0
+300.74: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.99, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.99. PE #0: 15.99. PE #0: 15.99. PE #0: 15.99.
+300.74: [Host #0] VM #5 is being migrated to Host #0
 300.74: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 419.55, was requested 466.16 out of total 500.00 (93.23%)
 300.74: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 419.55.
 300.74: [Host #0] Under allocated MIPS for VM #0: 46.62
@@ -1655,11 +1933,14 @@ New resource usage for the time frame starting at 300.74:
 300.74: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.74: [Host #0] VM #3 is being migrated to Host #0
+300.74: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.99, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.99. PE #0: 15.99. PE #0: 15.99. PE #0: 15.99.
+300.74: [Host #0] VM #5 is being migrated to Host #0
 300.74: [Host #0] Total allocated MIPS for VM #0 (Host #0) is 419.55, was requested 466.16 out of total 500.00 (93.23%)
 300.74: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 419.55.
 300.74: [Host #0] Under allocated MIPS for VM #0: 46.62
 300.74: [Host #0] VM #0 is in migration
-300.74: [Host #0] utilization is 0.27%
+300.74: [Host #0] utilization is 0.28%
 
 300.74: [Host #1] utilization is 0.00%
 
@@ -1683,35 +1964,43 @@ New resource usage for the time frame starting at 300.74:
 300.74: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.91. PE #0: 0.91.
 300.74: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.74: [Host #3] VM #3 is in migration
-300.74: [Host #3] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.16 out of total 500.00 (93.23%)
-300.74: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
-300.74: [Host #3] VM #0 is being migrated to Host #3
 300.74: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.91, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.91. PE #0: 0.91.
 300.74: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.74: [Host #3] VM #3 is in migration
-300.74: [Host #3] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.16 out of total 500.00 (93.23%)
-300.74: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
-300.74: [Host #3] VM #0 is being migrated to Host #3
-300.74: [Host #3] utilization is 0.03%
+300.74: [Host #3] utilization is 0.00%
 
 300.74: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.73, was requested 31.92 out of total 2000.00 (1.60%)
 300.74: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.73. PE #0: 28.73. PE #0: 28.73. PE #0: 28.73.
 300.74: [Host #4] Under allocated MIPS for VM #4: 3.19
 300.74: [Host #4] VM #4 is in migration
-300.74: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.74: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.74: [Host #4] VM #2 is being migrated to Host #4
+300.74: [Host #4] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.16 out of total 500.00 (93.23%)
+300.74: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
+300.74: [Host #4] VM #0 is being migrated to Host #4
 300.74: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.73, was requested 31.92 out of total 2000.00 (1.60%)
 300.74: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.73. PE #0: 28.73. PE #0: 28.73. PE #0: 28.73.
 300.74: [Host #4] Under allocated MIPS for VM #4: 3.19
 300.74: [Host #4] VM #4 is in migration
-300.74: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.74: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.74: [Host #4] VM #2 is being migrated to Host #4
-300.74: [Host #4] utilization is 0.02%
+300.74: [Host #4] Total allocated MIPS for VM #0 (Host #0) is 46.62, was requested 466.16 out of total 500.00 (93.23%)
+300.74: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.62.
+300.74: [Host #4] VM #0 is being migrated to Host #4
+300.74: [Host #4] utilization is 0.05%
 
-300.74: [Host #5] utilization is 0.00%
+300.74: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.91, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.91. PE #0: 143.91. PE #0: 143.91. PE #0: 143.91.
+300.74: [Host #5] Under allocated MIPS for VM #5: 15.99
+300.74: [Host #5] VM #5 is in migration
+300.74: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.74: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.74: [Host #5] VM #2 is being migrated to Host #5
+300.74: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.91, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.91. PE #0: 143.91. PE #0: 143.91. PE #0: 143.91.
+300.74: [Host #5] Under allocated MIPS for VM #5: 15.99
+300.74: [Host #5] VM #5 is in migration
+300.74: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.74: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.74: [Host #5] VM #2 is being migrated to Host #5
+300.74: [Host #5] utilization is 0.10%
 
 300.74: [Host #6] utilization is 0.00%
 
@@ -1903,8 +2192,8 @@ New resource usage for the time frame starting at 300.74:
 
 Energy consumption for the last time frame from 300.10 to 300.74:
 
-300.74: [Host #0] utilization at 300.10 was 0.27%, now is 0.27%
-300.74: [Host #0] energy is 137.22 W*sec
+300.74: [Host #0] utilization at 300.10 was 0.28%, now is 0.28%
+300.74: [Host #0] energy is 137.32 W*sec
 
 300.74: [Host #1] utilization at 300.10 was 0.00%, now is 0.00%
 300.74: [Host #1] energy is 0.00 W*sec
@@ -1912,14 +2201,14 @@ Energy consumption for the last time frame from 300.10 to 300.74:
 300.74: [Host #2] utilization at 300.10 was 0.03%, now is 0.03%
 300.74: [Host #2] energy is 134.67 W*sec
 
-300.74: [Host #3] utilization at 300.10 was 0.03%, now is 0.03%
-300.74: [Host #3] energy is 134.69 W*sec
+300.74: [Host #3] utilization at 300.10 was 0.00%, now is 0.00%
+300.74: [Host #3] energy is 134.41 W*sec
 
-300.74: [Host #4] utilization at 300.10 was 0.02%, now is 0.02%
-300.74: [Host #4] energy is 134.62 W*sec
+300.74: [Host #4] utilization at 300.10 was 0.05%, now is 0.05%
+300.74: [Host #4] energy is 134.88 W*sec
 
-300.74: [Host #5] utilization at 300.10 was 0.00%, now is 0.00%
-300.74: [Host #5] energy is 0.00 W*sec
+300.74: [Host #5] utilization at 300.10 was 0.10%, now is 0.10%
+300.74: [Host #5] energy is 135.39 W*sec
 
 300.74: [Host #6] utilization at 300.10 was 0.00%, now is 0.00%
 300.74: [Host #6] energy is 0.00 W*sec
@@ -2203,11 +2492,11 @@ Energy consumption for the last time frame from 300.10 to 300.74:
 300.74: [Host #99] utilization at 300.10 was 0.00%, now is 0.00%
 300.74: [Host #99] energy is 0.00 W*sec
 
-300.74: Data center's energy is 541.20 W*sec
+300.74: Data center's energy is 676.67 W*sec
 
 
-300.74: VM #0 has been allocated to the host #3
-300.74: Migration of VM #0 to Host #3 is completed
+300.74: VM #0 has been allocated to the host #4
+300.74: Migration of VM #0 to Host #4 is completed
 
 
 --------------------------------------------------------------
@@ -2218,10 +2507,16 @@ New resource usage for the time frame starting at 300.74:
 300.74: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.74: [Host #0] VM #3 is being migrated to Host #0
+300.74: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.99, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.99. PE #0: 15.99. PE #0: 15.99. PE #0: 15.99.
+300.74: [Host #0] VM #5 is being migrated to Host #0
 300.74: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 300.74: [Host #0] VM #3 is being migrated to Host #0
-300.74: [Host #0] utilization is 0.00%
+300.74: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.99, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.99. PE #0: 15.99. PE #0: 15.99. PE #0: 15.99.
+300.74: [Host #0] VM #5 is being migrated to Host #0
+300.74: [Host #0] utilization is 0.01%
 
 300.74: [Host #1] utilization is 0.00%
 
@@ -2245,33 +2540,41 @@ New resource usage for the time frame starting at 300.74:
 300.74: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.91. PE #0: 0.91.
 300.74: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.74: [Host #3] VM #3 is in migration
-300.74: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-300.74: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 300.74: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.91, was requested 1.01 out of total 1000.00 (0.10%)
 300.74: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.91. PE #0: 0.91.
 300.74: [Host #3] Under allocated MIPS for VM #3: 0.10
 300.74: [Host #3] VM #3 is in migration
-300.74: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-300.74: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-300.74: [Host #3] utilization is 0.27%
+300.74: [Host #3] utilization is 0.00%
 
 300.74: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.73, was requested 31.92 out of total 2000.00 (1.60%)
 300.74: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.73. PE #0: 28.73. PE #0: 28.73. PE #0: 28.73.
 300.74: [Host #4] Under allocated MIPS for VM #4: 3.19
 300.74: [Host #4] VM #4 is in migration
-300.74: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.74: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.74: [Host #4] VM #2 is being migrated to Host #4
+300.74: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+300.74: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 300.74: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.73, was requested 31.92 out of total 2000.00 (1.60%)
 300.74: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.73. PE #0: 28.73. PE #0: 28.73. PE #0: 28.73.
 300.74: [Host #4] Under allocated MIPS for VM #4: 3.19
 300.74: [Host #4] VM #4 is in migration
-300.74: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
-300.74: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-300.74: [Host #4] VM #2 is being migrated to Host #4
-300.74: [Host #4] utilization is 0.02%
+300.74: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+300.74: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
+300.74: [Host #4] utilization is 0.29%
 
-300.74: [Host #5] utilization is 0.00%
+300.74: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.91, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.91. PE #0: 143.91. PE #0: 143.91. PE #0: 143.91.
+300.74: [Host #5] Under allocated MIPS for VM #5: 15.99
+300.74: [Host #5] VM #5 is in migration
+300.74: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.74: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.74: [Host #5] VM #2 is being migrated to Host #5
+300.74: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.91, was requested 159.90 out of total 2000.00 (8.00%)
+300.74: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.91. PE #0: 143.91. PE #0: 143.91. PE #0: 143.91.
+300.74: [Host #5] Under allocated MIPS for VM #5: 15.99
+300.74: [Host #5] VM #5 is in migration
+300.74: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 42.00 out of total 1000.00 (4.20%)
+300.74: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+300.74: [Host #5] VM #2 is being migrated to Host #5
+300.74: [Host #5] utilization is 0.10%
 
 300.74: [Host #6] utilization is 0.00%
 
@@ -2471,10 +2774,16 @@ New resource usage for the time frame starting at 301.28:
 301.28: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.02 out of total 1000.00 (0.10%)
 301.28: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 301.28: [Host #0] VM #3 is being migrated to Host #0
+301.28: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.28: [Host #0] VM #5 is being migrated to Host #0
 301.28: [Host #0] Total allocated MIPS for VM #3 (Host #3) is 0.10, was requested 1.02 out of total 1000.00 (0.10%)
 301.28: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0).
 301.28: [Host #0] VM #3 is being migrated to Host #0
-301.28: [Host #0] utilization is 0.00%
+301.28: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.28: [Host #0] VM #5 is being migrated to Host #0
+301.28: [Host #0] utilization is 0.01%
 
 301.28: [Host #1] utilization is 0.00%
 
@@ -2498,33 +2807,41 @@ New resource usage for the time frame starting at 301.28:
 301.28: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.92. PE #0: 0.92.
 301.28: [Host #3] Under allocated MIPS for VM #3: 0.10
 301.28: [Host #3] VM #3 is in migration
-301.28: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.28: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 301.28: [Host #3] Total allocated MIPS for VM #3 (Host #3) is 0.92, was requested 1.02 out of total 1000.00 (0.10%)
 301.28: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.92. PE #0: 0.92.
 301.28: [Host #3] Under allocated MIPS for VM #3: 0.10
 301.28: [Host #3] VM #3 is in migration
-301.28: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.28: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.28: [Host #3] utilization is 0.27%
+301.28: [Host #3] utilization is 0.00%
 
 301.28: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.68, was requested 31.86 out of total 2000.00 (1.59%)
 301.28: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.68. PE #0: 28.68. PE #0: 28.68. PE #0: 28.68.
 301.28: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.28: [Host #4] VM #4 is in migration
-301.28: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.28: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.28: [Host #4] VM #2 is being migrated to Host #4
+301.28: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.28: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 301.28: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.68, was requested 31.86 out of total 2000.00 (1.59%)
 301.28: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.68. PE #0: 28.68. PE #0: 28.68. PE #0: 28.68.
 301.28: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.28: [Host #4] VM #4 is in migration
-301.28: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.28: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.28: [Host #4] VM #2 is being migrated to Host #4
-301.28: [Host #4] utilization is 0.02%
+301.28: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.28: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
+301.28: [Host #4] utilization is 0.29%
 
-301.28: [Host #5] utilization is 0.00%
+301.28: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.85, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.85. PE #0: 143.85. PE #0: 143.85. PE #0: 143.85.
+301.28: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.28: [Host #5] VM #5 is in migration
+301.28: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.28: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.28: [Host #5] VM #2 is being migrated to Host #5
+301.28: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.85, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.85. PE #0: 143.85. PE #0: 143.85. PE #0: 143.85.
+301.28: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.28: [Host #5] VM #5 is in migration
+301.28: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.28: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.28: [Host #5] VM #2 is being migrated to Host #5
+301.28: [Host #5] utilization is 0.10%
 
 301.28: [Host #6] utilization is 0.00%
 
@@ -2716,8 +3033,8 @@ New resource usage for the time frame starting at 301.28:
 
 Energy consumption for the last time frame from 300.74 to 301.28:
 
-301.28: [Host #0] utilization at 300.74 was 0.00%, now is 0.00%
-301.28: [Host #0] energy is 113.40 W*sec
+301.28: [Host #0] utilization at 300.74 was 0.01%, now is 0.01%
+301.28: [Host #0] energy is 113.48 W*sec
 
 301.28: [Host #1] utilization at 300.74 was 0.00%, now is 0.00%
 301.28: [Host #1] energy is 0.00 W*sec
@@ -2725,14 +3042,14 @@ Energy consumption for the last time frame from 300.74 to 301.28:
 301.28: [Host #2] utilization at 300.74 was 0.03%, now is 0.03%
 301.28: [Host #2] energy is 113.63 W*sec
 
-301.28: [Host #3] utilization at 300.74 was 0.27%, now is 0.27%
-301.28: [Host #3] energy is 115.79 W*sec
+301.28: [Host #3] utilization at 300.74 was 0.00%, now is 0.00%
+301.28: [Host #3] energy is 113.41 W*sec
 
-301.28: [Host #4] utilization at 300.74 was 0.02%, now is 0.02%
-301.28: [Host #4] energy is 113.58 W*sec
+301.28: [Host #4] utilization at 300.74 was 0.29%, now is 0.29%
+301.28: [Host #4] energy is 115.94 W*sec
 
-301.28: [Host #5] utilization at 300.74 was 0.00%, now is 0.00%
-301.28: [Host #5] energy is 0.00 W*sec
+301.28: [Host #5] utilization at 300.74 was 0.10%, now is 0.10%
+301.28: [Host #5] energy is 114.24 W*sec
 
 301.28: [Host #6] utilization at 300.74 was 0.00%, now is 0.00%
 301.28: [Host #6] energy is 0.00 W*sec
@@ -3016,7 +3333,7 @@ Energy consumption for the last time frame from 300.74 to 301.28:
 301.28: [Host #99] utilization at 300.74 was 0.00%, now is 0.00%
 301.28: [Host #99] energy is 0.00 W*sec
 
-301.28: Data center's energy is 456.40 W*sec
+301.28: Data center's energy is 570.70 W*sec
 
 
 301.28: VM #3 has been allocated to the host #0
@@ -3028,11 +3345,17 @@ Energy consumption for the last time frame from 300.74 to 301.28:
 
 New resource usage for the time frame starting at 301.28:
 
+301.28: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.28: [Host #0] VM #5 is being migrated to Host #0
 301.28: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.28: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
+301.28: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.28: [Host #0] VM #5 is being migrated to Host #0
 301.28: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.28: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
-301.28: [Host #0] utilization is 0.00%
+301.28: [Host #0] utilization is 0.01%
 
 301.28: [Host #1] utilization is 0.00%
 
@@ -3052,29 +3375,37 @@ New resource usage for the time frame starting at 301.28:
 301.28: [Host #2] VM #2 is in migration
 301.28: [Host #2] utilization is 0.03%
 
-301.28: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.28: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.28: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.28: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.28: [Host #3] utilization is 0.27%
+301.28: [Host #3] utilization is 0.00%
 
 301.28: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.68, was requested 31.86 out of total 2000.00 (1.59%)
 301.28: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.68. PE #0: 28.68. PE #0: 28.68. PE #0: 28.68.
 301.28: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.28: [Host #4] VM #4 is in migration
-301.28: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.28: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.28: [Host #4] VM #2 is being migrated to Host #4
+301.28: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.28: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 301.28: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.68, was requested 31.86 out of total 2000.00 (1.59%)
 301.28: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.68. PE #0: 28.68. PE #0: 28.68. PE #0: 28.68.
 301.28: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.28: [Host #4] VM #4 is in migration
-301.28: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.28: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.28: [Host #4] VM #2 is being migrated to Host #4
-301.28: [Host #4] utilization is 0.02%
+301.28: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.28: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
+301.28: [Host #4] utilization is 0.29%
 
-301.28: [Host #5] utilization is 0.00%
+301.28: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.85, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.85. PE #0: 143.85. PE #0: 143.85. PE #0: 143.85.
+301.28: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.28: [Host #5] VM #5 is in migration
+301.28: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.28: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.28: [Host #5] VM #2 is being migrated to Host #5
+301.28: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.85, was requested 159.83 out of total 2000.00 (7.99%)
+301.28: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.85. PE #0: 143.85. PE #0: 143.85. PE #0: 143.85.
+301.28: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.28: [Host #5] VM #5 is in migration
+301.28: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.28: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.28: [Host #5] VM #2 is being migrated to Host #5
+301.28: [Host #5] utilization is 0.10%
 
 301.28: [Host #6] utilization is 0.00%
 
@@ -3271,11 +3602,17 @@ New resource usage for the time frame starting at 301.28:
 
 New resource usage for the time frame starting at 301.38:
 
+301.38: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.38: [Host #0] VM #5 is being migrated to Host #0
 301.38: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.38: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
+301.38: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.38: [Host #0] VM #5 is being migrated to Host #0
 301.38: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.38: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
-301.38: [Host #0] utilization is 0.00%
+301.38: [Host #0] utilization is 0.01%
 
 301.38: [Host #1] utilization is 0.00%
 
@@ -3295,29 +3632,37 @@ New resource usage for the time frame starting at 301.38:
 301.38: [Host #2] VM #2 is in migration
 301.38: [Host #2] utilization is 0.03%
 
-301.38: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.38: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.38: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.38: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.38: [Host #3] utilization is 0.27%
+301.38: [Host #3] utilization is 0.00%
 
 301.38: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.67, was requested 31.85 out of total 2000.00 (1.59%)
 301.38: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.67. PE #0: 28.67. PE #0: 28.67. PE #0: 28.67.
 301.38: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.38: [Host #4] VM #4 is in migration
-301.38: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.38: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.38: [Host #4] VM #2 is being migrated to Host #4
+301.38: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.38: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 301.38: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.67, was requested 31.85 out of total 2000.00 (1.59%)
 301.38: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.67. PE #0: 28.67. PE #0: 28.67. PE #0: 28.67.
 301.38: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.38: [Host #4] VM #4 is in migration
-301.38: [Host #4] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
-301.38: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
-301.38: [Host #4] VM #2 is being migrated to Host #4
-301.38: [Host #4] utilization is 0.02%
+301.38: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.38: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
+301.38: [Host #4] utilization is 0.29%
 
-301.38: [Host #5] utilization is 0.00%
+301.38: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.83, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.83. PE #0: 143.83. PE #0: 143.83. PE #0: 143.83.
+301.38: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.38: [Host #5] VM #5 is in migration
+301.38: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.38: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.38: [Host #5] VM #2 is being migrated to Host #5
+301.38: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.83, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.83. PE #0: 143.83. PE #0: 143.83. PE #0: 143.83.
+301.38: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.38: [Host #5] VM #5 is in migration
+301.38: [Host #5] Total allocated MIPS for VM #2 (Host #2) is 4.20, was requested 41.99 out of total 1000.00 (4.20%)
+301.38: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.20. PE #0: 4.20.
+301.38: [Host #5] VM #2 is being migrated to Host #5
+301.38: [Host #5] utilization is 0.10%
 
 301.38: [Host #6] utilization is 0.00%
 
@@ -3509,8 +3854,8 @@ New resource usage for the time frame starting at 301.38:
 
 Energy consumption for the last time frame from 301.28 to 301.38:
 
-301.38: [Host #0] utilization at 301.28 was 0.00%, now is 0.00%
-301.38: [Host #0] energy is 21.00 W*sec
+301.38: [Host #0] utilization at 301.28 was 0.01%, now is 0.01%
+301.38: [Host #0] energy is 21.02 W*sec
 
 301.38: [Host #1] utilization at 301.28 was 0.00%, now is 0.00%
 301.38: [Host #1] energy is 0.00 W*sec
@@ -3518,14 +3863,14 @@ Energy consumption for the last time frame from 301.28 to 301.38:
 301.38: [Host #2] utilization at 301.28 was 0.03%, now is 0.03%
 301.38: [Host #2] energy is 21.04 W*sec
 
-301.38: [Host #3] utilization at 301.28 was 0.27%, now is 0.27%
-301.38: [Host #3] energy is 21.44 W*sec
+301.38: [Host #3] utilization at 301.28 was 0.00%, now is 0.00%
+301.38: [Host #3] energy is 0.00 W*sec
 
-301.38: [Host #4] utilization at 301.28 was 0.02%, now is 0.02%
-301.38: [Host #4] energy is 21.03 W*sec
+301.38: [Host #4] utilization at 301.28 was 0.29%, now is 0.29%
+301.38: [Host #4] energy is 21.47 W*sec
 
-301.38: [Host #5] utilization at 301.28 was 0.00%, now is 0.00%
-301.38: [Host #5] energy is 0.00 W*sec
+301.38: [Host #5] utilization at 301.28 was 0.10%, now is 0.10%
+301.38: [Host #5] energy is 21.16 W*sec
 
 301.38: [Host #6] utilization at 301.28 was 0.00%, now is 0.00%
 301.38: [Host #6] energy is 0.00 W*sec
@@ -3809,11 +4154,11 @@ Energy consumption for the last time frame from 301.28 to 301.38:
 301.38: [Host #99] utilization at 301.28 was 0.00%, now is 0.00%
 301.38: [Host #99] energy is 0.00 W*sec
 
-301.38: Data center's energy is 84.52 W*sec
+301.38: Data center's energy is 84.68 W*sec
 
 
-301.38: VM #2 has been allocated to the host #4
-301.38: Migration of VM #2 to Host #4 is completed
+301.38: VM #2 has been allocated to the host #5
+301.38: Migration of VM #2 to Host #5 is completed
 
 
 --------------------------------------------------------------
@@ -3821,11 +4166,17 @@ Energy consumption for the last time frame from 301.28 to 301.38:
 
 New resource usage for the time frame starting at 301.38:
 
+301.38: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.38: [Host #0] VM #5 is being migrated to Host #0
 301.38: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.38: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
+301.38: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 15.98, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 15.98. PE #0: 15.98. PE #0: 15.98. PE #0: 15.98.
+301.38: [Host #0] VM #5 is being migrated to Host #0
 301.38: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 1.02, was requested 1.02 out of total 1000.00 (0.10%)
 301.38: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 1.02. PE #0: 1.02.
-301.38: [Host #0] utilization is 0.00%
+301.38: [Host #0] utilization is 0.01%
 
 301.38: [Host #1] utilization is 0.00%
 
@@ -3837,27 +4188,35 @@ New resource usage for the time frame starting at 301.38:
 301.38: [Host #2] VM #4 is being migrated to Host #2
 301.38: [Host #2] utilization is 0.00%
 
-301.38: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.38: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.38: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
-301.38: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
-301.38: [Host #3] utilization is 0.27%
+301.38: [Host #3] utilization is 0.00%
 
 301.38: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.67, was requested 31.85 out of total 2000.00 (1.59%)
 301.38: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.67. PE #0: 28.67. PE #0: 28.67. PE #0: 28.67.
 301.38: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.38: [Host #4] VM #4 is in migration
-301.38: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 41.99, was requested 41.99 out of total 1000.00 (4.20%)
-301.38: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 41.99. PE #0: 41.99.
+301.38: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.38: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
 301.38: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 28.67, was requested 31.85 out of total 2000.00 (1.59%)
 301.38: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0). PE #0: 28.67. PE #0: 28.67. PE #0: 28.67. PE #0: 28.67.
 301.38: [Host #4] Under allocated MIPS for VM #4: 3.19
 301.38: [Host #4] VM #4 is in migration
-301.38: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 41.99, was requested 41.99 out of total 1000.00 (4.20%)
-301.38: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 41.99. PE #0: 41.99.
-301.38: [Host #4] utilization is 0.04%
+301.38: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 466.16, was requested 466.16 out of total 500.00 (93.23%)
+301.38: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 466.16.
+301.38: [Host #4] utilization is 0.29%
 
-301.38: [Host #5] utilization is 0.00%
+301.38: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.83, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.83. PE #0: 143.83. PE #0: 143.83. PE #0: 143.83.
+301.38: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.38: [Host #5] VM #5 is in migration
+301.38: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 41.99, was requested 41.99 out of total 1000.00 (4.20%)
+301.38: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 41.99. PE #0: 41.99.
+301.38: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 143.83, was requested 159.82 out of total 2000.00 (7.99%)
+301.38: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 143.83. PE #0: 143.83. PE #0: 143.83. PE #0: 143.83.
+301.38: [Host #5] Under allocated MIPS for VM #5: 15.98
+301.38: [Host #5] VM #5 is in migration
+301.38: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 41.99, was requested 41.99 out of total 1000.00 (4.20%)
+301.38: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 41.99. PE #0: 41.99.
+301.38: [Host #5] utilization is 0.12%
 
 301.38: [Host #6] utilization is 0.00%
 
@@ -4229,195 +4588,11 @@ NetwrokRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 25.6
 NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 1.0
 NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 1.4
 NetwrokRx Util Data: Cloudlet- 11 = 9.666666666666668 Transmitted: 494.1333333333333
-Number of simulation intervals = 13
-CPU Util Data: Cloudlet- 1 = 0.004
-CPU Util Data: Cloudlet- 2 = 0.0
-CPU Util Data: Cloudlet- 3 = 0.004
-CPU Util Data: Cloudlet- 4 = 0.0
-CPU Util Data: Cloudlet- 5 = 0.004
-CPU Util Data: Cloudlet- 6 = 0.0
-CPU Util Data: Cloudlet- 7 = 0.004
-CPU Util Data: Cloudlet- 8 = 0.0
-CPU Util Data: Cloudlet- 9 = 0.004
-CPU Util Data: Cloudlet- 10 = 0.0
-CPU Util Data: Cloudlet- 11 = 0.004
-Ram Util Data: Cloudlet- 1 = 120235.46666666666
-Ram Util Data: Cloudlet- 2 = 86680.26666666666
-Ram Util Data: Cloudlet- 3 = 103457.86666666667
-Ram Util Data: Cloudlet- 4 = 39144.0
-Ram Util Data: Cloudlet- 5 = 92272.8
-Ram Util Data: Cloudlet- 6 = 95069.06666666667
-Ram Util Data: Cloudlet- 7 = 299192.0
-Ram Util Data: Cloudlet- 8 = 167770.66666666666
-Ram Util Data: Cloudlet- 9 = 100661.6
-Ram Util Data: Cloudlet- 10 = 64310.13333333333
-Ram Util Data: Cloudlet- 11 = 61513.86666666667
-NetworkRx Util Data: Cloudlet- 1 = 0.2 Transmitted: 0.13333333333333333
-NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 3 = 0.2 Transmitted: 0.13333333333333333
-NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 5 = 0.2 Transmitted: 0.13333333333333333
-NetworkRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.06666666666666667
-NetworkRx Util Data: Cloudlet- 7 = 0.26666666666666666 Transmitted: 0.2
-NetworkRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 9 = 0.2 Transmitted: 0.13333333333333333
-NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 11 = 0.2 Transmitted: 0.06666666666666667
-NetwrokRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.3333333333333333
-NetwrokRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.06666666666666667
-NetwrokRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.06666666666666667
-NetwrokRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.13333333333333333
-NetwrokRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.06666666666666667
-NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 1.8666666666666667
-NetwrokRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 1.3333333333333333
-NetwrokRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.13333333333333333
-NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.13333333333333333
-NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.06666666666666667
-NetwrokRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.13333333333333333
-Number of simulation intervals = 13
-CPU Util Data: Cloudlet- 1 = 0.02
-CPU Util Data: Cloudlet- 2 = 0.015
-CPU Util Data: Cloudlet- 3 = 0.021
-CPU Util Data: Cloudlet- 4 = 0.015666666666666666
-CPU Util Data: Cloudlet- 5 = 0.021333333333333333
-CPU Util Data: Cloudlet- 6 = 0.017666666666666667
-CPU Util Data: Cloudlet- 7 = 0.021
-CPU Util Data: Cloudlet- 8 = 0.015
-CPU Util Data: Cloudlet- 9 = 0.021
-CPU Util Data: Cloudlet- 10 = 0.015666666666666666
-CPU Util Data: Cloudlet- 11 = 0.021
-Ram Util Data: Cloudlet- 1 = 301988.5333333333
-Ram Util Data: Cloudlet- 2 = 296396.26666666666
-Ram Util Data: Cloudlet- 3 = 223695.73333333334
-Ram Util Data: Cloudlet- 4 = 548054.4
-Ram Util Data: Cloudlet- 5 = 346727.4666666667
-Ram Util Data: Cloudlet- 6 = 318765.06666666665
-Ram Util Data: Cloudlet- 7 = 223695.73333333334
-Ram Util Data: Cloudlet- 8 = 268433.86666666664
-Ram Util Data: Cloudlet- 9 = 206917.86666666667
-Ram Util Data: Cloudlet- 10 = 301989.06666666665
-Ram Util Data: Cloudlet- 11 = 229287.2
-NetworkRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.5333333333333333
-NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.4666666666666667
-NetworkRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.5333333333333333
-NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.4666666666666667
-NetworkRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.6
-NetworkRx Util Data: Cloudlet- 6 = 0.13333333333333333 Transmitted: 0.6666666666666666
-NetworkRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.6
-NetworkRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 0.5333333333333333
-NetworkRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.4666666666666667
-NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.5333333333333333
-NetworkRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.5333333333333333
-NetwrokRx Util Data: Cloudlet- 1 = 0.26666666666666666 Transmitted: 9.666666666666668
-NetwrokRx Util Data: Cloudlet- 2 = 0.06666666666666667 Transmitted: 6.8
-NetwrokRx Util Data: Cloudlet- 3 = 0.26666666666666666 Transmitted: 10.266666666666666
-NetwrokRx Util Data: Cloudlet- 4 = 0.3333333333333333 Transmitted: 6.4
-NetwrokRx Util Data: Cloudlet- 5 = 0.4 Transmitted: 10.266666666666667
-NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 7.533333333333334
-NetwrokRx Util Data: Cloudlet- 7 = 0.13333333333333333 Transmitted: 10.066666666666668
-NetwrokRx Util Data: Cloudlet- 8 = 0.06666666666666667 Transmitted: 8.0
-NetwrokRx Util Data: Cloudlet- 9 = 0.06666666666666667 Transmitted: 10.266666666666666
-NetwrokRx Util Data: Cloudlet- 10 = 0.06666666666666667 Transmitted: 6.733333333333333
-NetwrokRx Util Data: Cloudlet- 11 = 0.2 Transmitted: 9.666666666666666
-Number of simulation intervals = 13
-CPU Util Data: Cloudlet- 1 = 0.0
-CPU Util Data: Cloudlet- 2 = 0.0
-CPU Util Data: Cloudlet- 3 = 0.0
-CPU Util Data: Cloudlet- 4 = 0.0
-CPU Util Data: Cloudlet- 5 = 0.0
-CPU Util Data: Cloudlet- 6 = 0.0
-CPU Util Data: Cloudlet- 7 = 0.0
-CPU Util Data: Cloudlet- 8 = 0.38083333333333336
-CPU Util Data: Cloudlet- 9 = 0.21733333333333335
-CPU Util Data: Cloudlet- 10 = 0.36733333333333335
-CPU Util Data: Cloudlet- 11 = 0.0
-Ram Util Data: Cloudlet- 1 = 0.0
-Ram Util Data: Cloudlet- 2 = 0.0
-Ram Util Data: Cloudlet- 3 = 0.0
-Ram Util Data: Cloudlet- 4 = 0.0
-Ram Util Data: Cloudlet- 5 = 0.0
-Ram Util Data: Cloudlet- 6 = 0.0
-Ram Util Data: Cloudlet- 7 = 0.0
-Ram Util Data: Cloudlet- 8 = 1855977.0
-Ram Util Data: Cloudlet- 9 = 1967127.2
-Ram Util Data: Cloudlet- 10 = 1811937.6
-Ram Util Data: Cloudlet- 11 = 1010824.0
-NetworkRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 1.1111111111111112
-NetworkRx Util Data: Cloudlet- 9 = 387.53333333333336 Transmitted: 9.533333333333333
-NetworkRx Util Data: Cloudlet- 10 = 161.66666666666666 Transmitted: 4.2
-NetworkRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 8 = 4125.0 Transmitted: 1755.5454545454545
-NetwrokRx Util Data: Cloudlet- 9 = 1158.0666666666666 Transmitted: 3076.0
-NetwrokRx Util Data: Cloudlet- 10 = 2106.866666666667 Transmitted: 6553.333333333333
-NetwrokRx Util Data: Cloudlet- 11 = 1.8 Transmitted: 5.4
-Number of simulation intervals = 13
-CPU Util Data: Cloudlet- 1 = 0.0
-CPU Util Data: Cloudlet- 2 = 0.0
-CPU Util Data: Cloudlet- 3 = 0.0
-CPU Util Data: Cloudlet- 4 = 0.0
-CPU Util Data: Cloudlet- 5 = 0.0
-CPU Util Data: Cloudlet- 6 = 0.0
-CPU Util Data: Cloudlet- 7 = 0.0
-CPU Util Data: Cloudlet- 8 = 0.0
-CPU Util Data: Cloudlet- 9 = 0.0
-CPU Util Data: Cloudlet- 10 = 0.0
-CPU Util Data: Cloudlet- 11 = 0.0
-Ram Util Data: Cloudlet- 1 = 0.0
-Ram Util Data: Cloudlet- 2 = 0.0
-Ram Util Data: Cloudlet- 3 = 0.0
-Ram Util Data: Cloudlet- 4 = 0.0
-Ram Util Data: Cloudlet- 5 = 0.0
-Ram Util Data: Cloudlet- 6 = 0.0
-Ram Util Data: Cloudlet- 7 = 0.0
-Ram Util Data: Cloudlet- 8 = 0.0
-Ram Util Data: Cloudlet- 9 = 0.0
-Ram Util Data: Cloudlet- 10 = 0.0
-Ram Util Data: Cloudlet- 11 = 0.0
-NetworkRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.0
-NetworkRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 1 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 2 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 3 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 4 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 5 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 6 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 7 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 8 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 9 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 10 = 0.0 Transmitted: 0.0
-NetwrokRx Util Data: Cloudlet- 11 = 0.0 Transmitted: 0.0
-Creating VM with VMID = 8
-Creating VM with VMID = 9
-Creating VM with VMID = 10
-Creating VM with VMID = 11
 Creating VM with VMID = 12
 Creating VM with VMID = 13
 Creating VM with VMID = 14
 Creating VM with VMID = 15
-Dynamically submitted total 8 cloudlets and VMs
+Dynamically submitted total 4 cloudlets and VMs
 Num vms 16
 
 
@@ -4426,11 +4601,17 @@ Num vms 16
 
 New resource usage for the time frame starting at 600.00:
 
+600.00: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 12.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 12.00. PE #0: 12.00. PE #0: 12.00. PE #0: 12.00.
+600.00: [Host #0] VM #5 is being migrated to Host #0
 600.00: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.00: [Host #0] Total allocated MIPS for VM #5 (Host #5) is 12.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 12.00. PE #0: 12.00. PE #0: 12.00. PE #0: 12.00.
+600.00: [Host #0] VM #5 is being migrated to Host #0
 600.00: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
-600.00: [Host #0] utilization is 0.00%
+600.00: [Host #0] utilization is 0.01%
 
 600.00: [Host #1] utilization is 0.00%
 
@@ -4442,25 +4623,33 @@ New resource usage for the time frame starting at 600.00:
 600.00: [Host #2] VM #4 is being migrated to Host #2
 600.00: [Host #2] utilization is 0.00%
 
-600.00: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
-600.00: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
-600.00: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
-600.00: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
-600.00: [Host #3] utilization is 0.27%
+600.00: [Host #3] utilization is 0.00%
 
 600.00: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
 600.00: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0).
 600.00: [Host #4] VM #4 is in migration
-600.00: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.00: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.00: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
+600.00: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
 600.00: [Host #4] Total allocated MIPS for VM #4 (Host #4) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
 600.00: [Host #4] MIPS for VM #4 by PEs (64 * 2660.0).
 600.00: [Host #4] VM #4 is in migration
-600.00: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.00: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
-600.00: [Host #4] utilization is 0.02%
+600.00: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
+600.00: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
+600.00: [Host #4] utilization is 0.27%
 
-600.00: [Host #5] utilization is 0.00%
+600.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 108.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 108.00. PE #0: 108.00. PE #0: 108.00. PE #0: 108.00.
+600.00: [Host #5] Under allocated MIPS for VM #5: 12.00
+600.00: [Host #5] VM #5 is in migration
+600.00: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.00: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.00: [Host #5] Total allocated MIPS for VM #5 (Host #5) is 108.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #5] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 108.00. PE #0: 108.00. PE #0: 108.00. PE #0: 108.00.
+600.00: [Host #5] Under allocated MIPS for VM #5: 12.00
+600.00: [Host #5] VM #5 is in migration
+600.00: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.00: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.00: [Host #5] utilization is 0.09%
 
 600.00: [Host #6] utilization is 0.00%
 
@@ -4652,8 +4841,8 @@ New resource usage for the time frame starting at 600.00:
 
 Energy consumption for the last time frame from 301.38 to 600.00:
 
-600.00: [Host #0] utilization at 301.38 was 0.00%, now is 0.00%
-600.00: [Host #0] energy is 62725.26 W*sec
+600.00: [Host #0] utilization at 301.38 was 0.01%, now is 0.01%
+600.00: [Host #0] energy is 62759.15 W*sec
 
 600.00: [Host #1] utilization at 301.38 was 0.00%, now is 0.00%
 600.00: [Host #1] energy is 0.00 W*sec
@@ -4661,14 +4850,14 @@ Energy consumption for the last time frame from 301.38 to 600.00:
 600.00: [Host #2] utilization at 301.38 was 0.00%, now is 0.00%
 600.00: [Host #2] energy is 0.00 W*sec
 
-600.00: [Host #3] utilization at 301.38 was 0.27%, now is 0.27%
-600.00: [Host #3] energy is 64024.12 W*sec
+600.00: [Host #3] utilization at 301.38 was 0.00%, now is 0.00%
+600.00: [Host #3] energy is 0.00 W*sec
 
-600.00: [Host #4] utilization at 301.38 was 0.02%, now is 0.02%
-600.00: [Host #4] energy is 62825.05 W*sec
+600.00: [Host #4] utilization at 301.38 was 0.27%, now is 0.27%
+600.00: [Host #4] energy is 64024.12 W*sec
 
-600.00: [Host #5] utilization at 301.38 was 0.00%, now is 0.00%
-600.00: [Host #5] energy is 0.00 W*sec
+600.00: [Host #5] utilization at 301.38 was 0.09%, now is 0.09%
+600.00: [Host #5] energy is 63163.94 W*sec
 
 600.00: [Host #6] utilization at 301.38 was 0.00%, now is 0.00%
 600.00: [Host #6] energy is 0.00 W*sec
@@ -4952,11 +5141,13 @@ Energy consumption for the last time frame from 301.38 to 600.00:
 600.00: [Host #99] utilization at 301.38 was 0.00%, now is 0.00%
 600.00: [Host #99] energy is 0.00 W*sec
 
-600.00: Data center's energy is 189574.43 W*sec
+600.00: Data center's energy is 189947.22 W*sec
 
 
 600.00: VM #4 has been allocated to the host #2
 600.00: Migration of VM #4 to Host #2 is completed
+600.00: VM #5 has been allocated to the host #0
+600.00: Migration of VM #5 to Host #0 is completed
 
 
 --------------------------------------------------------------
@@ -4966,9 +5157,13 @@ New resource usage for the time frame starting at 600.00:
 
 600.00: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.00: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.00. PE #0: 120.00. PE #0: 120.00. PE #0: 120.00.
 600.00: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.00: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
-600.00: [Host #0] utilization is 0.00%
+600.00: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.00, was requested 120.00 out of total 2000.00 (6.00%)
+600.00: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.00. PE #0: 120.00. PE #0: 120.00. PE #0: 120.00.
+600.00: [Host #0] utilization is 0.07%
 
 600.00: [Host #1] utilization is 0.00%
 
@@ -4978,19 +5173,19 @@ New resource usage for the time frame starting at 600.00:
 600.00: [Host #2] MIPS for VM #4 by PEs (64 * 2660.0).
 600.00: [Host #2] utilization is 0.00%
 
-600.00: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
-600.00: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
-600.00: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
-600.00: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
-600.00: [Host #3] utilization is 0.27%
+600.00: [Host #3] utilization is 0.00%
 
-600.00: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.00: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
-600.00: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.00: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
-600.00: [Host #4] utilization is 0.02%
+600.00: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
+600.00: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
+600.00: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.25, was requested 465.25 out of total 500.00 (93.05%)
+600.00: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.25.
+600.00: [Host #4] utilization is 0.27%
 
-600.00: [Host #5] utilization is 0.00%
+600.00: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.00: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.00: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.00: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.00: [Host #5] utilization is 0.02%
 
 600.00: [Host #6] utilization is 0.00%
 
@@ -5180,27 +5375,19 @@ New resource usage for the time frame starting at 600.00:
 
 600.00: [Host #99] utilization is 0.00%
 VM #4 has been deallocated from host #2
-VMs left = 3
+VMs left = 4
 
 Adding: Broker1
 Broker1 is starting...
 600.0: Broker1: Cloud Resource List received with 1 resource(s)
-600.0: Broker1: Trying to Create VM #8 in Datacenter
-600.0: Broker1: Trying to Create VM #9 in Datacenter
-600.0: Broker1: Trying to Create VM #10 in Datacenter
-600.0: Broker1: Trying to Create VM #11 in Datacenter
 600.0: Broker1: Trying to Create VM #12 in Datacenter
 600.0: Broker1: Trying to Create VM #13 in Datacenter
 600.0: Broker1: Trying to Create VM #14 in Datacenter
 600.0: Broker1: Trying to Create VM #15 in Datacenter
-600.00: VM #8 has been allocated to the host #0
-600.00: VM #9 has been allocated to the host #1
-600.00: VM #10 has been allocated to the host #2
-600.00: VM #11 has been allocated to the host #3
-600.00: VM #12 has been allocated to the host #5
-600.00: VM #13 has been allocated to the host #6
-600.00: VM #14 has been allocated to the host #4
-600.00: VM #15 has been allocated to the host #7
+600.00: VM #12 has been allocated to the host #0
+600.00: VM #13 has been allocated to the host #1
+600.00: VM #14 has been allocated to the host #2
+600.00: VM #15 has been allocated to the host #4
 
 
 --------------------------------------------------------------
@@ -5210,62 +5397,50 @@ New resource usage for the time frame starting at 600.10:
 
 600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
-600.10: [Host #0] Total allocated MIPS for VM #8 (Host #0) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-600.10: [Host #0] MIPS for VM #8 by PEs (64 * 2660.0).
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #12 (Host #0) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+600.10: [Host #0] MIPS for VM #12 by PEs (64 * 2660.0).
 600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
 600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
-600.10: [Host #0] Total allocated MIPS for VM #8 (Host #0) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-600.10: [Host #0] MIPS for VM #8 by PEs (64 * 2660.0).
-600.10: [Host #0] utilization is 0.00%
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #12 (Host #0) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
+600.10: [Host #0] MIPS for VM #12 by PEs (64 * 2660.0).
+600.10: [Host #0] utilization is 0.07%
 
-600.10: [Host #1] Total allocated MIPS for VM #9 (Host #1) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-600.10: [Host #1] MIPS for VM #9 by PEs (64 * 2660.0).
-600.10: [Host #1] Total allocated MIPS for VM #9 (Host #1) is 0.00, was requested 0.00 out of total 500.00 (0.00%)
-600.10: [Host #1] MIPS for VM #9 by PEs (64 * 2660.0).
+600.10: [Host #1] Total allocated MIPS for VM #13 (Host #1) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+600.10: [Host #1] MIPS for VM #13 by PEs (64 * 2660.0).
+600.10: [Host #1] Total allocated MIPS for VM #13 (Host #1) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
+600.10: [Host #1] MIPS for VM #13 by PEs (64 * 2660.0).
 600.10: [Host #1] utilization is 0.00%
 
-600.10: [Host #2] Total allocated MIPS for VM #10 (Host #2) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-600.10: [Host #2] MIPS for VM #10 by PEs (64 * 2660.0).
-600.10: [Host #2] Total allocated MIPS for VM #10 (Host #2) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-600.10: [Host #2] MIPS for VM #10 by PEs (64 * 2660.0).
+600.10: [Host #2] Total allocated MIPS for VM #14 (Host #2) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+600.10: [Host #2] MIPS for VM #14 by PEs (64 * 2660.0).
+600.10: [Host #2] Total allocated MIPS for VM #14 (Host #2) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
+600.10: [Host #2] MIPS for VM #14 by PEs (64 * 2660.0).
 600.10: [Host #2] utilization is 0.00%
 
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #11 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-600.10: [Host #3] MIPS for VM #11 by PEs (64 * 2660.0).
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #11 (Host #3) is 0.00, was requested 0.00 out of total 1000.00 (0.00%)
-600.10: [Host #3] MIPS for VM #11 by PEs (64 * 2660.0).
-600.10: [Host #3] utilization is 0.27%
+600.10: [Host #3] utilization is 0.00%
 
-600.10: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
-600.10: [Host #4] Total allocated MIPS for VM #14 (Host #4) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
-600.10: [Host #4] MIPS for VM #14 by PEs (64 * 2660.0).
-600.10: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
-600.10: [Host #4] Total allocated MIPS for VM #14 (Host #4) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
-600.10: [Host #4] MIPS for VM #14 by PEs (64 * 2660.0).
-600.10: [Host #4] utilization is 0.02%
+600.10: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
+600.10: [Host #4] Total allocated MIPS for VM #15 (Host #4) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
+600.10: [Host #4] MIPS for VM #15 by PEs (64 * 2660.0).
+600.10: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
+600.10: [Host #4] Total allocated MIPS for VM #15 (Host #4) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
+600.10: [Host #4] MIPS for VM #15 by PEs (64 * 2660.0).
+600.10: [Host #4] utilization is 0.27%
 
-600.10: [Host #5] Total allocated MIPS for VM #12 (Host #5) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-600.10: [Host #5] MIPS for VM #12 by PEs (64 * 2660.0).
-600.10: [Host #5] Total allocated MIPS for VM #12 (Host #5) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-600.10: [Host #5] MIPS for VM #12 by PEs (64 * 2660.0).
-600.10: [Host #5] utilization is 0.00%
+600.10: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.10: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 40.67, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 40.67. PE #0: 40.67.
+600.10: [Host #5] utilization is 0.02%
 
-600.10: [Host #6] Total allocated MIPS for VM #13 (Host #6) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-600.10: [Host #6] MIPS for VM #13 by PEs (64 * 2660.0).
-600.10: [Host #6] Total allocated MIPS for VM #13 (Host #6) is 0.00, was requested 0.00 out of total 2000.00 (0.00%)
-600.10: [Host #6] MIPS for VM #13 by PEs (64 * 2660.0).
 600.10: [Host #6] utilization is 0.00%
 
-600.10: [Host #7] Total allocated MIPS for VM #15 (Host #7) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
-600.10: [Host #7] MIPS for VM #15 by PEs (64 * 2660.0).
-600.10: [Host #7] Total allocated MIPS for VM #15 (Host #7) is 0.00, was requested 0.00 out of total 2500.00 (0.00%)
-600.10: [Host #7] MIPS for VM #15 by PEs (64 * 2660.0).
 600.10: [Host #7] utilization is 0.00%
 
 600.10: [Host #8] utilization is 0.00%
@@ -5454,8 +5629,8 @@ New resource usage for the time frame starting at 600.10:
 
 Energy consumption for the last time frame from 600.00 to 600.10:
 
-600.10: [Host #0] utilization at 600.00 was 0.00%, now is 0.00%
-600.10: [Host #0] energy is 21.01 W*sec
+600.10: [Host #0] utilization at 600.00 was 0.07%, now is 0.07%
+600.10: [Host #0] energy is 21.12 W*sec
 
 600.10: [Host #1] utilization at 600.00 was 0.00%, now is 0.00%
 600.10: [Host #1] energy is 0.00 W*sec
@@ -5463,14 +5638,14 @@ Energy consumption for the last time frame from 600.00 to 600.10:
 600.10: [Host #2] utilization at 600.00 was 0.00%, now is 0.00%
 600.10: [Host #2] energy is 0.00 W*sec
 
-600.10: [Host #3] utilization at 600.00 was 0.27%, now is 0.27%
-600.10: [Host #3] energy is 21.44 W*sec
+600.10: [Host #3] utilization at 600.00 was 0.00%, now is 0.00%
+600.10: [Host #3] energy is 0.00 W*sec
 
-600.10: [Host #4] utilization at 600.00 was 0.02%, now is 0.02%
-600.10: [Host #4] energy is 21.04 W*sec
+600.10: [Host #4] utilization at 600.00 was 0.27%, now is 0.27%
+600.10: [Host #4] energy is 21.44 W*sec
 
-600.10: [Host #5] utilization at 600.00 was 0.00%, now is 0.00%
-600.10: [Host #5] energy is 0.00 W*sec
+600.10: [Host #5] utilization at 600.00 was 0.02%, now is 0.02%
+600.10: [Host #5] energy is 21.04 W*sec
 
 600.10: [Host #6] utilization at 600.00 was 0.00%, now is 0.00%
 600.10: [Host #6] energy is 0.00 W*sec
@@ -5754,81 +5929,81 @@ Energy consumption for the last time frame from 600.00 to 600.10:
 600.10: [Host #99] utilization at 600.00 was 0.00%, now is 0.00%
 600.10: [Host #99] energy is 0.00 W*sec
 
-600.10: Data center's energy is 63.48 W*sec
+600.10: Data center's energy is 63.60 W*sec
 
-VM #8 has been deallocated from host #0
-VMs left = 10
-VM #9 has been deallocated from host #1
-VMs left = 9
-VM #10 has been deallocated from host #2
-VMs left = 8
-VM #11 has been deallocated from host #3
+VM #12 has been deallocated from host #0
 VMs left = 7
-VM #14 has been deallocated from host #4
+VM #13 has been deallocated from host #1
 VMs left = 6
-VM #12 has been deallocated from host #5
+VM #14 has been deallocated from host #2
 VMs left = 5
-VM #13 has been deallocated from host #6
+VM #15 has been deallocated from host #4
 VMs left = 4
-VM #15 has been deallocated from host #7
-VMs left = 3
 
 Over-utilized hosts:
 
 Reallocation of VMs from the over-utilized hosts:
 
-Under-utilized host: host #0
+Under-utilized host: host #5
 
-Reallocation of VMs from the under-utilized host: 3 
-VM #3 allocated to host #3
+Reallocation of VMs from the under-utilized host: 2 
+VM #2 allocated to host #0
 
 Under-utilized host: host #4
 
-Reallocation of VMs from the under-utilized host: 2 
-VM #2 allocated to host #3
+Reallocation of VMs from the under-utilized host: 0 
+VM #0 allocated to host #0
 
-600.10: Migration of VM #3 from Host #0 to Host #3 is started
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #3 (Host #0) is 0.53, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.53. PE #0: 0.53.
-600.10: [Host #3] VM #3 is being migrated to Host #3
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #3 (Host #0) is 0.53, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.53. PE #0: 0.53.
-600.10: [Host #3] VM #3 is being migrated to Host #3
-600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 4.80, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 4.80. PE #0: 4.80.
-600.10: [Host #0] Under allocated MIPS for VM #3: 0.53
-600.10: [Host #0] VM #3 is in migration
-600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 4.80, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 4.80. PE #0: 4.80.
-600.10: [Host #0] Under allocated MIPS for VM #3: 0.53
-600.10: [Host #0] VM #3 is in migration
-600.10: Migration of VM #2 from Host #4 to Host #3 is started
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #3 (Host #0) is 0.53, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.53. PE #0: 0.53.
-600.10: [Host #3] VM #3 is being migrated to Host #3
-600.10: [Host #3] Total allocated MIPS for VM #2 (Host #4) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #3] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
-600.10: [Host #3] VM #2 is being migrated to Host #3
-600.10: [Host #3] Total allocated MIPS for VM #0 (Host #3) is 465.24, was requested 465.24 out of total 500.00 (93.05%)
-600.10: [Host #3] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 465.24.
-600.10: [Host #3] Total allocated MIPS for VM #3 (Host #0) is 0.53, was requested 5.33 out of total 1000.00 (0.53%)
-600.10: [Host #3] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 0.53. PE #0: 0.53.
-600.10: [Host #3] VM #3 is being migrated to Host #3
-600.10: [Host #3] Total allocated MIPS for VM #2 (Host #4) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #3] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
-600.10: [Host #3] VM #2 is being migrated to Host #3
-600.10: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 36.60, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 36.60. PE #0: 36.60.
-600.10: [Host #4] Under allocated MIPS for VM #2: 4.07
-600.10: [Host #4] VM #2 is in migration
-600.10: [Host #4] Total allocated MIPS for VM #2 (Host #4) is 36.60, was requested 40.67 out of total 1000.00 (4.07%)
-600.10: [Host #4] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 36.60. PE #0: 36.60.
-600.10: [Host #4] Under allocated MIPS for VM #2: 4.07
-600.10: [Host #4] VM #2 is in migration
+600.10: Migration of VM #2 from Host #5 to Host #0 is started
+600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
+600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #2 (Host #5) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #0] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
+600.10: [Host #0] VM #2 is being migrated to Host #0
+600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
+600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #2 (Host #5) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #0] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
+600.10: [Host #0] VM #2 is being migrated to Host #0
+600.10: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 36.60, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 36.60. PE #0: 36.60.
+600.10: [Host #5] Under allocated MIPS for VM #2: 4.07
+600.10: [Host #5] VM #2 is in migration
+600.10: [Host #5] Total allocated MIPS for VM #2 (Host #5) is 36.60, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #5] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 36.60. PE #0: 36.60.
+600.10: [Host #5] Under allocated MIPS for VM #2: 4.07
+600.10: [Host #5] VM #2 is in migration
+600.10: Migration of VM #0 from Host #4 to Host #0 is started
+600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
+600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #2 (Host #5) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #0] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
+600.10: [Host #0] VM #2 is being migrated to Host #0
+600.10: [Host #0] Total allocated MIPS for VM #0 (Host #4) is 46.52, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.52.
+600.10: [Host #0] VM #0 is being migrated to Host #0
+600.10: [Host #0] Total allocated MIPS for VM #3 (Host #0) is 5.33, was requested 5.33 out of total 1000.00 (0.53%)
+600.10: [Host #0] MIPS for VM #3 by PEs (64 * 2660.0). PE #0: 5.33. PE #0: 5.33.
+600.10: [Host #0] Total allocated MIPS for VM #5 (Host #0) is 120.02, was requested 120.02 out of total 2000.00 (6.00%)
+600.10: [Host #0] MIPS for VM #5 by PEs (64 * 2660.0). PE #0: 120.02. PE #0: 120.02. PE #0: 120.02. PE #0: 120.02.
+600.10: [Host #0] Total allocated MIPS for VM #2 (Host #5) is 4.07, was requested 40.67 out of total 1000.00 (4.07%)
+600.10: [Host #0] MIPS for VM #2 by PEs (64 * 2660.0). PE #0: 4.07. PE #0: 4.07.
+600.10: [Host #0] VM #2 is being migrated to Host #0
+600.10: [Host #0] Total allocated MIPS for VM #0 (Host #4) is 46.52, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #0] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 46.52.
+600.10: [Host #0] VM #0 is being migrated to Host #0
+600.10: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 418.72, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 418.72.
+600.10: [Host #4] Under allocated MIPS for VM #0: 46.52
+600.10: [Host #4] VM #0 is in migration
+600.10: [Host #4] Total allocated MIPS for VM #0 (Host #4) is 418.72, was requested 465.24 out of total 500.00 (93.05%)
+600.10: [Host #4] MIPS for VM #0 by PEs (64 * 2660.0). PE #0: 418.72.
+600.10: [Host #4] Under allocated MIPS for VM #0: 46.52
+600.10: [Host #4] VM #0 is in migration
 The simulation has been terminated due to an unexpected error

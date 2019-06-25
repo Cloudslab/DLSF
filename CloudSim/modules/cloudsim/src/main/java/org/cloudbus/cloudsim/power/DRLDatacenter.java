@@ -163,19 +163,7 @@ public class DRLDatacenter extends PowerDatacenter {
         if (currentTime > getLastProcessTime()) {
             System.out.println((int)currentTime/3600 + " hr " + ((int)(currentTime/60)-(60*((int)currentTime/3600))) + " min");
 
-            double minTime = updateCloudetProcessingWithoutSchedulingFutureEventsForce();
-
-            // Send reward and next input to DL Model
-            if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
-                updateDLModel();
-            }
-
-//            Log.setDisabled(false);
-            if(this.savedTimeDiff > 200){
-                Log.printLine("LOSS : \n" + getLoss());
-                Log.printLine("INPUT : \n" + getInput());
-            }
-//            Log.setDisabled(true);
+            double minTime = this.updateCloudetProcessingWithoutSchedulingFutureEventsForce();
 
             if (!isDisableMigrations()) {
                 List<Map<String, Object>> migrationMap = getVmAllocationPolicy().optimizeAllocation(
@@ -187,20 +175,20 @@ public class DRLDatacenter extends PowerDatacenter {
                         PowerHost targetHost = (PowerHost) migrate.get("host");
                         PowerHost oldHost = (PowerHost) vm.getHost();
 
-                        if (oldHost == null) {
-                            Log.formatLine(
-                                    "%.2f: Migration of VM #%d to Host #%d is started",
-                                    currentTime,
-                                    vm.getId(),
-                                    targetHost.getId());
-                        } else {
-                            Log.formatLine(
-                                    "%.2f: Migration of VM #%d from Host #%d to Host #%d is started",
-                                    currentTime,
-                                    vm.getId(),
-                                    oldHost.getId(),
-                                    targetHost.getId());
-                        }
+//                        if (oldHost == null) {
+//                            Log.formatLine(
+//                                    "%.2f: Migration of VM #%d to Host #%d is started",
+//                                    currentTime,
+//                                    vm.getId(),
+//                                    targetHost.getId());
+//                        } else {
+//                            Log.formatLine(
+//                                    "%.2f: Migration of VM #%d from Host #%d to Host #%d is started",
+//                                    currentTime,
+//                                    vm.getId(),
+//                                    oldHost.getId(),
+//                                    targetHost.getId());
+//                        }
 
                         targetHost.addMigratingInVm(vm);
                         incrementMigrationCount();
@@ -247,29 +235,44 @@ public class DRLDatacenter extends PowerDatacenter {
         this.savedLastTime = getLastProcessTime();
         this.savedTimeDiff = timeDiff;
 
-        Log.printLine("\n\n--------------------------------------------------------------\n\n");
-        Log.formatLine("New resource usage for the time frame starting at %.2f:", currentTime);
+        // Send reward and next input to DL Model
+        if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
+            updateDLModel();
+        }
 
-        for (PowerHost host : this.<PowerHost> getHostList()) {
-            Log.printLine();
+//        Log.setDisabled(false);
+        if(this.savedTimeDiff > 200){
+            Log.printLine2("LOSS : \n" + getLoss());
+            for(Vm vm : this.getVmList()){
+                Log.printLine2("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId());
+            }
+            Log.printLine2("INPUT : \n" + getInput());
+        }
+//        Log.setDisabled(true);
+
+//        Log.printLine("\n\n--------------------------------------------------------------\n\n");
+//        Log.formatLine("New resource usage for the time frame starting at %.2f:", currentTime);
+
+        for (DRLHost host : this.<DRLHost> getHostList()) {
+//            Log.printLine();
 
             double time = host.updateVmsProcessing(currentTime); // inform VMs to update processing
             if (time < minTime) {
                 minTime = time;
             }
 
-            Log.formatLine(
-                    "%.2f: [Host #%d] utilization is %.2f%%",
-                    currentTime,
-                    host.getId(),
-                    host.getUtilizationOfCpu() * 100);
+//            Log.formatLine(
+//                    "%.2f: [Host #%d] utilization is %.2f%%",
+//                    currentTime,
+//                    host.getId(),
+//                    host.getUtilizationOfCpu() * 100);
         }
 
         if (timeDiff > 0) {
-            Log.formatLine(
-                    "\nEnergy consumption for the last time frame from %.2f to %.2f:",
-                    getLastProcessTime(),
-                    currentTime);
+//            Log.formatLine(
+//                    "\nEnergy consumption for the last time frame from %.2f to %.2f:",
+//                    getLastProcessTime(),
+//                    currentTime);
 
             for (PowerHost host : this.<PowerHost> getHostList()) {
                 double previousUtilizationOfCpu = host.getPreviousUtilizationOfCpu();
@@ -282,25 +285,25 @@ public class DRLDatacenter extends PowerDatacenter {
 
                 this.hostEnergy[this.getHostList().indexOf(host)] = timeFrameHostEnergy;
 
-                Log.printLine();
-                Log.formatLine(
-                        "%.2f: [Host #%d] utilization at %.2f was %.2f%%, now is %.2f%%",
-                        currentTime,
-                        host.getId(),
-                        getLastProcessTime(),
-                        previousUtilizationOfCpu * 100,
-                        utilizationOfCpu * 100);
-                Log.formatLine(
-                        "%.2f: [Host #%d] energy is %.2f W*sec",
-                        currentTime,
-                        host.getId(),
-                        timeFrameHostEnergy);
+//                Log.printLine();
+//                Log.formatLine(
+//                        "%.2f: [Host #%d] utilization at %.2f was %.2f%%, now is %.2f%%",
+//                        currentTime,
+//                        host.getId(),
+//                        getLastProcessTime(),
+//                        previousUtilizationOfCpu * 100,
+//                        utilizationOfCpu * 100);
+//                Log.formatLine(
+//                        "%.2f: [Host #%d] energy is %.2f W*sec",
+//                        currentTime,
+//                        host.getId(),
+//                        timeFrameHostEnergy);
             }
 
-            Log.formatLine(
-                    "\n%.2f: Data center's energy is %.2f W*sec\n",
-                    currentTime,
-                    timeFrameDatacenterEnergy);
+//            Log.formatLine(
+//                    "\n%.2f: Data center's energy is %.2f W*sec\n",
+//                    currentTime,
+//                    timeFrameDatacenterEnergy);
         }
 
         setPower(getPower() + timeFrameDatacenterEnergy);
@@ -310,19 +313,17 @@ public class DRLDatacenter extends PowerDatacenter {
         /** Remove completed VMs **/
         for (DRLHost host : this.<DRLHost> getHostList()) {
             for (Vm vm : host.getCompletedVms()) {
-                if(currentTime - ((DRLVm)vm).startTime < 1){
+                if(currentTime - ((DRLVm)vm).startTime < 2 || vm.getCloudletScheduler().getCloudletExecList().size() < 1){
                     // Skip VMs just added
                     continue;
                 }
-                ((DRLVm)vm).totalResponseTime = currentTime - ((DRLVm)vm).startTime;
-                Log.printLine("VM #" + vm.getId() + " has been deallocated with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
+                Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + host.getId() + "with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
                 this.totalResponseTime = ((DRLVm)vm).totalResponseTime;
                 this.totalMigrationTime = ((DRLVm)vm).totalMigrationTime;
                 this.numVmsEnded += 1;
                 getVmAllocationPolicy().deallocateHostForVm(vm);
                 getVmList().remove(vm);
                 this.broker.getVmList().remove(vm);
-                Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + host.getId());
                 Log.printLine("VMs left = " + getVmList().size());
             }
         }

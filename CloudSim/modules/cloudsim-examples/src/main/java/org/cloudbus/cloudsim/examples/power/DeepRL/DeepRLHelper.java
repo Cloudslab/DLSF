@@ -104,12 +104,13 @@ public class DeepRLHelper {
         Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
 
         numCloudLets = (int) (rnd.nextGaussian() * DeepRLConstants.stdGaussian + DeepRLConstants.meanGaussian);
+        numCloudLets = Math.max(numCloudLets, 1);
 
         for (int i = 0; i < numCloudLets; i++) {
             Cloudlet cloudlet = null;
             try {
                 // lastfileId is the file index which circles around all files
-                System.out.println("\n@SSI- Filenumber- " + lastfileId + " filepath- " + files[lastfileId].getAbsolutePath() );
+                Log.printLine("@SSI- Filenumber- " + lastfileId + " filepath- " + files[lastfileId].getPath() );
                 lastfileId = (lastfileId + 1) % files.length;
 
                 // Cloudlet id and vm id are same and equal to lastCloudletId

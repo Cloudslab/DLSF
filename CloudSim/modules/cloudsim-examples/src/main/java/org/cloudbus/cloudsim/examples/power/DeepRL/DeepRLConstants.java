@@ -14,7 +14,7 @@ public class DeepRLConstants {
 
     public final static String pythonClass = "DeepRL";
 
-    public final static double meanGaussian = 5;
+    public final static double meanGaussian = 3;
 
     public final static double stdGaussian = 2;
 
@@ -29,7 +29,7 @@ public class DeepRLConstants {
     public final static boolean OUTPUT_CSV    = true; //
 
     public final static double SCHEDULING_INTERVAL = 300; // 5 min
-    public final static double SIMULATION_LIMIT = 1*60*60; // 1 hr
+    public final static double SIMULATION_LIMIT = 24*60*60; // 1 hr
 
     public final static int CLOUDLET_LENGTH	=  15 * 60 * 2000; // 15 min
     public final static int CLOUDLET_PES	= 1;

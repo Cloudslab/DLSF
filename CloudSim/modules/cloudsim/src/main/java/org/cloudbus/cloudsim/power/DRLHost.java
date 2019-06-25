@@ -81,9 +81,10 @@ public class DRLHost extends PowerHostUtilizationHistory{
     }
 
     /** Host Dynamic Workload mehtods **/
-    @Override
     public double updateVmsProcessing(double currentTime) {
+        Log.setDisabled(true);
         double smallerTime = super.updateVmsProcessing(currentTime);
+        Log.setDisabled(false);
         setPreviousUtilizationMips(getUtilizationMips());
         setUtilizationMips(0);
         double hostTotalRequestedMips = 0;

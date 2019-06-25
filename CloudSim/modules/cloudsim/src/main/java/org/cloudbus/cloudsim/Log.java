@@ -28,6 +28,9 @@ public class Log {
 	/** The stream where the log will the outputted. */
 	private static OutputStream output;
 
+	/** Second stream **/
+	private static OutputStream output2;
+
 	/** Indicates if the logger is disabled or not. If set to true,
          the call for any print method has no effect. */
 	private static boolean disabled;
@@ -44,6 +47,21 @@ public class Log {
 		if (!isDisabled()) {
 			try {
 				getOutput().write(message.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Prints a message.
+	 *
+	 * @param message the message
+	 */
+	public static void print2(String message) {
+		if (!isDisabled()) {
+			try {
+				output2.write(message.getBytes());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -69,6 +87,17 @@ public class Log {
 	public static void printLine(String message) {
 		if (!isDisabled()) {
 			print(message + LINE_SEPARATOR);
+		}
+	}
+
+	/**
+	 * Prints a message and a new line.
+	 *
+	 * @param message the message
+	 */
+	public static void printLine2(String message) {
+		if (!isDisabled()) {
+			print2(message + LINE_SEPARATOR);
 		}
 	}
 
@@ -125,8 +154,6 @@ public class Log {
 	    }
 	}
 
-	
-	
 	/**
 	 * Prints a string formated as in String.format().
 	 * 
@@ -158,6 +185,15 @@ public class Log {
 	 */
 	public static void setOutput(OutputStream _output) {
 		output = _output;
+	}
+
+	/**
+	 * Sets the output stream.
+	 *
+	 * @param _output the new output
+	 */
+	public static void setOutput2(OutputStream _output) {
+		output2 = _output;
 	}
 
 	/**

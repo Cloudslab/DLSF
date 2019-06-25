@@ -51,7 +51,7 @@ public class UtilizationModelCPUBitBrainInMemory implements UtilizationModel {
 //            Log.printDebugMessages("@ "+ UtilizationModelCPUBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
 //                    " Array size: " + nextRow.length +
 //                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.printLine("CPU Util Data: Cloudlet- " + i + " = " + cpuUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
+//            Log.printLine("CPU Util Data: Cloudlet- " + i + " = " + cpuUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         cpuUtilizationData[n - 1] = cpuUtilizationData[n - 2];

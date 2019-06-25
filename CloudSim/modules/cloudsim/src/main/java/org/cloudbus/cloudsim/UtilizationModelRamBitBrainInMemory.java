@@ -50,7 +50,7 @@ public class UtilizationModelRamBitBrainInMemory implements UtilizationModel {
 //            Log.print("@ "+ UtilizationModelRamBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
 //                    " Array size: " + nextRow.length +
 //                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.printLine("Ram Util Data: Cloudlet- " + i + " = " + memoryUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
+//            Log.printLine("Ram Util Data: Cloudlet- " + i + " = " + memoryUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         memoryUtilizationData[n - 1] = memoryUtilizationData[n - 2];

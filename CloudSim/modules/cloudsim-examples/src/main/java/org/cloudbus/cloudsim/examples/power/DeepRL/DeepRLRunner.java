@@ -170,6 +170,8 @@ public class DeepRLRunner extends RunnerAbstract {
                 @Override
                 public void run() {
                     for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300){
+                        if(DeepRLRunner.vmList.size() > 50)
+                            continue;
                         CloudSim.pauseSimulation(i);
                         while (true) {
                             if (CloudSim.isPaused()) {
@@ -183,7 +185,7 @@ public class DeepRLRunner extends RunnerAbstract {
                         }
 
                         try {
-                            DatacenterBroker broker = createBroker("Broker1");
+                            DatacenterBroker broker = createBroker("Broker"+i);
                             int brokerId = broker.getId();
 
                             List<Cloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder);
@@ -195,8 +197,8 @@ public class DeepRLRunner extends RunnerAbstract {
                             DeepRLRunner.cloudletList.addAll(cloudletListDynamic);
                             DeepRLRunner.vmList.addAll(vmListDynamic);
 
-                            Log.printLine("Dynamically submitted total " + cloudletListDynamic.size() + " cloudlets and VMs");
-                            Log.printLine("Num vms " + DeepRLRunner.vmList.size());
+                            Log.printLine2("Dynamically submitted total " + cloudletListDynamic.size() + " cloudlets and VMs");
+                            Log.printLine2("Total vms now " + DeepRLRunner.vmList.size());
 
 
                         } catch (Exception e) {
@@ -370,7 +372,7 @@ public class DeepRLRunner extends RunnerAbstract {
         String outputFolder = "output";
         String workload = "fastStorage\\2013-8"; // Random workload
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
-        String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
+        String vmSelectionPolicy = "rs"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
         dynamic = true; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
 
@@ -378,7 +380,9 @@ public class DeepRLRunner extends RunnerAbstract {
 
         Log.setDisabled(false);
         OutputStream os = new FileOutputStream("output.txt");
+        OutputStream os2 = new FileOutputStream("DL.txt");
         Log.setOutput(os);
+        Log.setOutput2(os2);
 
         new DeepRLRunner(
                 enableOutput,

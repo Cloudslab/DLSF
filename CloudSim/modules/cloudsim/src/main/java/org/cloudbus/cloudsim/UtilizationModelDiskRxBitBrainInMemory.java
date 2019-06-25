@@ -52,8 +52,8 @@ public class UtilizationModelDiskRxBitBrainInMemory implements UtilizationModel{
 //            Log.print("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
 //                    " Array size: " + nextRow.length +
 //                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.printLine("NetwrokRx Util Data: Cloudlet- " + i + " = " + diskBandwidthRXUtilizationData[i] +
-                    " Transmitted: " + diskBandwidthTXUtilizationData[i]);
+//            Log.printLine("DiskRx Util Data: Cloudlet- " + i + " = " + diskBandwidthRXUtilizationData[i] +
+//                    " Transmitted: " + diskBandwidthTXUtilizationData[i]);
 
         }
         diskBandwidthRXUtilizationData[n - 1] = diskBandwidthRXUtilizationData[n - 2];

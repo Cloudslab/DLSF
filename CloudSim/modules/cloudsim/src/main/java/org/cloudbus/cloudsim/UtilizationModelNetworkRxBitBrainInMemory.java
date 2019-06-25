@@ -52,8 +52,8 @@ public class UtilizationModelNetworkRxBitBrainInMemory implements UtilizationMod
 //            Log.printLine("@ "+ UtilizationModelNetworkRxBitBrainInMemory.class.getSimpleName() + " currentRow Data of Workload- Row: " + i +
 //                    " Array size: " + nextRow.length +
 //                    " Array  Data: " + Arrays.toString(nextRow));
-            Log.printLine("NetworkRx Util Data: Cloudlet- " + i + " = " + bandwidthRXUtilizationData[i] +
-                    " Transmitted: " + bandwidthTXUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
+//            Log.printLine("NetworkRx Util Data: Cloudlet- " + i + " = " + bandwidthRXUtilizationData[i] +
+//                    " Transmitted: " + bandwidthTXUtilizationData[i] + ((line == null) ? (" line is null -> copying prev value") : "" ));
 
         }
         bandwidthRXUtilizationData[n - 1] = bandwidthRXUtilizationData[n - 2];

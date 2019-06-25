@@ -1,8 +1,15 @@
 package org.cloudbus.cloudsim.power;
 
 import org.cloudbus.cloudsim.CloudletScheduler;
+import org.cloudbus.cloudsim.core.CloudSim;
 
 public class DRLVm extends PowerVm {
+
+    public double totalResponseTime = 0;
+
+    public double startTime = 0;
+
+    public double totalMigrationTime = 0;
 
     /**
      * Instantiates a new PowerVm.
@@ -33,5 +40,6 @@ public class DRLVm extends PowerVm {
             final CloudletScheduler cloudletScheduler,
             final double schedulingInterval) {
         super(id, userId, mips, pesNumber, ram, bw, diskBw, size, priority, vmm, cloudletScheduler, schedulingInterval);
+        this.startTime = CloudSim.clock();
     }
 }

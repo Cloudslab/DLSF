@@ -27,6 +27,15 @@ public class DRLHost extends PowerHostUtilizationHistory{
     /** Cost Model of this host **/
     private CostModel costModel;
 
+    /** Fog node **/
+    public boolean isFog = false;
+
+    /** Response time of Fog node in seconds **/
+    private double fogResponseTime = 0.001;
+
+    /** Response time of Fog node in seconds **/
+    private double cloudResponseTime = 0.01;
+
     /**
      * Instantiates a new PowerHost.
      *
@@ -46,9 +55,11 @@ public class DRLHost extends PowerHostUtilizationHistory{
             List<? extends Pe> peList,
             VmScheduler vmScheduler,
             PowerModel powerModel,
-            CostModel costModel) {
+            CostModel costModel,
+            boolean fog) {
         super(id, ramProvisioner, bwProvisioner, storage, peList, vmScheduler, powerModel);
         setCostModel(costModel);
+        this.isFog = fog;
     }
 
     /**
@@ -294,6 +305,13 @@ public class DRLHost extends PowerHostUtilizationHistory{
     public List<HostStateHistoryEntry> getStateHistory() {
         return stateHistory;
     }
+
+    /**
+     * Gets response time based on whether the node is fog or cloud
+     *
+     * @return the response time in seconds
+     */
+    public double getResponseTime(){return (isFog ? fogResponseTime : cloudResponseTime);}
 
     /**
      * Adds a host state history entry.

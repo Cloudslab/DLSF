@@ -30,6 +30,12 @@ public class DRLDatacenter extends PowerDatacenter {
 
     private double savedTimeDiff;
 
+    private double numVmsEnded;
+
+    private double totalResponseTime;
+
+    private double totalMigrationTime;
+
     /**
      * Instantiates a new DRLDatacenter.
      *
@@ -70,6 +76,10 @@ public class DRLDatacenter extends PowerDatacenter {
         loss = loss + "LastTime\t" + this.savedLastTime + "\n";
         loss = loss + "TimeDiff\t" + this.savedTimeDiff + "\n";
         loss = loss + "TotalEnergy\t" + totalDataCenterEnergy + "\n";
+        loss = loss + "NumVsEnded\t" + this.numVmsEnded + "\n";
+        loss = loss + "AverageResponseTime\t" + this.totalResponseTime/this.numVmsEnded + "\n";
+        loss = loss + "AverageMigrationTime\t" + this.totalMigrationTime/this.numVmsEnded + "\n";
+        this.numVmsEnded = 0; this.totalMigrationTime = 0; this.totalResponseTime = 0;
         loss = loss + "TotalCost\t" + totalDataCenterCost + "\n";
         loss = loss + "SLAOverall\t" + getSlaOverall(this.getVmList()) + "\n";
         if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
@@ -151,18 +161,20 @@ public class DRLDatacenter extends PowerDatacenter {
 
         // if some time passed since last processing
         if (currentTime > getLastProcessTime()) {
-            System.out.print(currentTime + " ");
+            System.out.println((int)currentTime/3600 + " hr " + ((int)(currentTime/60)-(60*((int)currentTime/3600))) + " min");
 
             double minTime = updateCloudetProcessingWithoutSchedulingFutureEventsForce();
 
             // Send reward and next input to DL Model
-            if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
+            if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
                 updateDLModel();
             }
 
 //            Log.setDisabled(false);
-            Log.printLine("LOSS : \n" + getLoss());
-            Log.printLine("INPUT : \n" + getInput());
+            if(this.savedTimeDiff > 200){
+                Log.printLine("LOSS : \n" + getLoss());
+                Log.printLine("INPUT : \n" + getInput());
+            }
 //            Log.setDisabled(true);
 
             if (!isDisableMigrations()) {
@@ -171,7 +183,7 @@ public class DRLDatacenter extends PowerDatacenter {
 
                 if (migrationMap != null) {
                     for (Map<String, Object> migrate : migrationMap) {
-                        Vm vm = (Vm) migrate.get("vm");
+                        DRLVm vm = (DRLVm) migrate.get("vm");
                         PowerHost targetHost = (PowerHost) migrate.get("host");
                         PowerHost oldHost = (PowerHost) vm.getHost();
 
@@ -202,6 +214,7 @@ public class DRLDatacenter extends PowerDatacenter {
                                 vm.getRam() / ((double) targetHost.getBw() / (2 * 8000)),
                                 CloudSimTags.VM_MIGRATE,
                                 migrate);
+                        vm.totalMigrationTime += (vm.getRam() / ((double) targetHost.getBw() / (2 * 8000)));
                     }
                 }
             }
@@ -295,8 +308,13 @@ public class DRLDatacenter extends PowerDatacenter {
         checkCloudletCompletion();
 
         /** Remove completed VMs **/
-        for (PowerHost host : this.<PowerHost> getHostList()) {
+        for (DRLHost host : this.<DRLHost> getHostList()) {
             for (Vm vm : host.getCompletedVms()) {
+                ((DRLVm)vm).totalResponseTime = currentTime - ((DRLVm)vm).startTime;
+                Log.printLine("VM #" + vm.getId() + " has been deallocated with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
+                this.totalResponseTime = ((DRLVm)vm).totalResponseTime;
+                this.totalMigrationTime = ((DRLVm)vm).totalMigrationTime;
+                this.numVmsEnded += 1;
                 getVmAllocationPolicy().deallocateHostForVm(vm);
                 getVmList().remove(vm);
                 this.broker.getVmList().remove(vm);

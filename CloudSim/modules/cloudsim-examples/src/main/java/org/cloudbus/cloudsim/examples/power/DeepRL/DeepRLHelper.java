@@ -197,7 +197,8 @@ public class DeepRLHelper {
                     peList,
                     new VmSchedulerTimeSharedOverSubscription(peList),
                     new PowerModelSpecPowerDellPowerEdgeC6320(),
-                    new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.A0)));
+                    new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.A0),
+                    false));
         }
         Log.print("Number of hosts created-> " + hostList.size());
         return hostList;

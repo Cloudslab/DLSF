@@ -55,13 +55,13 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
      */
     protected List<? extends Vm>
     getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList, PythonInterpreter interpreter) {
-        List<Vm> vmsToMigrate = new LinkedList<Vm>();
+        List<DRLVm> vmsToMigrate = new LinkedList<DRLVm>();
         List<PowerVm> migratableVms = getAllMigratableVms(hosts);
         // @todo : Parse output from DL model
         PyList result = (PyList)interpreter.eval("DeepRL().getVmsToMigrate()");
         migrationPenalty = 0;
         for (int i = 0; i < result.__len__(); i++) {
-            Vm vm = vmList.get(result.__getitem__(i).asInt());
+            DRLVm vm = (DRLVm)vmList.get(result.__getitem__(i).asInt());
             if(migratableVms.contains(vm)){
                 vmsToMigrate.add(vm);
             }

@@ -372,7 +372,7 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "mc"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
-        dynamic = false; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
+        dynamic = true; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
 
         DeepRLRunner.inputFolder = inputFolder + "/" + workload;
 

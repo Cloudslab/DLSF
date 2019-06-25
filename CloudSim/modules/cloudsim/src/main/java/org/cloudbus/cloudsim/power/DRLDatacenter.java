@@ -310,6 +310,10 @@ public class DRLDatacenter extends PowerDatacenter {
         /** Remove completed VMs **/
         for (DRLHost host : this.<DRLHost> getHostList()) {
             for (Vm vm : host.getCompletedVms()) {
+                if(currentTime - ((DRLVm)vm).startTime < 1){
+                    // Skip VMs just added
+                    continue;
+                }
                 ((DRLVm)vm).totalResponseTime = currentTime - ((DRLVm)vm).startTime;
                 Log.printLine("VM #" + vm.getId() + " has been deallocated with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
                 this.totalResponseTime = ((DRLVm)vm).totalResponseTime;

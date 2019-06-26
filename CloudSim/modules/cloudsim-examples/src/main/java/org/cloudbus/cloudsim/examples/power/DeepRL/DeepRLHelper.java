@@ -7,6 +7,7 @@ import org.cloudbus.cloudsim.*;
 
 import org.cloudbus.cloudsim.cost.models.CostModelAzure.*;
 import org.cloudbus.cloudsim.examples.power.Constants;
+import org.cloudbus.cloudsim.power.DRLCloudlet;
 import org.cloudbus.cloudsim.power.DRLHost;
 import org.cloudbus.cloudsim.power.DRLVm;
 import org.cloudbus.cloudsim.power.PowerHost;
@@ -47,9 +48,9 @@ public class DeepRLHelper {
      * @return the list
      * @throws FileNotFoundException the file not found exception
      */
-    public static List<Cloudlet> createCloudletListBitBrain(int brokerId, String inputFolderName)
+    public static List<DRLCloudlet> createCloudletListBitBrain(int brokerId, String inputFolderName)
             throws FileNotFoundException {
-        List<Cloudlet> list = new ArrayList<Cloudlet>();
+        List<DRLCloudlet> list = new ArrayList<DRLCloudlet>();
 
         long fileSize = 300;
         long outputSize = 300;
@@ -62,10 +63,10 @@ public class DeepRLHelper {
         Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
 
         for (int i = 0; i < files.length; i++) {
-            Cloudlet cloudlet = null;
+            DRLCloudlet cloudlet = null;
             try {
-                System.out.println("\n@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );
-                cloudlet = new Cloudlet(
+                System.out.println("@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );
+                cloudlet = new DRLCloudlet(
                         i,
                         DeepRLConstants.CLOUDLET_LENGTH,
                         DeepRLConstants.CLOUDLET_PES,
@@ -75,7 +76,8 @@ public class DeepRLHelper {
                         new UtilizationModelRamBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelDiskRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
-                        false
+                        false,
+                        0
                 );
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,9 +91,9 @@ public class DeepRLHelper {
         return list;
     }
 
-    public static List<Cloudlet> createCloudletListBitBrainDynamic(int brokerId, String inputFolderName)
+    public static List<DRLCloudlet> createCloudletListBitBrainDynamic(int brokerId, String inputFolderName, int delay)
             throws FileNotFoundException {
-        List<Cloudlet> list = new ArrayList<Cloudlet>();
+        List<DRLCloudlet> list = new ArrayList<DRLCloudlet>();
 
         long fileSize = 300;
         long outputSize = 300;
@@ -107,14 +109,14 @@ public class DeepRLHelper {
         numCloudLets = Math.max(numCloudLets, 1);
 
         for (int i = 0; i < numCloudLets; i++) {
-            Cloudlet cloudlet = null;
+            DRLCloudlet cloudlet = null;
             try {
                 // lastfileId is the file index which circles around all files
                 Log.printLine("@SSI- Filenumber- " + lastfileId + " filepath- " + files[lastfileId].getPath() );
                 lastfileId = (lastfileId + 1) % files.length;
 
                 // Cloudlet id and vm id are same and equal to lastCloudletId
-                cloudlet = new Cloudlet(
+                cloudlet = new DRLCloudlet(
                         lastCloudletId,
                         DeepRLConstants.CLOUDLET_LENGTH,
                         DeepRLConstants.CLOUDLET_PES,
@@ -124,7 +126,8 @@ public class DeepRLHelper {
                         new UtilizationModelRamBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelNetworkRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
                         new UtilizationModelDiskRxBitBrainInMemory(files[i].getAbsolutePath(),DeepRLConstants.SCHEDULING_INTERVAL, datasamples),
-                        false
+                        false,
+                        delay
                 );
             } catch (Exception e) {
                 e.printStackTrace();
@@ -147,7 +150,7 @@ public class DeepRLHelper {
      *
      * @return the list< vm>
      */
-    public static List<Vm> createVmList(int brokerId, int vmsNumber) {
+    public static List<Vm> createVmList(int brokerId, int vmsNumber, int delay) {
         List<Vm> vms = new ArrayList<Vm>();
         for (int i = 0; i < vmsNumber; i++) {
             int vmType = i / (int) Math.ceil((double) vmsNumber / DeepRLConstants.VM_TYPES);
@@ -164,7 +167,8 @@ public class DeepRLHelper {
                     1,
                     "Xen",
                     new CloudletSchedulerDynamicWorkload(DeepRLConstants.VM_MIPS[vmType], DeepRLConstants.VM_PES[vmType]),
-                    DeepRLConstants.SCHEDULING_INTERVAL));
+                    DeepRLConstants.SCHEDULING_INTERVAL,
+                    delay));
             lastvmId = lastvmId + 1;
         }
         return vms;

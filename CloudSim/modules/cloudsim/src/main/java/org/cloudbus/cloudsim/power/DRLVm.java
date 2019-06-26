@@ -11,6 +11,8 @@ public class DRLVm extends PowerVm {
 
     public double totalMigrationTime = 0;
 
+    public int delay = 0;
+
     /**
      * Instantiates a new PowerVm.
      *
@@ -38,8 +40,10 @@ public class DRLVm extends PowerVm {
             final int priority,
             final String vmm,
             final CloudletScheduler cloudletScheduler,
-            final double schedulingInterval) {
+            final double schedulingInterval,
+            final int delay) {
         super(id, userId, mips, pesNumber, ram, bw, diskBw, size, priority, vmm, cloudletScheduler, schedulingInterval);
         this.startTime = CloudSim.clock();
+        this.delay = delay;
     }
 }

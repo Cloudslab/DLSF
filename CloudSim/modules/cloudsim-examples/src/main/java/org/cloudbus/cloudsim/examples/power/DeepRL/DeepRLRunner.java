@@ -22,6 +22,12 @@ import java.util.Random;
 
 public class DeepRLRunner extends RunnerAbstract {
 
+    /** The broker. */
+    protected static DRLDatacenterBroker broker;
+
+    /** The cloudlet list. */
+    protected static List<DRLCloudlet> cloudletList;
+
     public static boolean dynamic = true;
 
     public static String inputFolder = "";
@@ -61,13 +67,13 @@ public class DeepRLRunner extends RunnerAbstract {
         try {
             CloudSim.init(1, Calendar.getInstance(), false);
 
-            broker = Helper.createBroker();
+            broker = createBroker("Broker");
             int brokerId = broker.getId();
 
             // Data center creation at RunnerAbstract.start()
-            cloudletList = dynamic ? DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, inputFolder)
+            cloudletList = dynamic ? DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, inputFolder, 0)
             : DeepRLHelper.createCloudletListBitBrain(brokerId, inputFolder);
-            vmList = DeepRLHelper.createVmList(brokerId, cloudletList.size());
+            vmList = DeepRLHelper.createVmList(brokerId, cloudletList.size(), 0);
             hostList = DeepRLHelper.createHostList(DeepRLConstants.NUMBER_OF_HOSTS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,8 +194,8 @@ public class DeepRLRunner extends RunnerAbstract {
                             DatacenterBroker broker = createBroker("Broker"+i);
                             int brokerId = broker.getId();
 
-                            List<Cloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder);
-                            List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size());
+                            List<DRLCloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder, 0);
+                            List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size(), 0);
 
                             broker.submitVmList(vmListDynamic);
                             broker.submitCloudletList(cloudletListDynamic);
@@ -242,11 +248,11 @@ public class DeepRLRunner extends RunnerAbstract {
         Log.printLine("Finished " + experimentName);
     }
 
-    private static DatacenterBroker createBroker(String name){
+    private static DRLDatacenterBroker createBroker(String name){
 
-        DatacenterBroker broker = null;
+        DRLDatacenterBroker broker = null;
         try {
-            broker = new DatacenterBroker(name);
+            broker = new DRLDatacenterBroker(name);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -374,7 +380,7 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "rs"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
-        dynamic = true; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
+        dynamic = false; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
 
         DeepRLRunner.inputFolder = inputFolder + "/" + workload;
 

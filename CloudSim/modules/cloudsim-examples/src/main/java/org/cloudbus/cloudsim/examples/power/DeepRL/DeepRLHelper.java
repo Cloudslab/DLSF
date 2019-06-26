@@ -62,7 +62,7 @@ public class DeepRLHelper {
         File[] files = inputFolder.listFiles();
         Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
 
-        for (int i = 0; i < files.length; i++) {
+        for (int i = 0; i < DeepRLConstants.NUMBER_OF_VMS; i++) {
             DRLCloudlet cloudlet = null;
             try {
                 System.out.println("@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );

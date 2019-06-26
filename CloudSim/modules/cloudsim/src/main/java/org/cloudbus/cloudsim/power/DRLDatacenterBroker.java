@@ -1,11 +1,14 @@
 package org.cloudbus.cloudsim.power;
 
-import org.cloudbus.cloudsim.DatacenterBroker;
+import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.plus.DatacenterBrokerEX;
 
-public class DRLDatacenterBroker extends DatacenterBroker {
+import java.util.List;
+
+public class DRLDatacenterBroker extends DatacenterBrokerEX {
 
     public DRLDatacenterBroker(String name) throws Exception {
-        super(name);
+        super(name, -1);
     }
 
 }

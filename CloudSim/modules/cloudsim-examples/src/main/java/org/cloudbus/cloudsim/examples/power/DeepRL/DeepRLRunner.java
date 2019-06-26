@@ -171,54 +171,16 @@ public class DeepRLRunner extends RunnerAbstract {
             broker.submitVmList(vmList);
             broker.submitCloudletList(cloudletList);
 
-            // A thread that will create a new broker at 200 clock time
-            Runnable monitor = new Runnable(){
-                @Override
-                public void run() {
-                    for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300){
-                        if(DeepRLRunner.vmList.size() > 50)
-                            continue;
-                        CloudSim.pauseSimulation(i);
-                        while (true) {
-                            if (CloudSim.isPaused()) {
-                                break;
-                            }
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+            for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300) {
+                int brokerId = broker.getId();
 
-                        try {
-                            DatacenterBroker broker = createBroker("Broker"+i);
-                            int brokerId = broker.getId();
+                List<DRLCloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder, 0);
+                List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size(), 0);
 
-                            List<DRLCloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder, 0);
-                            List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size(), 0);
+                broker.createVmsAfter(vmListDynamic, i);
+                broker.submitCloudletList(cloudletListDynamic, i);
+            }
 
-                            broker.submitVmList(vmListDynamic);
-                            broker.submitCloudletList(cloudletListDynamic);
-
-                            DeepRLRunner.cloudletList.addAll(cloudletListDynamic);
-                            DeepRLRunner.vmList.addAll(vmListDynamic);
-
-                            Log.printLine2("Dynamically submitted total " + cloudletListDynamic.size() + " cloudlets and VMs");
-                            Log.printLine2("Total vms now " + DeepRLRunner.vmList.size());
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.printLine("The simulation has been terminated due to an unexpected error in dynamic creation of cloudlet and vm");
-                            System.exit(0);
-                        }
-
-                        CloudSim.resumeSimulation();
-                    }
-                }
-            };
-
-            new Thread(monitor).start();
 
             CloudSim.terminateSimulation(DeepRLConstants.SIMULATION_LIMIT);
             double lastClock = CloudSim.startSimulation();

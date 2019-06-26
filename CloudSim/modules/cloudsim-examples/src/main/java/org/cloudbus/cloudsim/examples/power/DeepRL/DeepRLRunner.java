@@ -10,10 +10,10 @@ import org.cloudbus.cloudsim.power.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
+
+import static org.cloudbus.cloudsim.examples.power.DeepRL.DeepRLHelper.rnd;
 
 /**
  * @author Shreshth Tuli
@@ -171,13 +171,20 @@ public class DeepRLRunner extends RunnerAbstract {
             broker.submitVmList(vmList);
             broker.submitCloudletList(cloudletList);
 
+            System.out.println("Creating VMs...");
+
             for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300) {
                 int brokerId = broker.getId();
 
                 List<DRLCloudlet> cloudletListDynamic = DeepRLHelper.createCloudletListBitBrainDynamic(brokerId, DeepRLRunner.inputFolder, 0);
+                if(cloudletListDynamic.size() == 0){
+                    continue;
+                }
                 List<Vm> vmListDynamic = DeepRLHelper.createVmList(brokerId, cloudletListDynamic.size(), 0);
-
+//                cloudletList.addAll(cloudletListDynamic);
+//                vmList.addAll(vmListDynamic);
                 broker.createVmsAfter(vmListDynamic, i);
+                broker.destroyVMsAfter(vmListDynamic, i+Math.max(0,(int) (rnd.nextGaussian() * DeepRLConstants.vmTimestdGaussian + DeepRLConstants.vmTimemeanGaussian)));
                 broker.submitCloudletList(cloudletListDynamic, i);
             }
 
@@ -342,7 +349,7 @@ public class DeepRLRunner extends RunnerAbstract {
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy
         String vmSelectionPolicy = "rs"; // Minimum Migration Time (MMT) VM selection policy
         String parameter = "200"; // the safety parameter of the LR policy
-        dynamic = false; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
+        dynamic = true; // Dynamic or static simulation (Change the cloudlet lengths accordingly)
 
         DeepRLRunner.inputFolder = inputFolder + "/" + workload;
 

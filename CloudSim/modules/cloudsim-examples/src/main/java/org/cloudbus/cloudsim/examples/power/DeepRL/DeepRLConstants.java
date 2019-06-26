@@ -14,11 +14,15 @@ public class DeepRLConstants {
 
     public final static String pythonClass = "DeepRL";
 
-    public final static double meanGaussian = 3;
+    public final static double meanGaussian = 5;
 
-    public final static double stdGaussian = 2;
+    public final static double stdGaussian = 5;
 
-    public final static int NUMBER_OF_VMS = 50;
+    public final static double vmTimemeanGaussian = 600; // 10 minutes
+
+    public final static double vmTimestdGaussian = 300; // 5 minutes
+
+    public final static int NUMBER_OF_VMS = 100;
 
     public final static long CLOUDLET_UTILIZATION_SEED = 1;
 
@@ -29,9 +33,9 @@ public class DeepRLConstants {
     public final static boolean OUTPUT_CSV    = true; //
 
     public final static double SCHEDULING_INTERVAL = 300; // 5 min
-    public final static double SIMULATION_LIMIT = 24*60*60; // 1 hr
+    public final static double SIMULATION_LIMIT = 5*24*60*60; // 10 days
 
-    public final static int CLOUDLET_LENGTH	=  15 * 60 * 2000; // 15 min
+    public final static int CLOUDLET_LENGTH	=  5 * 60 * 1000; // 5 min
     public final static int CLOUDLET_PES	= 1;
 
     public  final  static  int NUMBER_OF_DATA_SAMPLES = (int) Math.ceil( SIMULATION_LIMIT / SCHEDULING_INTERVAL)+1; //  289;
@@ -87,7 +91,7 @@ public class DeepRLConstants {
 
     public final static int HOST_TYPES	 = 1; // 2
     public final static int[] HOST_MIPS	 = {2660};//{ 2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660}; //Original is 2660
-    public final static int[] HOST_PES	 = { 64 }; // {2,2} /2
+    public final static int[] HOST_PES	 = { 2 }; // {2,2} /2
     public final static int[] HOST_RAM	 = { 515639 };// { 224096, 224096 };
     public final static int HOST_BW		 =  100000000; //  100 Gbits- > previous//1000000; // 1 Gbit/s
     public final static int HOST_STORAGE = 1000000; // 1 GB

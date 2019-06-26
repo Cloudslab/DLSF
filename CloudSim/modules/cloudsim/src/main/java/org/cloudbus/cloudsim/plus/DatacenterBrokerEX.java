@@ -47,7 +47,7 @@ public class DatacenterBrokerEX extends DatacenterBroker {
     private List<PresetEvent> presetEvents = new ArrayList<>();
 
     /** If this broker has started receiving and responding to events. */
-    private boolean started = false;
+    public boolean started = false;
 
     /**
      * How lond we should keep this broker alive. If negative - the broker is
@@ -231,7 +231,7 @@ public class DatacenterBrokerEX extends DatacenterBroker {
     /**
      * Submits the list of vms after a given delay
      * 
-     * @param list
+     * @param vms
      * @param delay
      */
     public void createVmsAfter(List<? extends Vm> vms, double delay) {
@@ -318,7 +318,7 @@ public class DatacenterBrokerEX extends DatacenterBroker {
         finishExecution();
     }
 
-    private void processVMDestroy(SimEvent ev) {
+    public void processVMDestroy(SimEvent ev) {
         int[] data = (int[]) ev.getData();
         int datacenterId = data[0];
         int vmId = data[1];
@@ -359,7 +359,7 @@ public class DatacenterBrokerEX extends DatacenterBroker {
 
     }
 
-    private void finilizeVM(final Vm vm) {
+    public void finilizeVM(final Vm vm) {
         if (vm instanceof VMex) {
             VMex vmEX = ((VMex) vm);
             if (vmEX.getStatus() != VMStatus.TERMINATED) {

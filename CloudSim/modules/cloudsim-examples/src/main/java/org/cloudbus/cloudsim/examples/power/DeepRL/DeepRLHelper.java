@@ -7,10 +7,7 @@ import org.cloudbus.cloudsim.*;
 
 import org.cloudbus.cloudsim.cost.models.CostModelAzure.*;
 import org.cloudbus.cloudsim.examples.power.Constants;
-import org.cloudbus.cloudsim.power.DRLCloudlet;
-import org.cloudbus.cloudsim.power.DRLHost;
-import org.cloudbus.cloudsim.power.DRLVm;
-import org.cloudbus.cloudsim.power.PowerHost;
+import org.cloudbus.cloudsim.power.*;
 import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
@@ -68,7 +65,7 @@ public class DeepRLHelper {
                 System.out.println("@SSI- Filenumber- " + i + " filepath- " + files[i].getAbsolutePath() );
                 cloudlet = new DRLCloudlet(
                         i,
-                        DeepRLConstants.CLOUDLET_LENGTH,
+                        (long)DeepRLConstants.SIMULATION_LIMIT,
                         DeepRLConstants.CLOUDLET_PES,
                         fileSize,
                         outputSize,
@@ -106,7 +103,7 @@ public class DeepRLHelper {
         Log.printLine("@ " + DeepRLRunner.class.getSimpleName() + " inputFolder: " + inputFolder + " Number of files: " + files.length);
 
         numCloudLets = (int) (rnd.nextGaussian() * DeepRLConstants.stdGaussian + DeepRLConstants.meanGaussian);
-        numCloudLets = Math.max(numCloudLets, 1);
+        numCloudLets = Math.max(numCloudLets, 0);
 
         for (int i = 0; i < numCloudLets; i++) {
             DRLCloudlet cloudlet = null;
@@ -225,7 +222,7 @@ public class DeepRLHelper {
             String name,
             Class<? extends Datacenter> datacenterClass,
             List<PowerHost> hostList,
-            VmAllocationPolicy vmAllocationPolicy, DatacenterBroker broker) throws Exception {
+            VmAllocationPolicy vmAllocationPolicy, DRLDatacenterBroker broker) throws Exception {
         String arch = "x86"; // system architecture
         String os = "Linux"; // operating system
         String vmm = "Xen";
@@ -254,7 +251,8 @@ public class DeepRLHelper {
                     VmAllocationPolicy.class,
                     List.class,
                     Double.TYPE,
-                    DatacenterBroker.class).newInstance(
+                    DRLDatacenterBroker
+                            .class).newInstance(
                     name,
                     characteristics,
                     vmAllocationPolicy,

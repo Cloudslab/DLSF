@@ -4,11 +4,15 @@ import org.apache.commons.math3.util.MathUtils;
 import org.cloudbus.cloudsim.*;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.core.CloudSimTags;
+import org.cloudbus.cloudsim.core.SimEvent;
 import org.cloudbus.cloudsim.core.predicates.PredicateType;
+import org.cloudbus.cloudsim.lists.VmList;
+import org.cloudbus.cloudsim.plus.util.CustomLog;
 import org.cloudbus.cloudsim.util.MathUtil;
 import org.python.util.PythonInterpreter;
 
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * The DRLDatacenter class implements functions for interaction
@@ -20,7 +24,7 @@ import java.util.*;
 
 public class DRLDatacenter extends PowerDatacenter {
 
-    public DatacenterBroker broker;
+    public DRLDatacenterBroker broker;
 
     private double[] hostEnergy;
 
@@ -35,6 +39,8 @@ public class DRLDatacenter extends PowerDatacenter {
     private double totalResponseTime;
 
     private double totalMigrationTime;
+
+    private int InputLimit = 100;
 
     /**
      * Instantiates a new DRLDatacenter.
@@ -52,7 +58,7 @@ public class DRLDatacenter extends PowerDatacenter {
             VmAllocationPolicy vmAllocationPolicy,
             List<Storage> storageList,
             double schedulingInterval,
-            DatacenterBroker broker) throws Exception {
+            DRLDatacenterBroker broker) throws Exception {
         super(name, characteristics, vmAllocationPolicy, storageList, schedulingInterval);
         this.broker = broker;
         this.hostEnergy = new double[this.getHostList().size()];
@@ -161,9 +167,8 @@ public class DRLDatacenter extends PowerDatacenter {
 
         // if some time passed since last processing
         if (currentTime > getLastProcessTime()) {
-            System.out.println((int)currentTime/3600 + " hr " + ((int)(currentTime/60)-(60*((int)currentTime/3600))) + " min");
-
             double minTime = this.updateCloudetProcessingWithoutSchedulingFutureEventsForce();
+            System.out.println((int)currentTime/3600 + " hr " + ((int)(currentTime/60)-(60*((int)currentTime/3600))) + " min - " + getVmList().size());
 
             if (!isDisableMigrations()) {
                 List<Map<String, Object>> migrationMap = getVmAllocationPolicy().optimizeAllocation(
@@ -235,21 +240,6 @@ public class DRLDatacenter extends PowerDatacenter {
         this.savedLastTime = getLastProcessTime();
         this.savedTimeDiff = timeDiff;
 
-        // Send reward and next input to DL Model
-        if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
-            updateDLModel();
-        }
-
-//        Log.setDisabled(false);
-        if(this.savedTimeDiff > 200){
-            Log.printLine2("LOSS : \n" + getLoss());
-            for(Vm vm : this.getVmList()){
-                Log.printLine2("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId());
-            }
-            Log.printLine2("INPUT : \n" + getInput());
-        }
-//        Log.setDisabled(true);
-
 //        Log.printLine("\n\n--------------------------------------------------------------\n\n");
 //        Log.formatLine("New resource usage for the time frame starting at %.2f:", currentTime);
 
@@ -317,21 +307,86 @@ public class DRLDatacenter extends PowerDatacenter {
                     // Skip VMs just added
                     continue;
                 }
-                Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + host.getId() + "with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
-                this.totalResponseTime = ((DRLVm)vm).totalResponseTime;
-                this.totalMigrationTime = ((DRLVm)vm).totalMigrationTime;
-                this.numVmsEnded += 1;
+                processVMDestroy(vm);
+            }
+        }
+
+        /** Remove unallocated VMs **/
+        for(Vm vm : getVmList()){
+            if(vm.getHost() == null){
                 getVmAllocationPolicy().deallocateHostForVm(vm);
                 getVmList().remove(vm);
-                this.broker.getVmList().remove(vm);
+//                this.broker.getVmList().remove(vm);
+                Log.printLine("VM destroyed = VM #" + vm.getId());
                 Log.printLine("VMs left = " + getVmList().size());
             }
         }
 
+        /** If VMs > input limit remove more **/
+        int numRemove = getVmList().size()-this.InputLimit;
+        for(int i = 0; i < Math.max(0, numRemove); i++){
+            Vm vm = getVmList().get(i);
+            getVmAllocationPolicy().deallocateHostForVm(vm);
+            getVmList().remove(vm);
+//          this.broker.getVmList().remove(vm);
+            Log.printLine("VM destroyed = VM #" + vm.getId());
+            Log.printLine("VMs left = " + getVmList().size());
+        }
+
+
         Log.printLine();
+
+        // Send reward and next input to DL Model
+        if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
+            updateDLModel();
+        }
+
+//        Log.setDisabled(false);
+        if(this.savedTimeDiff > 200){
+            Log.printLine2("LOSS : \n" + getLoss());
+            for(Vm vm : this.getVmList()){
+                Log.printLine2("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId());
+            }
+            Log.printLine2("INPUT : \n" + getInput());
+        }
+//        Log.setDisabled(true);
 
         setLastProcessTime(currentTime);
         return minTime;
+    }
+
+    public void processVMDestroy(Vm vm) {
+        int vmId = vm.getId();
+
+        // Remove the vm from the created list
+        broker.getVmsCreatedList().remove(vm);
+        broker.finilizeVM(vm);
+
+        // Kill all cloudlets associated with this VM
+        for (Cloudlet cloudlet : broker.getCloudletSubmittedList()) {
+            if (!cloudlet.isFinished() && vmId == cloudlet.getVmId()) {
+                try {
+                    vm.getCloudletScheduler().cloudletCancel(cloudlet.getCloudletId());
+                    cloudlet.setCloudletStatus(Cloudlet.FAILED_RESOURCE_UNAVAILABLE);
+                } catch (Exception e) {
+                    CustomLog.logError(Level.SEVERE, e.getMessage(), e);
+                }
+
+                sendNow(cloudlet.getUserId(), CloudSimTags.CLOUDLET_RETURN, cloudlet);
+            }
+        }
+
+        // Use the standard log for consistency ....
+        Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId,
+                " has been destroyed in Datacenter #", this.getId());
+        Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + vm.getHost().getId() + "with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
+        this.totalResponseTime = ((DRLVm)vm).totalResponseTime;
+        this.totalMigrationTime = ((DRLVm)vm).totalMigrationTime;
+        this.numVmsEnded += 1;
+        getVmAllocationPolicy().deallocateHostForVm(vm);
+        getVmList().remove(vm);
+        this.broker.getVmList().remove(vm);
+        Log.printLine("VMs left = " + getVmList().size());
     }
 
     /**

@@ -10,6 +10,7 @@ import org.cloudbus.cloudsim.power.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -172,6 +173,7 @@ public class DeepRLRunner extends RunnerAbstract {
             broker.submitCloudletList(cloudletList);
 
             System.out.println("Creating VMs...");
+            DecimalFormat decimalFormat = new DecimalFormat("###");
 
             for(int i = 300; i < DeepRLConstants.SIMULATION_LIMIT; i+=300) {
                 int brokerId = broker.getId();
@@ -186,7 +188,10 @@ public class DeepRLRunner extends RunnerAbstract {
                 broker.createVmsAfter(vmListDynamic, i);
                 broker.destroyVMsAfter(vmListDynamic, i+Math.max(0,(int) (rnd.nextGaussian() * DeepRLConstants.vmTimestdGaussian + DeepRLConstants.vmTimemeanGaussian)));
                 broker.submitCloudletList(cloudletListDynamic, i);
+                System.out.print('\r' + decimalFormat.format((int)(100*i/DeepRLConstants.SIMULATION_LIMIT)) + "%");
             }
+
+            System.out.println();
 
 
             CloudSim.terminateSimulation(DeepRLConstants.SIMULATION_LIMIT);

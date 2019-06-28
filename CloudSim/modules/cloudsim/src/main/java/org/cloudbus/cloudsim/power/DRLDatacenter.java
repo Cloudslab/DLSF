@@ -67,6 +67,7 @@ public class DRLDatacenter extends PowerDatacenter {
     protected void updateDLModel(){
         PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
         interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
+        interpreter.eval("DeepRL().getMap(" + getVmHostMap() + ")");
         interpreter.eval("DeepRL().forward(" + getInput() + ")");
     }
 
@@ -344,15 +345,21 @@ public class DRLDatacenter extends PowerDatacenter {
 //        Log.setDisabled(false);
         if(this.savedTimeDiff > 200){
             Log.printLine2("LOSS : \n" + getLoss());
-            for(Vm vm : this.getVmList()){
-                Log.printLine2("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId());
-            }
+            Log.printLine2(getVmHostMap());
             Log.printLine2("INPUT : \n" + getInput());
         }
 //        Log.setDisabled(true);
 
         setLastProcessTime(currentTime);
         return minTime;
+    }
+
+    public String getVmHostMap(){
+        String map = "";
+        for(Vm vm : this.getVmList()){
+            map = map + ("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId()) + "\n";
+        }
+        return map;
     }
 
     public void processVMDestroy(Vm vm) {

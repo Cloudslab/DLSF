@@ -68,7 +68,7 @@ public class DRLDatacenter extends PowerDatacenter {
         PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
         interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
         interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
-        interpreter.eval("DeepRL().forward(" + getInput() + ")");
+        interpreter.eval("DeepRL().setInput(" + getInputMap() + ")");
     }
 
     public String getLoss(){
@@ -358,6 +358,14 @@ public class DRLDatacenter extends PowerDatacenter {
         String map = "";
         for(Vm vm : this.getVmList()){
             map = map + ("VM #" + vm.getId() + " index " + this.getVmList().indexOf(vm) + " <-> Host #" + vm.getHost().getId()) + "\n";
+        }
+        return map;
+    }
+
+    public String getInputMap(){
+        String map = "";
+        for(Vm vm : this.getVmList()){
+            map = map + (this.getVmList().indexOf(vm) + " " + vm.getHost().getId()) + "\n";
         }
         return map;
     }

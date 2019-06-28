@@ -103,6 +103,8 @@ public class DRLDatacenter extends PowerDatacenter {
         String temp;
         for(PowerVm vm : this.<PowerVm>getVmList()){
             temp = "";
+            PowerHost host = (PowerHost)vm.getHost();
+            temp = temp + ((host != null) ? (this.getHostList().indexOf(host)) : "NA")  + "\t";
             temp = temp + vm.getNumberOfPes() + "\t";
             temp = temp + MathUtil.sum(vm.getCurrentRequestedMips()) + "\t";
             temp = temp + vm.getCurrentRequestedMaxMips() + "\t";
@@ -122,8 +124,6 @@ public class DRLDatacenter extends PowerDatacenter {
             temp = temp + vm.isInMigration() + "\t";
             ArrayList<Vm> list = new ArrayList<Vm>(Arrays.asList(vm));
             temp = temp + getSlaOverall(list) + "\t";
-            PowerHost host = (PowerHost)vm.getHost();
-            temp = temp + ((host != null) ? (this.getHostList().indexOf(host)) : "NA")  + "\t";
             temp = temp + ((host != null) ? (host.getUtilizationOfCpuMips()) : "NA")  + "\t";
             temp = temp + ((host != null) ? (host.getAvailableMips()) : "NA")  + "\t";
             temp = temp + ((host != null) ? (host.getRamProvisioner().getAvailableRam()) : "NA")  + "\t";

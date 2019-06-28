@@ -65,6 +65,7 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
         super(hostList);
         setFallbackVmAllocationPolicy(fallbackVmAllocationPolicy);
         interpreter.execfile(execFile);
+        interpreter.eval("DeepRL().init()");
         hostPenalty = 0;
     }
 

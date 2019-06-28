@@ -67,7 +67,7 @@ public class DRLDatacenter extends PowerDatacenter {
     protected void updateDLModel(){
         PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
         interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
-        interpreter.eval("DeepRL().getMap(" + getVmHostMap() + ")");
+        interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
         interpreter.eval("DeepRL().forward(" + getInput() + ")");
     }
 
@@ -77,7 +77,7 @@ public class DRLDatacenter extends PowerDatacenter {
         double totalDataCenterCost = 0.0;
         for(DRLHost host : this.<DRLHost>getHostList()){
             totalDataCenterEnergy += this.hostEnergy[getHostList().indexOf(host)];
-            totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff) / (60 * 60);
+            totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff * host.getUtilizationOfCpu()) / (60 * 60);
         }
         loss = loss + "CurrentTime\t" + this.savedCurrentTime + "\n";
         loss = loss + "LastTime\t" + this.savedLastTime + "\n";

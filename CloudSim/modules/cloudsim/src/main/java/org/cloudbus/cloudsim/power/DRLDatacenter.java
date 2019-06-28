@@ -67,7 +67,9 @@ public class DRLDatacenter extends PowerDatacenter {
     }
 
     protected void updateDLModel(){
-        PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.execfile("../Deep-Learning/DeepRL.py");
+//        PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
 //        PyString loss = interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
         PyString loss = (PyString)interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
         System.out.println("DL Loss = " + ((PyObject) loss).toString());
@@ -341,7 +343,7 @@ public class DRLDatacenter extends PowerDatacenter {
         Log.printLine();
 
         // Send reward and next input to DL Model
-        if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") && this.savedTimeDiff > 200){
+        if(this.savedTimeDiff > 200){ // getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy") &&
             updateDLModel();
         }
 

@@ -5,8 +5,6 @@ import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.power.lists.PowerVmList;
 import org.cloudbus.cloudsim.util.ExecutionTimeMeasurer;
-import org.python.util.PythonInterpreter;
-import org.python.core.*;
 
 import java.util.*;
 
@@ -43,11 +41,6 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
      * data to be computed. */
     private PowerVmAllocationPolicyMigrationAbstract fallbackVmAllocationPolicy;
 
-    /** Python Interpreter
-     * for interaction with DL code
-     */
-    protected PythonInterpreter interpreter = new PythonInterpreter();
-
     /** Host Penalty =
      * The number of hosts that came in top rank by DL result which were not suitable
      */
@@ -60,12 +53,9 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
      */
     public DRLVmAllocationPolicy(
             List<? extends Host> hostList,
-            PowerVmAllocationPolicyMigrationAbstract fallbackVmAllocationPolicy,
-            String execFile) {
+            PowerVmAllocationPolicyMigrationAbstract fallbackVmAllocationPolicy) {
         super(hostList);
         setFallbackVmAllocationPolicy(fallbackVmAllocationPolicy);
-        interpreter.execfile(execFile);
-        interpreter.eval("DeepRL().init()");
         hostPenalty = 0;
     }
 
@@ -77,7 +67,7 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
      */
     @Override
     public List<Map<String, Object>> optimizeAllocation(List<? extends Vm> vmList) {
-        List<? extends Vm> vmsToMigrate = this.vmSelectionPolicy.getAllVmsToMigrate(this.getHostList(), vmList, interpreter);
+        List<? extends Vm> vmsToMigrate = this.vmSelectionPolicy.getAllVmsToMigrate(this.getHostList(), vmList);
         saveAllocation();
         ExecutionTimeMeasurer.start("optimizeAllocationVmReallocation");
         List<Map<String, Object>> migrationMap = getNewVmPlacement(vmsToMigrate, new HashSet<Host>(
@@ -111,9 +101,17 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
             PowerHost allocatedHost = this.<PowerHost>getHostList().get(1);
             // @todo allocatedHost = parse from DL output
             vmIndex = vmList.indexOf(vm);
-            PyList sortedHostIndex = (PyList)interpreter.eval("DeepRL().getSortedHosts(" + vmIndex + ")");
+            String result; ArrayList<String> sortedHosts = new ArrayList();
+            try{
+                DRLDatacenter.toPython.write(("getSortedHost," + vmIndex + "\n").getBytes());
+                result = DRLDatacenter.fromPython.readLine();
+                sortedHosts = new ArrayList<>(Arrays.asList(result.split(",")));
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
             for(int i = 0; i < this.getHostList().size(); i++){
-                allocatedHost = this.<PowerHost>getHostList().get(sortedHostIndex.__getitem__(i).asInt());
+                allocatedHost = this.<PowerHost>getHostList().get(Integer.parseInt(sortedHosts.get(i)));
                 if(allocatedHost.isSuitableForVm(vm)){
                     break;
                 }

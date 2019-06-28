@@ -1,8 +1,4 @@
-import java.util.ArrayList as ArrayList
+from sys import argv
 
-class myPythonClass:
-    def abc(self, start):
-        print "calling abc"
-        tmpb = {}
-        tmpb = {'status' : 'SUCCESS'}
-        return [1, 2, 3, 4, 5, start]
+print(argv[1])
+print(argv[1].split(',')[1])

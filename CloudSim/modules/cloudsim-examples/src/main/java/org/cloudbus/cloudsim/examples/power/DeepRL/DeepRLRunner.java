@@ -310,7 +310,7 @@ public class DeepRLRunner extends RunnerAbstract {
                     hostList,
                     vmSelectionPolicy,
                     0.7);
-            vmAllocationPolicy = new DRLVmAllocationPolicy(hostList, fallbackVmSelectionPolicy, DeepRLConstants.pythonCode);
+            vmAllocationPolicy = new DRLVmAllocationPolicy(hostList, fallbackVmSelectionPolicy);
         } else {
             System.out.println("Unknown VM allocation policy: " + vmAllocationPolicyName);
             System.exit(0);
@@ -348,7 +348,7 @@ public class DeepRLRunner extends RunnerAbstract {
     public static void main(String[] args) throws IOException {
         boolean enableOutput = true;
         boolean outputToFile = false;
-        String inputFolder = "C:\\Users\\Shreshth Tuli\\Desktop\\Mel Project\\DLSF\\CloudSim\\modules\\cloudsim-examples\\src\\main\\java\\workload\\bitbrain";//DeepRLRunner.class.getClassLoader().getResource("workload/bitbrain").getPath();
+        String inputFolder = "modules\\cloudsim-examples\\src\\main\\java\\workload\\bitbrain";//DeepRLRunner.class.getClassLoader().getResource("workload/bitbrain").getPath();
         String outputFolder = "output";
         String workload = "fastStorage\\2013-8"; // Random workload
         String vmAllocationPolicy = "lrr"; // Local Regression (LR) VM allocation policy

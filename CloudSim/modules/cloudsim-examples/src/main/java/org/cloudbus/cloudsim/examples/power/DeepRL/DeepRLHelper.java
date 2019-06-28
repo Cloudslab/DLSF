@@ -252,13 +252,15 @@ public class DeepRLHelper {
                     List.class,
                     Double.TYPE,
                     DRLDatacenterBroker
-                            .class).newInstance(
+                            .class,
+                    String.class).newInstance(
                     name,
                     characteristics,
                     vmAllocationPolicy,
                     new LinkedList<Storage>(),
                     Constants.SCHEDULING_INTERVAL,
-                    broker);
+                    broker,
+                    DeepRLConstants.pythonCode);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

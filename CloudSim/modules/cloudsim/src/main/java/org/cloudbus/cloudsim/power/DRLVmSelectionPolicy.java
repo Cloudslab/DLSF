@@ -5,6 +5,7 @@ import org.python.util.PythonInterpreter;
 import org.python.core.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,14 +55,22 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
      * @return the VMs to migrate from hosts
      */
     protected List<? extends Vm>
-    getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList, PythonInterpreter interpreter) {
+    getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList) {
         List<DRLVm> vmsToMigrate = new LinkedList<DRLVm>();
         List<PowerVm> migratableVms = getAllMigratableVms(hosts);
         // @todo : Parse output from DL model
-        PyList result = (PyList)interpreter.eval("DeepRL().getVmsToMigrate()");
+        String result; ArrayList<String> vms = new ArrayList();
+        try{
+            DRLDatacenter.toPython.write(("getVmsToMigrate, \n").getBytes());
+            result = DRLDatacenter.fromPython.readLine();
+            vms = new ArrayList<>(Arrays.asList(result.split(",")));
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         migrationPenalty = 0;
-        for (int i = 0; i < result.__len__(); i++) {
-            DRLVm vm = (DRLVm)vmList.get(result.__getitem__(i).asInt());
+        for (int i = 0; i < vms.size(); i++) {
+            DRLVm vm = (DRLVm)vmList.get(Integer.parseInt(vms.get(i)));
             if(migratableVms.contains(vm)){
                 vmsToMigrate.add(vm);
             }

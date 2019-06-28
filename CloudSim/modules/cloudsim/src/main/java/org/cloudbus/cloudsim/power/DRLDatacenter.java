@@ -1,18 +1,16 @@
 package org.cloudbus.cloudsim.power;
 
-import org.apache.commons.math3.util.MathUtils;
 import org.cloudbus.cloudsim.*;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.core.CloudSimTags;
-import org.cloudbus.cloudsim.core.SimEvent;
 import org.cloudbus.cloudsim.core.predicates.PredicateType;
-import org.cloudbus.cloudsim.lists.VmList;
 import org.cloudbus.cloudsim.plus.util.CustomLog;
 import org.cloudbus.cloudsim.util.MathUtil;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -44,6 +42,17 @@ public class DRLDatacenter extends PowerDatacenter {
 
     private int InputLimit = 100;
 
+    /** Python Interpreter
+     * for interaction with DL code
+     */
+    protected static Process pythonProc;
+
+    // get an outputstream to write into the standard input of python
+    protected static OutputStream toPython;
+
+    // get an inputstream to read from the standard output of python
+    protected  static BufferedReader fromPython;
+
     /**
      * Instantiates a new DRLDatacenter.
      *
@@ -60,20 +69,31 @@ public class DRLDatacenter extends PowerDatacenter {
             VmAllocationPolicy vmAllocationPolicy,
             List<Storage> storageList,
             double schedulingInterval,
-            DRLDatacenterBroker broker) throws Exception {
+            DRLDatacenterBroker broker,
+            String execFile) throws Exception {
         super(name, characteristics, vmAllocationPolicy, storageList, schedulingInterval);
         this.broker = broker;
         this.hostEnergy = new double[this.getHostList().size()];
+        try{
+            pythonProc = Runtime.getRuntime().exec("python " + execFile);
+        }
+        catch(Exception e){System.out.println(e.getMessage());}
+        DRLDatacenter.toPython = pythonProc.getOutputStream();
+        DRLDatacenter.fromPython = new BufferedReader(new InputStreamReader(pythonProc.getInputStream(), Charset.defaultCharset()));
     }
 
     protected void updateDLModel(){
-        PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.execfile("../Deep-Learning/DeepRL.py");
-//        PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
-//        PyString loss = interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
-        PyString loss = (PyString)interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
-        System.out.println("DL Loss = " + ((PyObject) loss).toString());
-        interpreter.eval("DeepRL().setInput(" + getInputMap() + ")");
+        String loss = "Error!";
+        try{
+//            DRLDatacenter.toPython.write(("backprop,"+getLoss()).getBytes());
+            DRLDatacenter.toPython.write(("sendMap,"+getInputMap()+"\n").getBytes());
+            loss = DRLDatacenter.fromPython.readLine();
+            DRLDatacenter.toPython.write(("setInput,"+getInput()+"\n").getBytes());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("DL Loss = " + loss);
     }
 
     public String getLoss(){
@@ -84,18 +104,18 @@ public class DRLDatacenter extends PowerDatacenter {
             totalDataCenterEnergy += this.hostEnergy[getHostList().indexOf(host)];
             totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff * host.getUtilizationOfCpu()) / (60 * 60);
         }
-        loss = loss + "CurrentTime\t" + this.savedCurrentTime + "\n";
-        loss = loss + "LastTime\t" + this.savedLastTime + "\n";
-        loss = loss + "TimeDiff\t" + this.savedTimeDiff + "\n";
-        loss = loss + "TotalEnergy\t" + totalDataCenterEnergy + "\n";
-        loss = loss + "NumVsEnded\t" + this.numVmsEnded + "\n";
-        loss = loss + "AverageResponseTime\t" + this.totalResponseTime/this.numVmsEnded + "\n";
-        loss = loss + "AverageMigrationTime\t" + this.totalMigrationTime/this.numVmsEnded + "\n";
+        loss = loss + "CurrentTime\t" + this.savedCurrentTime + ";";
+        loss = loss + "LastTime\t" + this.savedLastTime + ";";
+        loss = loss + "TimeDiff\t" + this.savedTimeDiff + ";";
+        loss = loss + "TotalEnergy\t" + totalDataCenterEnergy + ";";
+        loss = loss + "NumVsEnded\t" + this.numVmsEnded + ";";
+        loss = loss + "AverageResponseTime\t" + this.totalResponseTime/this.numVmsEnded + ";";
+        loss = loss + "AverageMigrationTime\t" + this.totalMigrationTime/this.numVmsEnded + ";";
         this.numVmsEnded = 0; this.totalMigrationTime = 0; this.totalResponseTime = 0;
-        loss = loss + "TotalCost\t" + totalDataCenterCost + "\n";
-        loss = loss + "SLAOverall\t" + getSlaOverall(this.getVmList()) + "\n";
+        loss = loss + "TotalCost\t" + totalDataCenterCost + ";";
+        loss = loss + "SLAOverall\t" + getSlaOverall(this.getVmList()) + ";";
         if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
-            loss = loss + "HostPenalty\t" + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty + "\n";
+            loss = loss + "HostPenalty\t" + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty + ";";
             loss = loss + "MigrationPenalty\t" + ((DRLVmSelectionPolicy)
                     ((DRLVmAllocationPolicy)
                             getVmAllocationPolicy()).getVmSelectionPolicy()).migrationPenalty + "\n";
@@ -105,7 +125,7 @@ public class DRLDatacenter extends PowerDatacenter {
 
     public String getInput(){
         String input = "";
-        input = input + "CNN " + "number of VMs " + this.getVmList().size() + "\n";
+        input = input + "CNN " + "number of VMs " + this.getVmList().size() + ";";
         String temp;
         for(PowerVm vm : this.<PowerVm>getVmList()){
             temp = "";
@@ -137,9 +157,9 @@ public class DRLDatacenter extends PowerDatacenter {
             temp = temp + ((host != null) ? (host.getDiskBwProvisioner().getAvailableDiskBw()) : "NA")  + "\t";
             temp = temp + ((host != null) ? (host.getVmList().size()) : "0")  + "\t";
             temp = temp + ((host != null) ? (this.hostEnergy[getHostList().indexOf(vm.getHost())]) : "NA")  + "\t";
-            input = input + temp + "\n";
+            input = input + temp + ";";
         }
-        input = input + "LSTM\n";
+        input = input + "LSTM;";
         for(DRLHost host : this.<DRLHost>getHostList()){
             temp = "";
             temp = temp + this.hostEnergy[getHostList().indexOf(host)] + "\t";
@@ -157,7 +177,7 @@ public class DRLDatacenter extends PowerDatacenter {
             temp = temp + host.getDiskBwProvisioner().getAvailableDiskBw() + "\t";
             temp = temp + host.getDiskBwProvisioner().getDiskBw() + "\t";
             temp = temp + host.getVmsMigratingIn().size() + "\t";
-            input = input + temp + "\n";
+            input = input + temp + ";";
         }
         return input;
     }

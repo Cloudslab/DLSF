@@ -64,7 +64,7 @@ public abstract class PowerVmSelectionPolicy {
 	 * @return the VMs to migrate from hosts
 	 */
 	protected List<? extends Vm>
-	getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList, PythonInterpreter interpreter){
+	getAllVmsToMigrate(List<PowerHost> hosts, List<? extends Vm> vmList){
 		return null;
 	};
 

@@ -9,6 +9,8 @@ import org.cloudbus.cloudsim.core.predicates.PredicateType;
 import org.cloudbus.cloudsim.lists.VmList;
 import org.cloudbus.cloudsim.plus.util.CustomLog;
 import org.cloudbus.cloudsim.util.MathUtil;
+import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
 import java.util.*;
@@ -66,8 +68,9 @@ public class DRLDatacenter extends PowerDatacenter {
 
     protected void updateDLModel(){
         PythonInterpreter interpreter = ((DRLVmAllocationPolicy) getVmAllocationPolicy()).interpreter;
-        interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
-        interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
+//        PyString loss = interpreter.eval("DeepRL().backprop(" + getLoss() + ")");
+        PyString loss = (PyString)interpreter.eval("DeepRL().sendMap(" + getVmHostMap() + ")");
+        System.out.println("DL Loss = " + ((PyObject) loss).toString());
         interpreter.eval("DeepRL().setInput(" + getInputMap() + ")");
     }
 

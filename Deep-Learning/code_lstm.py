@@ -7,314 +7,350 @@ import torchvision.transforms as transform
 from torch.autograd import Variable
 import torch.nn.functional as F
 from tqdm import tqdm
+from sklearn import preprocessing
+import os.path
+import pickle
 
-train = pd.read_csv(r"train.csv",dtype = np.float32)
+loss_parameters = np.load('loss_parameters.npy')
+cnn_parameters = np.load('cnn_parameters.npy')
+lstm_parameters = np.load('lstm_parameters.npy')
+#3,7,8
+loss_values = []
+for l in loss_parameters:
+	loss_values += [(l[3] + l[7] + l[8])/10000000]
+loss_values = np.array(loss_values)
+# print(loss_values)
 
-# split data into features(pixels) and labels(numbers from 0 to 9)
-targets_numpy = train.label.values
-features_numpy = train.loc[:,train.columns != "label"].values/255 # normalization
+y_values = np.random.randint(10, size=len(lstm_parameters))
+# print(y_values)
 
-# targets_numpy = targets_numpy[:500]
-# features_numpy = features_numpy[:500]
+cnn_parameters_flat= cnn_parameters.reshape((-1,cnn_parameters.shape[1]*cnn_parameters.shape[2]))
+lstm_parameters_flat = lstm_parameters.reshape((-1,lstm_parameters.shape[1]*lstm_parameters.shape[2]))
 
-# print(targets_numpy.shape[0])
-features_train = features_numpy[:int(0.8*targets_numpy.shape[0])]
-targets_train = targets_numpy[:int(0.8*targets_numpy.shape[0])]
-features_test = features_numpy[int(0.8*targets_numpy.shape[0]):]
-targets_test = targets_numpy[int(0.8*targets_numpy.shape[0]):]
-# print(targets_test.shape)
+lstm_parameters_preprocessed = preprocessing.normalize(lstm_parameters_flat)
+cnn_parameters_preprocessed = preprocessing.normalize(cnn_parameters_flat)
 
-# print(features_train[0].shape)
+cnn_parameters = cnn_parameters_preprocessed.reshape((-1,cnn_parameters.shape[1],cnn_parameters.shape[2]))
+lstm_parameters = lstm_parameters_preprocessed.reshape((-1,lstm_parameters.shape[1],lstm_parameters.shape[2]))
 
-vm_train = np.random.randint(10, size=(features_train.shape[0], 10))
-vm_test = np.random.randint(10, size=(features_test.shape[0], 10))
+features_train_cnn = cnn_parameters[:int(0.8*cnn_parameters.shape[0])]
+features_test_cnn = cnn_parameters[int(0.8*cnn_parameters.shape[0]):]
 
-# x = vm_train[0][0]
-# y = np.zeros(10)
-# y[x] = 1
-# print(y)
-# vm_list = [vm_train[i][0] for i in range(len(vm_train))]
-# print(len(vm_list))
-# print(len(features_train))
+features_train_lstm = lstm_parameters[:int(0.8*lstm_parameters.shape[0])]
+features_test_lstm = lstm_parameters[int(0.8*lstm_parameters.shape[0]):]
 
-featuresTrain = torch.from_numpy(features_train)
+targets_train = y_values[:int(0.8*y_values.shape[0])]
+targets_test = y_values[int(0.8*y_values.shape[0]):]
+
+loss_train = loss_values[:int(0.8*y_values.shape[0])]
+loss_test = loss_values[int(0.8*y_values.shape[0]):]
+
+featuresTrainCNN = torch.from_numpy(features_train_cnn).type(torch.FloatTensor)
+featuresTestCNN = torch.from_numpy(features_test_cnn).type(torch.FloatTensor)
+featuresTrainLSTM = torch.from_numpy(features_train_lstm).type(torch.FloatTensor)
+featuresTestLSTM = torch.from_numpy(features_test_lstm).type(torch.FloatTensor)
 targetsTrain = torch.from_numpy(targets_train).type(torch.LongTensor)
-
-featuresTest = torch.from_numpy(features_test)
 targetsTest = torch.from_numpy(targets_test).type(torch.LongTensor)
+lossTrain = torch.from_numpy(loss_train).type(torch.FloatTensor)
+lossTest = torch.from_numpy(loss_test).type(torch.FloatTensor)
 
-vmTrain = torch.from_numpy(vm_train)
-vmTest = torch.from_numpy(vm_test)
-
-batch_size = 50
+batch_size = 5
 n_iters = 10000
-num_epochs = n_iters / (len(features_train) / batch_size)
+num_epochs = n_iters / (len(features_train_cnn) / batch_size)
 num_epochs = int(num_epochs)
 
-train = torch.utils.data.TensorDataset(featuresTrain,targetsTrain)
-test = torch.utils.data.TensorDataset(featuresTest,targetsTest)
+train = torch.utils.data.TensorDataset(featuresTrainCNN,featuresTrainLSTM,targetsTrain,lossTrain)
+test = torch.utils.data.TensorDataset(featuresTestCNN,featuresTestLSTM,targetsTest,lossTest)
 
 train_loader = torch.utils.data.DataLoader(train, batch_size = batch_size, shuffle = False)
 test_loader = torch.utils.data.DataLoader(test, batch_size = batch_size, shuffle = False)
 
-# plt.imshow(features_numpy[10].reshape(28,28))
-# plt.axis("off")
-# plt.show()
 
-input_dim = 28
-hidden_dim = 28
+input_dim = 15
+hidden_dim = 26
 num_layers = 2
-output_dim = 10
+output_dim = 100
 
-learning_rate = 0.1
+learning_rate = 0.001
 
-seq_dim = 28  
+seq_dim = 1  
 loss_list = []
 iteration_list = []
 accuracy_list = []
 PATH = './models/'
 
-class RNNModel(nn.Module):
+no_of_hosts = 100
+no_of_vms = 100
+
+class DeepRL(nn.Module):
 	def __init__(self, input_dim, hidden_dim, num_layers, output_dim, batch_size):
 		super(RNNModel, self).__init__()
 		self.input_dim = input_dim
 		self.hidden_dim = hidden_dim
 		self.num_layers = num_layers
 		self.batch_size = batch_size
+		self.output_dim = output_dim
+		self.hidden = []
+
+		for i in range(no_of_hosts):
+			self.hidden += [self.init_hidden()]
 
 		self.lstm = nn.LSTM(self.input_dim, self.hidden_dim, self.num_layers, batch_first=True)
 		# self.lstm2 = nn.LSTM(hidden_dim, hidden_dim, batch_first=True)
-		
-		self.fc = nn.Linear(hidden_dim, output_dim)
-		self.fc0 = nn.Linear(2*output_dim, output_dim)
-		
-		self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
-		self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
-		self.conv3 = nn.Conv2d(1, 10, kernel_size = 8)
-		self.conv4 = nn.Conv2d(1, 1, kernel_size=2)
-		self.conv5 = nn.Conv2d(2, 1, kernel_size=4)
-		self.conv6 = nn.Conv2d(1, 5, kernel_size=2)
-		self.conv7 = nn.Conv2d(5, 1, kernel_size=2)
-		self.conv8 = nn.Conv2d(2, 3, kernel_size=2)
-		self.conv9 = nn.Conv2d(3, 1, kernel_size=3)
-		self.conv2_drop = nn.Dropout2d()
-		self.fc1 = nn.Linear(320, 200)
-		self.fc2 = nn.Linear(200, hidden_dim)
+		self.conv1 = nn.Conv2d(1, 10, kernel_size=2)
+		self.conv2 = nn.Conv2d(10, 1, kernel_size=3)
+		self.conv3 = nn.Conv2d(10, 10, kernel_size=2)
+
+		self.fc1 = nn.Linear(88, 1000)
+		self.fc2 = nn.Linear(1000, 5000)
+		self.fc3 = nn.Linear(5000, 10000)
+
+		self.bn1 = nn.BatchNorm1d(26)
 
 	def init_hidden(self):
 		return (torch.zeros(self.num_layers,self.batch_size, self.hidden_dim),
 				torch.zeros(self.num_layers,self.batch_size, self.hidden_dim))
 
-	def forward(self, x1, x2):
-		# h0 = Variable(torch.zeros(self.layer_dim, x1.size(0,), self.hidden_dim))
-		# out1, hn = self.lstm(x1, h0)
-		# print(hn.shape)
-		# # print(out1[:, -1, :].shape)
-		# out = self.fc(out1[:, -1, :])
+	def forward(self, cnn_data, lstm_data):
+		lstm_out_host = []
+		for i in range(lstm_data.shape[1]):
+			# print(lstm_data[:,i,:])
+			out, hidden = self.lstm(lstm_data[:,i,:].view(-1,1,lstm_data.shape[2]))
+			self.hidden[i] = hidden
+			lstm_out_host += [out]
+			# lstm_out_host += [self.bn1(out.view(-1,out.shape[2])).view(-1,1,out.shape[1])]
+
+		# lstm_out = np.array(lstm_out)
+		# print(lstm_out_host[0].shape)
+		lstm_out = lstm_out_host[0]
+		for i in range(1,lstm_data.shape[1]):
+			lstm_out = torch.cat((lstm_out,lstm_out_host[i]),1)
+		# print(lstm_out)
+		# print(self.hidden[0].shape)
+		x1 = lstm_out.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
+		x1 = F.relu(F.max_pool2d(self.conv1(x1),2))
+		x1 = self.conv2(x1)
+
+		cnn_data = cnn_data.reshape((-1,1,cnn_data.shape[1],cnn_data.shape[2]))
+		x2 = F.relu(F.max_pool2d(self.conv1(cnn_data),2))
+		x2 = self.conv2(x2)
+
+		x3 = torch.cat((x1,x2),2)
+
+		x3 = self.conv1(x3)
+		x3 = F.max_pool2d((x3),2)
+		x3 = self.conv2(x3)
+
+		x3 = x3.reshape(-1,x3.shape[2]*x3.shape[3])
+
+		x4 = self.fc1(x3)
+		x4 = self.fc2(x4)
+		x4  =self.fc3(x4)
+
+		x4 = x4.reshape(-1,self.output_dim,self.output_dim)
+
+		return x4
+
+
+	def setInput(self, data):
+		file_path = PATH + 'running_model.pth'
+		if os.path.isfile(file_path):
+			self.load_state_dict(torch.load(file_path))
+
+		# with open(file_name, 'r') as file:
+		# 	data = file.readlines()
+
+		data = data.splitlines()
+
+		cnn_data = np.zeros((100, 26), dtype=float)
+		lstm_data = np.zeros((100, 15), dtype=float)
+
+		cnn_count = 0
+		lstm_count = 0
+
+		flag = 0
+		for s in data:
+			if s[:3] == "CNN":
+				flag = 1
+				continue
+
+			elif s[:4] == "LSTM":
+				flag = 2
+				continue
+
+			if flag == 1:
+				s = s.replace('false','0')
+				s = s.replace('true','1')
+				s = s.replace('NaN','0')
+				s = s.split()
+				for i in range(len(s)):
+					cnn_data[cnn_count][i] = float(s[i])
+				cnn_count += 1
+
+			elif flag == 2:
+				s = s.replace('false','0')
+				s = s.replace('true','1')
+				s = s.replace('NaN','0')
+				s = s.split()
+				for i in range(len(s)):
+					lstm_data[lstm_count][i] = float(s[i])
+				lstm_count += 1
+
+		self.vm_map = []
+		for i in range(cnn_data.shape[0]):
+			self.vm_map += [cnn_data[i][0]]
+
+		file = open('vm_map.pickle','wb')
+		pickle.dump(self.vm_map, file)
+
+		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor).view(1,cnn_data.shape[0],cnn_data.shape[1]))
+		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor).view(1,lstm_data.shape[0],lstm_data.shape[1]))
+
+		self.output = self.forward(train_cnn, train_lstm)
+		self.output = self.output.view(self.output.shape[1],self.output.shape[2])
+
+		file = open('output.pickle','wb')
+		pickle.dump(self.output, file)
+		# print(self.output)
+
+
+	def backprop(self, data):
+		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
+
+		# with open(file_name, 'r') as file:
+		# 	data = file.readlines()
+
+		data = data.splitlines()
+
+		loss_parameters = []
+		for d in data:
+			d = d.replace('false','0')
+			d = d.replace('true','1')
+			d = d.replace('NaN','0')
+			d = d.split()
+			loss_parameters += [float(d[1])]
 		
-		# h_lstm1, out1 = self.lstm1(x1)
-		# print(len(out1))
-		# print(h_lstm1.shape)
-		# h_lstm2, _ = self.lstm2(h_lstm1)
+		loss_value = loss_parameters[3]/1000000 + loss_parameters[7] + loss_parameters[8]
+		loss_value = torch.Tensor(np.array(loss_value)).type(torch.FloatTensor)
 
-		lstm_out, self.hidden = self.lstm(x1)
-		# print(self.hidden[1].shape)
-		# print(lstm_out.shape)
-		x4 = lstm_out.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
-		# lstm_out1.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
-		x4 = self.conv6(x4)
-		x4 = self.conv7(x4)
-		x4 = F.relu(F.max_pool2d(x4,2))
-		# print(x4.shape)
-		
-		# x4 = F.relu(F.max_pool2d(self.conv4(x4),2))
-		
-		# print(x4.shape)
-		# x4 = x4.reshape(-1,10,10,10)
-		# print(x4.shape)
+		file = open('output.pickle','rb')
+		self.output = pickle.load(file)
 
-		x2.resize_((x2.shape[0],1,28,28))
-		# print(x2.shape)
+		loss = self.output.min()
+		loss.data = loss_value
 
-		x3 = self.conv6(x2)
-		x3 = self.conv7(x3)
-		x3 = F.relu(F.max_pool2d(x3,2))
+		loss.backward()
 
-		# x3 = F.relu(F.max_pool2d(self.conv4(x2),2))
-		
-		# print(x3.shape)
+		#update parameters
+		optimizer.step()
 
-		x5 = torch.cat((x3,x4),1)
-		# print(x5.shape)
-		# x5 = x5.reshape(-1,2,10,10,10)
-		# print(x5.shape)
-		x5 = self.conv8(x5)
-		x5 = self.conv9(x5)
-		# print(x5.shape)
-		
-		# x5 = F.relu(self.conv5(x5))
-		
-		# print(x5.shape)
+		torch.save(model.state_dict(), PATH + 'running_model.pth')
 
-		### shape of x5 : batch_size, no of vms, no of hosts
-		x5 = x5.reshape((-1,10,10))
-		# print(x5.shape)
-		return x5
+		return str(loss.item())
 
-		# x = F.relu(F.max_pool2d(self.conv1(x2), 2))
-		# # print(x.shape)
-		# x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
-		# # print(x.shape)
-		# x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3])
-		# # print(x.shape)
-		# x = F.relu(self.fc1(x))
-		# # print(x.shape)
-		# x = F.dropout(x, training=self.training)
-		# out2 = self.fc2(x)
-		# # print(out2)
-		# # print(out2.shape)
-		# # out2 = self.fc2(x)
+	def host_rank(self, vm):
+		vm = int(vm)	
+		# print(self.output.shape)	
 
-		# out3 = torch.add(lstm_out[:, -1, :], out2)
-		# # out4 = self.fc(out3)
-		# # print(out4[0].shape)
-		# # print(vm[0].shape)
-		# # out5 = torch.cat((out4, vm),1)
-		# out = self.fc(out3)
-		# # print(out)
-		# return out
+		file = open('output.pickle','rb')
+		self.output = pickle.load(file)
 
-	def custom_loss(self, outputs, labels):
-		outputs = torch.sum(outputs, dim=1)
-		loss = 0
-		labels = torch.nn.functional.one_hot(labels, 10).float()
-		# print(outputs)
-		for i in range(outputs.shape[0]):
-			# print(outputs[i].shape)
-			# print(labels[i].shape)
-			loss += torch.dot(outputs[i], labels[i])
-		# print(loss)
-		return loss
-
-	def train(self, error, optimizer):
-		self.hidden = self.init_hidden()
-		# print(model.hidden.shape)
-		count = 0
-		for epoch in range(num_epochs):
-			for i, (images, labels) in enumerate(train_loader):
-				# for i in range(len(vms[0])):
-				train  = Variable(images.view(-1, seq_dim, input_dim))
-				labels = Variable(labels)
-					
-				# Clear gradients
-				optimizer.zero_grad()
-				
-				# Forward propagation
-				outputs = self.forward(train, train)
-				# print(outputs)
-				
-				# Calculate softmax and cross entropy loss
-				loss = 0
-				for i in range(outputs.shape[1]):
-					loss += error(outputs[:,i,:],labels)
-					
-				# loss = self.custom_loss(outputs, labels)
-
-				# Calculating gradients
-				loss.backward()
-				
-				# Update parameters
-				optimizer.step()
-					
-				count += 1
-				
-				if count % 5 == 0:
-					# Calculate Accuracy         
-					correct = 0
-					total = 0
-					# Iterate through test dataset
-					flag = 0
-					image_check = []
-					label_check = []
-					for images, labels in test_loader:
-						# for i in range(len(vms[0])):
-						if flag == 0:
-							image_check += [images]
-							label_check += [labels]
-							flag = 1
-
-						images = Variable(images.view(-1, seq_dim, input_dim))
-						
-						# Forward propagation
-						outputs = self.forward(images, images)
-						
-						# Get predictions from the maximum value
-						predicted = torch.max(outputs[:,0,:].data, 1)[1]
-						# print(predicted)
-						
-						# Total number of labels
-						total += labels.size(0)
-						
-						correct += (predicted == labels).sum()
-					
-					accuracy = 100 * correct / float(total)
-					
-					# store loss and iteration
-					loss_list.append(loss.data)
-					iteration_list.append(count)
-					accuracy_list.append(accuracy)
-					# if count % 5 == 0:
-					# torch.save(model.state_dict(), PATH + 'new_model_' + str(count) + '.pth')	
-					print('Iteration: {}  Loss: {}  Accuracy: {}%'.format(count, loss.data, accuracy))
-
-	def test(self, img):
-		# print(featuresTest[1][205])
-		# model = TheModelClass(*args, **kwargs)
-		self.load_state_dict(torch.load('models/new_model_135.pth'))
-
-		# data_x = torch.from_numpy(np.array(featuresTest))
-		# test_data = torch.utils.data.TensorDataset(data_x)
-		# img = Variable(test_data[:][0].view(-1, seq_dim, input_dim))
-		output = self.forward(img, img)
-		# print(output)
-		# print((predicted == targetsTest).sum())
-		return output
-
-class DLScheduler():
-	def host_rank(self, model, output, vm):
-		host_list = output[vm]
+		host_list = self.output.data[vm]
 		# print(host_list)
 		indices = np.flip(np.argsort(host_list))
-		# print(indices)
-		# indices = np.flip(indices)
-		# print(indices)
-		return list(indices)
+
+	def migratableVMs(self):
+		file = open('output.pickle','rb')
+		self.output = pickle.load(file)
+
+		file = open('vm_map.pickle','rb')
+		self.vm_map = pickle.load(file)
+
+		output_index = np.argmax(self.output.data, axis=1)
+		
+		migratableIndex = []
+		for i in range(len(output_index)):
+			if self.vm_map[i] != output_index[i].item():
+				migratableIndex += [i]
+		# print(migratableIndex)
+
+	def sendMap(self, data):
+		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
+
+		# with open(file_name, 'r') as file:
+		# 	data = file.readlines()
+		
+		data = data.splitlines()
+
+		vmMap = np.zeros((100,100), dtype=int)
+		# print(vmMap.shape)
+
+		file = open('output.pickle','rb')
+		self.output = pickle.load(file)
+
+		loss = 0
+		for i in range(len(data)):
+			l = data[i].split()
+			y = int(l[1])
+			loss += self.output[i][y]
+
+		# print(loss.item())
+		loss.backward()
+
+		#update parameters
+		optimizer.step()
+
+		torch.save(model.state_dict(), PATH + 'running_model.pth')
+
+		return str(loss.item())
+
 
 if __name__ == '__main__':
 
-	model = RNNModel(input_dim, hidden_dim, num_layers, output_dim, batch_size)
+	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
 
-	error = nn.CrossEntropyLoss()
+	# error = nn.CrossEntropyLoss()
 
-	optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+	optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-	model.train(error, optimizer)
+	file_name = "forward.txt"
 
-	ind = 20
-	data_x = torch.from_numpy(np.array([features_test[ind]]))
-	data_y = torch.from_numpy(np.array([targets_test[ind]]))
-	# print(data_y.item())
-	test_data = torch.utils.data.TensorDataset(data_x,data_y)
-	img = Variable(test_data[0][0].view(-1, seq_dim, input_dim))
+	# print(model.fc1.weight)
+	# model.setInput(file_name)
 
-	output = model.test(img)
-	output = output.detach().numpy().reshape((10,10))
-	print(output[2])
-	# predicted = torch.max(output.data, 1)
-	# print(predicted)
+	file_name = "backprop.txt"
 
-	scheduler = DLScheduler()
-	vm = 2
-	indices = scheduler.host_rank(model, output, vm)
-	print(indices)
+	model.backprop(file_name)
+	# print(model.fc1.weight)
+
+	vm = '2'
+	model.host_rank(vm)
+
+	model.migratableVMs()
+
+	file_name = 'sendmap.txt'
+
+	model.sendMap(file_name)
+
+	# model.train(error, optimizer)
+
+	# ind = 20
+	# data_cnn = torch.from_numpy(np.array([features_test_cnn[ind]])).type(torch.FloatTensor)
+	# data_lstm = torch.from_numpy(np.array([features_test_lstm[ind]])).type(torch.FloatTensor)
+	# data_y = torch.from_numpy(np.array([targets_test[ind]])).type(torch.LongTensor)
+	# # print(data_y.item())
+	# test_data = torch.utils.data.TensorDataset(data_cnn,data_lstm,data_y)
+	# cnn_data = Variable(test_data[0][0].view(1,test_data[0][0].shape[0],test_data[0][0].shape[1]))
+	# lstm_data = Variable(test_data[0][1].view(1,test_data[0][1].shape[0],test_data[0][1].shape[1]))
+
+	# output = model.test(cnn_data, lstm_data)
+	# output = output.detach().numpy().reshape((10,10))
+	# # predicted = torch.max(output.data, 1)
+	# # print(predicted)
+
+	# scheduler = DLScheduler()
+	# vm = 9
+	# print(output[vm])
+	# indices = scheduler.host_rank(model, output, vm)
+	# print(indices)
 	

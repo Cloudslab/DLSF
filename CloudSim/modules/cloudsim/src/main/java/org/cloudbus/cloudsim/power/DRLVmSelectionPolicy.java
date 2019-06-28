@@ -1,9 +1,6 @@
 package org.cloudbus.cloudsim.power;
 
 import org.cloudbus.cloudsim.Vm;
-import org.python.util.PythonInterpreter;
-import org.python.core.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;

@@ -12,6 +12,8 @@ import os.path
 import pickle
 import math
 import matplotlib.pyplot as plt
+from sys import stdin, stdout
+import io
 
 batch_size = 5
 input_dim = 15
@@ -27,9 +29,12 @@ PATH = './model1/'
 no_of_hosts = 100
 no_of_vms = 100
 
+
 class DeepRL(nn.Module):
 	def __init__(self, input_dim, hidden_dim, num_layers, output_dim, batch_size):
 		super(DeepRL, self).__init__()
+
+		file_path = PATH + 'running_model.pth'
 
 		if not(os.path.isdir(PATH)):
 			# print("here")
@@ -58,6 +63,18 @@ class DeepRL(nn.Module):
 		self.fc3 = nn.Linear(5000, 10000)
 
 		self.bn1 = nn.BatchNorm1d(26)
+
+		if os.path.isfile(file_path):
+			self.load_state_dict(torch.load(file_path))
+			
+			file = open(PATH + 'hidden_state.pickle','rb')
+			self.hidden = pickle.load(file)
+
+			file = open(PATH + 'loss_backprop.pickle','rb')
+			self.loss_backprop = pickle.load(file)
+
+			file = open(PATH + 'loss_map.pickle','rb')
+			self.loss_map = pickle.load(file)
 
 	def init_hidden(self):
 		return (torch.zeros(self.num_layers,self.batch_size, self.hidden_dim),
@@ -108,19 +125,6 @@ class DeepRL(nn.Module):
 
 
 	def setInput(self, cnn_data, lstm_data):
-		file_path = PATH + 'running_model.pth'
-		if os.path.isfile(file_path):
-			self.load_state_dict(torch.load(file_path))
-			
-			file = open(PATH + 'hidden_state.pickle','rb')
-			self.hidden = pickle.load(file)
-
-			file = open(PATH + 'loss_backprop.pickle','rb')
-			self.loss_backprop = pickle.load(file)
-
-			file = open(PATH + 'loss_map.pickle','rb')
-			self.loss_map = pickle.load(file)
-
 		# for name, param in self.named_parameters():
 		#     if param.requires_grad:
 		#         print(name, param.data)
@@ -147,6 +151,8 @@ class DeepRL(nn.Module):
 
 
 	def backprop(self, loss_parameters):
+		if self.iter == 1:
+			return("Init Loss")
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 		
 		loss_value = loss_parameters[3]/1000000 + loss_parameters[7] + loss_parameters[8]
@@ -224,6 +230,9 @@ class DeepRL(nn.Module):
 		return s
 
 	def sendMap(self, data):
+		if self.iter == 1:
+			self.iter +=1
+			return "Init Loss"
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 
 		vmMap = np.zeros((100,100), dtype=int)
@@ -258,6 +267,8 @@ class DeepRL(nn.Module):
 			file = open(PATH + 'loss_map.pickle','wb')
 			pickle.dump(self.loss_map, file)
 
+			# globalFile.writeline(str(len(self.loss_map)))
+			# globalFile.flush()
 			plt.plot(self.loss_backprop)
 			plt.savefig(PATH + 'loss_backprop.jpg')
 			plt.clf()
@@ -268,7 +279,7 @@ class DeepRL(nn.Module):
 
 
 		self.iter += 1
-
+		
 		self.loss_map += [loss.item()]
 		return str(loss.item())
 
@@ -282,16 +293,26 @@ if __name__ == '__main__':
 	# inp = "host_rank,4"
 	inp = "sendMap,1 0;2 0;3 1;4 2;5 2;6 3"
 	# inp = 'migratableVMs,'
+	inp = []
+	globalFile = open("logs.txt", "a")
 
 	while(True):
-		inp = input("input : ")
-		if inp == 'exit':
+		while(True):
+			line = stdin.readline()
+			if "END" in line:
+				break
+			inp.append(line)
+		if inp:
+			file = open("inputs.txt", "w+")
+			file.writelines(inp)
+			file.close()
+		if inp[0] == 'exit':
 			break
-		l = inp.split(',')
-		funcName = l[0]
-		data = l[1].split(';')
+		funcName = inp[0]
+		data = inp[1:]
+		inp = []
 
-		if funcName == 'setInput':
+		if 'setInput' in funcName:
 			flag = 0
 			cnn_data = np.zeros((100, 26), dtype=float)
 			lstm_data = np.zeros((100, 15), dtype=float)
@@ -332,20 +353,24 @@ if __name__ == '__main__':
 				val = val.split()
 				loss_data += [float(val[1])]
 
-			print(model.backprop(loss_data))
+			stdout.write(model.backprop(loss_data))
+			stdout.flush()
 
-		elif funcName == 'host_rank':
+		elif 'getSortedHost' in funcName:
 			vm = int(data[0])
-			print(model.host_rank(vm))
+			stdout.write(model.host_rank(vm))
+			stdout.flush()
 
-		elif funcName == 'migratableVMs':
-			print(model.migratableVMs())
+		elif 'getVmsToMigrate' in funcName:
+			stdout.write(model.migratableVMs())
+			stdout.flush()
 
-		elif funcName == 'sendMap':
+		elif 'sendMap' in funcName:
 			hostVmMap = []
 			for val in data:
 				val = val.split()
 				l = [int(val[0]), int(val[1])]
 				hostVmMap += [l]
 
-			print(model.sendMap(hostVmMap))
+			stdout.write(model.sendMap(hostVmMap)+"\n")
+			stdout.flush()

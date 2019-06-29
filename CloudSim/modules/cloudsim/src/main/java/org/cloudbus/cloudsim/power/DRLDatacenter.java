@@ -10,6 +10,7 @@ import org.cloudbus.cloudsim.util.MathUtil;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.logging.Level;
@@ -48,7 +49,7 @@ public class DRLDatacenter extends PowerDatacenter {
     protected static Process pythonProc;
 
     // get an outputstream to write into the standard input of python
-    protected static OutputStream toPython;
+    protected static PrintStream toPython;
 
     // get an inputstream to read from the standard output of python
     protected  static BufferedReader fromPython;
@@ -75,25 +76,27 @@ public class DRLDatacenter extends PowerDatacenter {
         this.broker = broker;
         this.hostEnergy = new double[this.getHostList().size()];
         try{
-            pythonProc = Runtime.getRuntime().exec("python " + execFile);
+            ProcessBuilder pb = new ProcessBuilder("python",execFile);
+            pythonProc = pb.start();
         }
         catch(Exception e){System.out.println(e.getMessage());}
-        DRLDatacenter.toPython = pythonProc.getOutputStream();
-        DRLDatacenter.fromPython = new BufferedReader(new InputStreamReader(pythonProc.getInputStream(), Charset.defaultCharset()));
+        System.out.println("Ran python code : " + execFile);
+        toPython = new PrintStream(pythonProc.getOutputStream());
+        fromPython = new BufferedReader(new InputStreamReader(pythonProc.getInputStream(), Charset.defaultCharset()));
     }
 
     protected void updateDLModel(){
         String loss = "Error!";
         try{
-//            DRLDatacenter.toPython.write(("backprop,"+getLoss()).getBytes());
-            DRLDatacenter.toPython.write(("sendMap,"+getInputMap()+"\n").getBytes());
+//            DRLDatacenter.toPython.write(("backprop,"+getLoss()).getBytes()); toPython.flush();
+            toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
             loss = DRLDatacenter.fromPython.readLine();
-            DRLDatacenter.toPython.write(("setInput,"+getInput()+"\n").getBytes());
+            System.out.println("DL Loss = " + loss);
+            toPython.println(("setInput\n"+getInput()+"END")); toPython.flush();
         }
-        catch(Exception e){
+        catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("DL Loss = " + loss);
     }
 
     public String getLoss(){
@@ -104,80 +107,80 @@ public class DRLDatacenter extends PowerDatacenter {
             totalDataCenterEnergy += this.hostEnergy[getHostList().indexOf(host)];
             totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff * host.getUtilizationOfCpu()) / (60 * 60);
         }
-        loss = loss + "CurrentTime\t" + this.savedCurrentTime + ";";
-        loss = loss + "LastTime\t" + this.savedLastTime + ";";
-        loss = loss + "TimeDiff\t" + this.savedTimeDiff + ";";
-        loss = loss + "TotalEnergy\t" + totalDataCenterEnergy + ";";
-        loss = loss + "NumVsEnded\t" + this.numVmsEnded + ";";
-        loss = loss + "AverageResponseTime\t" + this.totalResponseTime/this.numVmsEnded + ";";
-        loss = loss + "AverageMigrationTime\t" + this.totalMigrationTime/this.numVmsEnded + ";";
+        loss = loss + "CurrentTime " + this.savedCurrentTime +  "\n";
+        loss = loss + "LastTime " + this.savedLastTime +  "\n";
+        loss = loss + "TimeDiff " + this.savedTimeDiff +  "\n";
+        loss = loss + "TotalEnergy " + totalDataCenterEnergy +  "\n";
+        loss = loss + "NumVsEnded " + this.numVmsEnded +  "\n";
+        loss = loss + "AverageResponseTime " + this.totalResponseTime/this.numVmsEnded +  "\n";
+        loss = loss + "AverageMigrationTime " + this.totalMigrationTime/this.numVmsEnded +  "\n";
         this.numVmsEnded = 0; this.totalMigrationTime = 0; this.totalResponseTime = 0;
-        loss = loss + "TotalCost\t" + totalDataCenterCost + ";";
-        loss = loss + "SLAOverall\t" + getSlaOverall(this.getVmList()) + ";";
+        loss = loss + "TotalCost " + totalDataCenterCost +  "\n";
+        loss = loss + "SLAOverall " + getSlaOverall(this.getVmList()) +  "\n";
         if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
-            loss = loss + "HostPenalty\t" + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty + ";";
-            loss = loss + "MigrationPenalty\t" + ((DRLVmSelectionPolicy)
+            loss = loss + "HostPenalty " + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty +  "\n";
+            loss = loss + "MigrationPenalty " + ((DRLVmSelectionPolicy)
                     ((DRLVmAllocationPolicy)
-                            getVmAllocationPolicy()).getVmSelectionPolicy()).migrationPenalty + "\n";
+                            getVmAllocationPolicy()).getVmSelectionPolicy()).migrationPenalty +  "\n";
         }
         return loss;
     }
 
     public String getInput(){
         String input = "";
-        input = input + "CNN " + "number of VMs " + this.getVmList().size() + ";";
+        input = input + "CNN " + "number of VMs " + this.getVmList().size() +  "\n";
         String temp;
         for(PowerVm vm : this.<PowerVm>getVmList()){
             temp = "";
             PowerHost host = (PowerHost)vm.getHost();
-            temp = temp + ((host != null) ? (this.getHostList().indexOf(host)) : "NA")  + "\t";
-            temp = temp + vm.getNumberOfPes() + "\t";
-            temp = temp + MathUtil.sum(vm.getCurrentRequestedMips()) + "\t";
-            temp = temp + vm.getCurrentRequestedMaxMips() + "\t";
-            temp = temp + vm.getUtilizationMean() + "\t";
-            temp = temp + vm.getUtilizationVariance() + "\t";
-            temp = temp + vm.getSize() + "\t";
-            temp = temp + vm.getCurrentAllocatedSize() + "\t";
-            temp = temp + vm.getRam() + "\t";
-            temp = temp + vm.getCurrentAllocatedRam() + "\t";
-            temp = temp + vm.getCurrentRequestedRam() + "\t";
-            temp = temp + vm.getBw() + "\t";
-            temp = temp + vm.getCurrentAllocatedBw() + "\t";
-            temp = temp + vm.getCurrentRequestedBw() + "\t";
-            temp = temp + vm.getDiskBw() + "\t";
-            temp = temp + vm.getCurrentAllocatedDiskBw() + "\t";
-            temp = temp + vm.getCurrentRequestedDiskBw() + "\t";
-            temp = temp + vm.isInMigration() + "\t";
+            temp = temp + ((host != null) ? (this.getHostList().indexOf(host)) : "NA")  + " ";
+            temp = temp + vm.getNumberOfPes() + " ";
+            temp = temp + MathUtil.sum(vm.getCurrentRequestedMips()) + " ";
+            temp = temp + vm.getCurrentRequestedMaxMips() + " ";
+            temp = temp + vm.getUtilizationMean() + " ";
+            temp = temp + vm.getUtilizationVariance() + " ";
+            temp = temp + vm.getSize() + " ";
+            temp = temp + vm.getCurrentAllocatedSize() + " ";
+            temp = temp + vm.getRam() + " ";
+            temp = temp + vm.getCurrentAllocatedRam() + " ";
+            temp = temp + vm.getCurrentRequestedRam() + " ";
+            temp = temp + vm.getBw() + " ";
+            temp = temp + vm.getCurrentAllocatedBw() + " ";
+            temp = temp + vm.getCurrentRequestedBw() + " ";
+            temp = temp + vm.getDiskBw() + " ";
+            temp = temp + vm.getCurrentAllocatedDiskBw() + " ";
+            temp = temp + vm.getCurrentRequestedDiskBw() + " ";
+            temp = temp + vm.isInMigration() + " ";
             ArrayList<Vm> list = new ArrayList<Vm>(Arrays.asList(vm));
-            temp = temp + getSlaOverall(list) + "\t";
-            temp = temp + ((host != null) ? (host.getUtilizationOfCpuMips()) : "NA")  + "\t";
-            temp = temp + ((host != null) ? (host.getAvailableMips()) : "NA")  + "\t";
-            temp = temp + ((host != null) ? (host.getRamProvisioner().getAvailableRam()) : "NA")  + "\t";
-            temp = temp + ((host != null) ? (host.getBwProvisioner().getAvailableBw()) : "NA")  + "\t";
-            temp = temp + ((host != null) ? (host.getDiskBwProvisioner().getAvailableDiskBw()) : "NA")  + "\t";
-            temp = temp + ((host != null) ? (host.getVmList().size()) : "0")  + "\t";
-            temp = temp + ((host != null) ? (this.hostEnergy[getHostList().indexOf(vm.getHost())]) : "NA")  + "\t";
-            input = input + temp + ";";
+            temp = temp + getSlaOverall(list) + " ";
+            temp = temp + ((host != null) ? (host.getUtilizationOfCpuMips()) : "NA")  + " ";
+            temp = temp + ((host != null) ? (host.getAvailableMips()) : "NA")  + " ";
+            temp = temp + ((host != null) ? (host.getRamProvisioner().getAvailableRam()) : "NA")  + " ";
+            temp = temp + ((host != null) ? (host.getBwProvisioner().getAvailableBw()) : "NA")  + " ";
+            temp = temp + ((host != null) ? (host.getDiskBwProvisioner().getAvailableDiskBw()) : "NA")  + " ";
+            temp = temp + ((host != null) ? (host.getVmList().size()) : "0")  + " ";
+            temp = temp + ((host != null) ? (this.hostEnergy[getHostList().indexOf(vm.getHost())]) : "NA");
+            input = input + temp +  "\n";
         }
-        input = input + "LSTM;";
+        input = input + "LSTM data;";
         for(DRLHost host : this.<DRLHost>getHostList()){
             temp = "";
-            temp = temp + this.hostEnergy[getHostList().indexOf(host)] + "\t";
-            temp = temp + host.getPower() + "\t";
-            temp = temp + host.getMaxPower() + "\t";
-            temp = temp + (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff / (60 * 60)) + "\t";
-            temp = temp + getSlaOverall(host.getVmList()) + "\t";
-            temp = temp + host.getUtilizationOfCpu() + "\t";
-            temp = temp + host.getMaxUtilization() + "\t";
-            temp = temp + host.getNumberOfPes() + "\t";
-            temp = temp + host.getRamProvisioner().getAvailableRam() + "\t";
-            temp = temp + host.getRamProvisioner().getRam() + "\t";
-            temp = temp + host.getBwProvisioner().getAvailableBw() + "\t";
-            temp = temp + host.getBwProvisioner().getBw() + "\t";
-            temp = temp + host.getDiskBwProvisioner().getAvailableDiskBw() + "\t";
-            temp = temp + host.getDiskBwProvisioner().getDiskBw() + "\t";
-            temp = temp + host.getVmsMigratingIn().size() + "\t";
-            input = input + temp + ";";
+            temp = temp + this.hostEnergy[getHostList().indexOf(host)] + " ";
+            temp = temp + host.getPower() + " ";
+            temp = temp + host.getMaxPower() + " ";
+            temp = temp + (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff / (60 * 60)) + " ";
+            temp = temp + getSlaOverall(host.getVmList()) + " ";
+            temp = temp + host.getUtilizationOfCpu() + " ";
+            temp = temp + host.getMaxUtilization() + " ";
+            temp = temp + host.getNumberOfPes() + " ";
+            temp = temp + host.getRamProvisioner().getAvailableRam() + " ";
+            temp = temp + host.getRamProvisioner().getRam() + " ";
+            temp = temp + host.getBwProvisioner().getAvailableBw() + " ";
+            temp = temp + host.getBwProvisioner().getBw() + " ";
+            temp = temp + host.getDiskBwProvisioner().getAvailableDiskBw() + " ";
+            temp = temp + host.getDiskBwProvisioner().getDiskBw() + " ";
+            temp = temp + host.getVmsMigratingIn().size();
+            input = input + temp +  "\n";
         }
         return input;
     }
@@ -369,9 +372,9 @@ public class DRLDatacenter extends PowerDatacenter {
 
 //        Log.setDisabled(false);
         if(this.savedTimeDiff > 200){
-            Log.printLine2("LOSS : \n" + getLoss().replaceAll(";" ,"\n"));
+            Log.printLine2("LOSS : \n" + getLoss());
             Log.printLine2(getVmHostMap());
-            Log.printLine2("INPUT : \n" + getInput().replace(";", "\n"));
+            Log.printLine2("INPUT : \n" + getInput());
         }
 //        Log.setDisabled(true);
 
@@ -390,7 +393,7 @@ public class DRLDatacenter extends PowerDatacenter {
     public String getInputMap(){
         String map = "";
         for(Vm vm : this.getVmList()){
-            map = map + (this.getVmList().indexOf(vm) + " " + vm.getHost().getId()) + "\n";
+            map = map + (this.getVmList().indexOf(vm) + " " + vm.getHost().getId()) +  "\n";
         }
         return map;
     }

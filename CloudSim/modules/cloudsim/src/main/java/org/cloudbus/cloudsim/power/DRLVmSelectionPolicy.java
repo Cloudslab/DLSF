@@ -58,7 +58,7 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
         // @todo : Parse output from DL model
         String result; ArrayList<String> vms = new ArrayList();
         try{
-            DRLDatacenter.toPython.write(("getVmsToMigrate,\n").getBytes());
+            DRLDatacenter.toPython.println(("getVmsToMigrate\n \nEND")); DRLDatacenter.toPython.flush();
             result = DRLDatacenter.fromPython.readLine();
             vms = new ArrayList<>(Arrays.asList(result.split(",")));
         }

@@ -103,7 +103,7 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
             vmIndex = vmList.indexOf(vm);
             String result; ArrayList<String> sortedHosts = new ArrayList();
             try{
-                DRLDatacenter.toPython.write(("getSortedHost," + vmIndex + "\n").getBytes());
+                DRLDatacenter.toPython.println(("getSortedHost\n"+vmIndex+"\nEND")); DRLDatacenter.toPython.flush();
                 result = DRLDatacenter.fromPython.readLine();
                 sortedHosts = new ArrayList<>(Arrays.asList(result.split(",")));
             }

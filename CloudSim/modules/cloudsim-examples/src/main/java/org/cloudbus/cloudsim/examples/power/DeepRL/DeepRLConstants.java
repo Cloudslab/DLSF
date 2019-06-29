@@ -10,7 +10,7 @@ import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
 
 public class DeepRLConstants {
 
-    public final static String pythonCode = "DeepRL.py";
+    public final static String pythonCode = "../Deep-Learning/DeepRL.py";
 
     public final static String pythonClass = "DeepRL";
 

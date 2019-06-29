@@ -369,9 +369,9 @@ public class DRLDatacenter extends PowerDatacenter {
 
 //        Log.setDisabled(false);
         if(this.savedTimeDiff > 200){
-            Log.printLine2("LOSS : \n" + getLoss());
+            Log.printLine2("LOSS : \n" + getLoss().replaceAll(";" ,"\n"));
             Log.printLine2(getVmHostMap());
-            Log.printLine2("INPUT : \n" + getInput());
+            Log.printLine2("INPUT : \n" + getInput().replace(";", "\n"));
         }
 //        Log.setDisabled(true);
 

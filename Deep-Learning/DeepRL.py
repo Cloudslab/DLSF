@@ -10,62 +10,10 @@ from tqdm import tqdm
 from sklearn import preprocessing
 import os.path
 import pickle
-
-loss_parameters = np.load('loss_parameters.npy')
-cnn_parameters = np.load('cnn_parameters.npy')
-lstm_parameters = np.load('lstm_parameters.npy')
-#3,7,8
-loss_values = []
-for l in loss_parameters:
-	loss_values += [(l[3] + l[7] + l[8])/10000000]
-loss_values = np.array(loss_values)
-# print(loss_values)
-
-y_values = np.random.randint(10, size=len(lstm_parameters))
-# print(y_values)
-
-cnn_parameters_flat= cnn_parameters.reshape((-1,cnn_parameters.shape[1]*cnn_parameters.shape[2]))
-lstm_parameters_flat = lstm_parameters.reshape((-1,lstm_parameters.shape[1]*lstm_parameters.shape[2]))
-
-lstm_parameters_preprocessed = preprocessing.normalize(lstm_parameters_flat)
-cnn_parameters_preprocessed = preprocessing.normalize(cnn_parameters_flat)
-
-cnn_parameters = cnn_parameters_preprocessed.reshape((-1,cnn_parameters.shape[1],cnn_parameters.shape[2]))
-lstm_parameters = lstm_parameters_preprocessed.reshape((-1,lstm_parameters.shape[1],lstm_parameters.shape[2]))
-
-features_train_cnn = cnn_parameters[:int(0.8*cnn_parameters.shape[0])]
-features_test_cnn = cnn_parameters[int(0.8*cnn_parameters.shape[0]):]
-
-features_train_lstm = lstm_parameters[:int(0.8*lstm_parameters.shape[0])]
-features_test_lstm = lstm_parameters[int(0.8*lstm_parameters.shape[0]):]
-
-targets_train = y_values[:int(0.8*y_values.shape[0])]
-targets_test = y_values[int(0.8*y_values.shape[0]):]
-
-loss_train = loss_values[:int(0.8*y_values.shape[0])]
-loss_test = loss_values[int(0.8*y_values.shape[0]):]
-
-featuresTrainCNN = torch.from_numpy(features_train_cnn).type(torch.FloatTensor)
-featuresTestCNN = torch.from_numpy(features_test_cnn).type(torch.FloatTensor)
-featuresTrainLSTM = torch.from_numpy(features_train_lstm).type(torch.FloatTensor)
-featuresTestLSTM = torch.from_numpy(features_test_lstm).type(torch.FloatTensor)
-targetsTrain = torch.from_numpy(targets_train).type(torch.LongTensor)
-targetsTest = torch.from_numpy(targets_test).type(torch.LongTensor)
-lossTrain = torch.from_numpy(loss_train).type(torch.FloatTensor)
-lossTest = torch.from_numpy(loss_test).type(torch.FloatTensor)
+import math
+import matplotlib.pyplot as plt
 
 batch_size = 5
-n_iters = 10000
-num_epochs = n_iters / (len(features_train_cnn) / batch_size)
-num_epochs = int(num_epochs)
-
-train = torch.utils.data.TensorDataset(featuresTrainCNN,featuresTrainLSTM,targetsTrain,lossTrain)
-test = torch.utils.data.TensorDataset(featuresTestCNN,featuresTestLSTM,targetsTest,lossTest)
-
-train_loader = torch.utils.data.DataLoader(train, batch_size = batch_size, shuffle = False)
-test_loader = torch.utils.data.DataLoader(test, batch_size = batch_size, shuffle = False)
-
-
 input_dim = 15
 hidden_dim = 26
 num_layers = 2
@@ -73,24 +21,28 @@ output_dim = 100
 
 learning_rate = 0.001
 
-seq_dim = 1  
-loss_list = []
-iteration_list = []
-accuracy_list = []
-PATH = './models/'
+seq_dim = 1 
+PATH = './model1/'
 
 no_of_hosts = 100
 no_of_vms = 100
 
 class DeepRL(nn.Module):
 	def __init__(self, input_dim, hidden_dim, num_layers, output_dim, batch_size):
-		super(RNNModel, self).__init__()
+		super(DeepRL, self).__init__()
+
+		if not(os.path.isdir(PATH)):
+			# print("here")
+			os.mkdir(PATH)
 		self.input_dim = input_dim
 		self.hidden_dim = hidden_dim
 		self.num_layers = num_layers
 		self.batch_size = batch_size
 		self.output_dim = output_dim
 		self.hidden = []
+		self.iter = 1
+		self.loss_backprop = []
+		self.loss_map = []
 
 		for i in range(no_of_hosts):
 			self.hidden += [self.init_hidden()]
@@ -148,93 +100,60 @@ class DeepRL(nn.Module):
 		x4  =self.fc3(x4)
 
 		x4 = x4.reshape(-1,self.output_dim,self.output_dim)
+		# print(x4)
+		x4 = F.softmax(x4, dim=2)
+		# print(x4[0][0])
 
 		return x4
 
 
-	def setInput(self, data):
+	def setInput(self, cnn_data, lstm_data):
 		file_path = PATH + 'running_model.pth'
 		if os.path.isfile(file_path):
 			self.load_state_dict(torch.load(file_path))
+			
+			file = open(PATH + 'hidden_state.pickle','rb')
+			self.hidden = pickle.load(file)
 
-		# with open(file_name, 'r') as file:
-		# 	data = file.readlines()
+			file = open(PATH + 'loss_backprop.pickle','rb')
+			self.loss_backprop = pickle.load(file)
 
-		data = data.splitlines()
+			file = open(PATH + 'loss_map.pickle','rb')
+			self.loss_map = pickle.load(file)
 
-		cnn_data = np.zeros((100, 26), dtype=float)
-		lstm_data = np.zeros((100, 15), dtype=float)
-
-		cnn_count = 0
-		lstm_count = 0
-
-		flag = 0
-		for s in data:
-			if s[:3] == "CNN":
-				flag = 1
-				continue
-
-			elif s[:4] == "LSTM":
-				flag = 2
-				continue
-
-			if flag == 1:
-				s = s.replace('false','0')
-				s = s.replace('true','1')
-				s = s.replace('NaN','0')
-				s = s.split()
-				for i in range(len(s)):
-					cnn_data[cnn_count][i] = float(s[i])
-				cnn_count += 1
-
-			elif flag == 2:
-				s = s.replace('false','0')
-				s = s.replace('true','1')
-				s = s.replace('NaN','0')
-				s = s.split()
-				for i in range(len(s)):
-					lstm_data[lstm_count][i] = float(s[i])
-				lstm_count += 1
-
+		# for name, param in self.named_parameters():
+		#     if param.requires_grad:
+		#         print(name, param.data)
 		self.vm_map = []
 		for i in range(cnn_data.shape[0]):
 			self.vm_map += [cnn_data[i][0]]
 
-		file = open('vm_map.pickle','wb')
-		pickle.dump(self.vm_map, file)
+		# file = open(PATH + 'vm_map.pickle','wb')
+		# pickle.dump(self.vm_map, file)
+
+		lstm_data = preprocessing.normalize(lstm_data)
+		cnn_data = preprocessing.normalize(cnn_data)
 
 		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor).view(1,cnn_data.shape[0],cnn_data.shape[1]))
 		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor).view(1,lstm_data.shape[0],lstm_data.shape[1]))
 
+		# print(train_lstm.shape)
 		self.output = self.forward(train_cnn, train_lstm)
 		self.output = self.output.view(self.output.shape[1],self.output.shape[2])
 
-		file = open('output.pickle','wb')
-		pickle.dump(self.output, file)
+		# file = open(PATH + 'output.pickle','wb')
+		# pickle.dump(self.output, file)
 		# print(self.output)
 
 
-	def backprop(self, data):
+	def backprop(self, loss_parameters):
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
-
-		# with open(file_name, 'r') as file:
-		# 	data = file.readlines()
-
-		data = data.splitlines()
-
-		loss_parameters = []
-		for d in data:
-			d = d.replace('false','0')
-			d = d.replace('true','1')
-			d = d.replace('NaN','0')
-			d = d.split()
-			loss_parameters += [float(d[1])]
 		
 		loss_value = loss_parameters[3]/1000000 + loss_parameters[7] + loss_parameters[8]
 		loss_value = torch.Tensor(np.array(loss_value)).type(torch.FloatTensor)
 
-		file = open('output.pickle','rb')
-		self.output = pickle.load(file)
+		# file = open('output.pickle','rb')
+		# self.output = pickle.load(file)
 
 		loss = self.output.min()
 		loss.data = loss_value
@@ -244,27 +163,53 @@ class DeepRL(nn.Module):
 		#update parameters
 		optimizer.step()
 
-		torch.save(model.state_dict(), PATH + 'running_model.pth')
+		if self.iter%10 == 0: 
+			torch.save(model.state_dict(), PATH + 'running_model.pth')
+			
+			file = open(PATH + 'hidden_state.pickle','wb')
+			pickle.dump(self.hidden, file)
 
+			file = open(PATH + 'loss_backprop.pickle','wb')
+			pickle.dump(self.loss_backprop, file)
+
+			file = open(PATH + 'loss_map.pickle','wb')
+			pickle.dump(self.loss_map, file)
+
+			plt.plot(self.loss_backprop)
+			plt.savefig(PATH + 'loss_backprop.jpg')
+			plt.close()
+
+			plt.plot(self.loss_map)
+			plt.savefig(PATH + 'loss_map.jpg')
+			plt.close()
+
+
+		self.iter += 1
+
+		self.loss_backprop += [loss.item()]
 		return str(loss.item())
 
 	def host_rank(self, vm):
-		vm = int(vm)	
 		# print(self.output.shape)	
 
-		file = open('output.pickle','rb')
-		self.output = pickle.load(file)
+		# file = open('output.pickle','rb')
+		# self.output = pickle.load(file)
 
 		host_list = self.output.data[vm]
 		# print(host_list)
 		indices = np.flip(np.argsort(host_list))
+		# print(indices)
+		s = ''
+		for index in indices:
+			s += str(index) + ' '
+		return s
 
 	def migratableVMs(self):
-		file = open('output.pickle','rb')
-		self.output = pickle.load(file)
+		# file = open('output.pickle','rb')
+		# self.output = pickle.load(file)
 
-		file = open('vm_map.pickle','rb')
-		self.vm_map = pickle.load(file)
+		# file = open('vm_map.pickle','rb')
+		# self.vm_map = pickle.load(file)
 
 		output_index = np.argmax(self.output.data, axis=1)
 		
@@ -273,35 +218,58 @@ class DeepRL(nn.Module):
 			if self.vm_map[i] != output_index[i].item():
 				migratableIndex += [i]
 		# print(migratableIndex)
+		s = ''
+		for index in migratableIndex:
+			s += str(index) + ' '
+		return s
 
 	def sendMap(self, data):
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 
-		# with open(file_name, 'r') as file:
-		# 	data = file.readlines()
-		
-		data = data.splitlines()
-
 		vmMap = np.zeros((100,100), dtype=int)
 		# print(vmMap.shape)
 
-		file = open('output.pickle','rb')
-		self.output = pickle.load(file)
+		# file = open('output.pickle','rb')
+		# self.output = pickle.load(file)
 
 		loss = 0
 		for i in range(len(data)):
-			l = data[i].split()
-			y = int(l[1])
-			loss += self.output[i][y]
+			# l = data[i].split()
+			y = data[i][1]
+			# print(self.output[i][y])
+			loss -= torch.log(self.output[i][y])
 
-		# print(loss.item())
+		loss /= len(data)
+		# print(loss)
 		loss.backward()
 
 		#update parameters
 		optimizer.step()
 
-		torch.save(model.state_dict(), PATH + 'running_model.pth')
+		if self.iter%5 == 0: 
+			torch.save(model.state_dict(), PATH + 'running_model.pth')
+			
+			file = open(PATH + 'hidden_state.pickle','wb')
+			pickle.dump(self.hidden, file)
 
+			file = open(PATH + 'loss_backprop.pickle','wb')
+			pickle.dump(self.loss_backprop, file)
+
+			file = open(PATH + 'loss_map.pickle','wb')
+			pickle.dump(self.loss_map, file)
+
+			plt.plot(self.loss_backprop)
+			plt.savefig(PATH + 'loss_backprop.jpg')
+			plt.clf()
+
+			plt.plot(self.loss_map)
+			plt.savefig(PATH + 'loss_map.jpg')
+			plt.clf()
+
+
+		self.iter += 1
+
+		self.loss_map += [loss.item()]
 		return str(loss.item())
 
 
@@ -309,48 +277,75 @@ if __name__ == '__main__':
 
 	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
 
-	# error = nn.CrossEntropyLoss()
+	# inp = "backprop,CurrentTime 300.1;LastTime 0.0;TimeDiff 300.1;TotalEnergy 105358.10624075294;NumVsEnded 1.0;AverageResponseTime 0.0;AverageMigrationTime 0.0;TotalCost 0.3317772222222221;SLAOverall NaN"
+	# inp = "setInput,CNN data;1 2 3;4 5 6;LSTM data;7 8 9;1 2 3"
+	# inp = "host_rank,4"
+	inp = "sendMap,1 0;2 0;3 1;4 2;5 2;6 3"
+	# inp = 'migratableVMs,'
 
-	optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+	while(True):
+		inp = input("input : ")
+		if inp == 'exit':
+			break
+		l = inp.split(',')
+		funcName = l[0]
+		data = l[1].split(';')
 
-	file_name = "forward.txt"
+		if funcName == 'setInput':
+			flag = 0
+			cnn_data = np.zeros((100, 26), dtype=float)
+			lstm_data = np.zeros((100, 15), dtype=float)
+			cnn_count = 0
+			lstm_count = 0
+			for val in data:
+				val = val.replace('false','0')
+				val = val.replace('true','1')
+				val = val.replace('NaN','0')
+				x = val.split(' ')
+				if x[0] == 'CNN':
+					flag = 1
+					continue
+				
+				elif x[0] == "LSTM":
+					flag = 2
+					continue
 
-	# print(model.fc1.weight)
-	# model.setInput(file_name)
+				if flag == 1:
+					for i in range(len(x)):
+						cnn_data[cnn_count][i] = float(x[i])
+					cnn_count += 1
 
-	file_name = "backprop.txt"
+				elif flag == 2:
+					for i in range(len(x)):
+						lstm_data[lstm_count][i] = float(x[i])
+					lstm_count += 1
 
-	model.backprop(file_name)
-	# print(model.fc1.weight)
+			model.setInput(cnn_data, lstm_data)
 
-	vm = '2'
-	model.host_rank(vm)
+		elif funcName == 'backprop':
+			loss_data = []
+			for val in data:
+				val = val.replace('false','0')
+				val = val.replace('true','1')
+				val = val.replace('NaN','0')
+				# print(val)
+				val = val.split()
+				loss_data += [float(val[1])]
 
-	model.migratableVMs()
+			print(model.backprop(loss_data))
 
-	file_name = 'sendmap.txt'
+		elif funcName == 'host_rank':
+			vm = int(data[0])
+			print(model.host_rank(vm))
 
-	model.sendMap(file_name)
+		elif funcName == 'migratableVMs':
+			print(model.migratableVMs())
 
-	# model.train(error, optimizer)
+		elif funcName == 'sendMap':
+			hostVmMap = []
+			for val in data:
+				val = val.split()
+				l = [int(val[0]), int(val[1])]
+				hostVmMap += [l]
 
-	# ind = 20
-	# data_cnn = torch.from_numpy(np.array([features_test_cnn[ind]])).type(torch.FloatTensor)
-	# data_lstm = torch.from_numpy(np.array([features_test_lstm[ind]])).type(torch.FloatTensor)
-	# data_y = torch.from_numpy(np.array([targets_test[ind]])).type(torch.LongTensor)
-	# # print(data_y.item())
-	# test_data = torch.utils.data.TensorDataset(data_cnn,data_lstm,data_y)
-	# cnn_data = Variable(test_data[0][0].view(1,test_data[0][0].shape[0],test_data[0][0].shape[1]))
-	# lstm_data = Variable(test_data[0][1].view(1,test_data[0][1].shape[0],test_data[0][1].shape[1]))
-
-	# output = model.test(cnn_data, lstm_data)
-	# output = output.detach().numpy().reshape((10,10))
-	# # predicted = torch.max(output.data, 1)
-	# # print(predicted)
-
-	# scheduler = DLScheduler()
-	# vm = 9
-	# print(output[vm])
-	# indices = scheduler.host_rank(model, output, vm)
-	# print(indices)
-	
+			print(model.sendMap(hostVmMap))

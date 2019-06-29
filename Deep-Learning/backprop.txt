@@ -1,0 +1,9 @@
+CurrentTime	300.1
+LastTime	0.0
+TimeDiff	300.1
+TotalEnergy	105358.10624075294
+NumVsEnded	1.0
+AverageResponseTime	0.0
+AverageMigrationTime	0.0
+TotalCost	0.3317772222222221
+SLAOverall	NaN

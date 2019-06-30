@@ -181,8 +181,8 @@ public class DeepRLHelper {
     public static List<PowerHost> createHostList(int hostsNumber) {
         List<PowerHost> hostList = new ArrayList<PowerHost>();
         for (int i = 0; i < hostsNumber; i++) {
-//            int hostType = i % BitBrainConstants.HOST_TYPES;
-            int hostType =0;
+            int hostType = i % DeepRLConstants.HOST_TYPES;
+//            int hostType =0;
 
 
             List<Pe> peList = new ArrayList<Pe>();

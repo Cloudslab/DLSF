@@ -15,13 +15,17 @@ import matplotlib.pyplot as plt
 from sys import stdin, stdout
 import io
 
+torch.set_printoptions(threshold=10000)
+np.set_printoptions(threshold=np.inf)
+
+
 batch_size = 5
 input_dim = 15
 hidden_dim = 26
 num_layers = 2
 output_dim = 100
 
-learning_rate = 0.001
+learning_rate = 0.00001
 
 seq_dim = 1 
 PATH = './model1/'
@@ -145,6 +149,13 @@ class DeepRL(nn.Module):
 		self.output = self.forward(train_cnn, train_lstm)
 		self.output = self.output.view(self.output.shape[1],self.output.shape[2])
 
+		file = open(PATH+"DLoutput.txt", "w+")
+		file.write(str(self.output))
+		file.close()
+
+		plt.imshow(self.output.detach().numpy(),cmap='gray')
+		plt.savefig(PATH + 'DLoutput.jpg')
+		plt.close()
 		# file = open(PATH + 'output.pickle','wb')
 		# pickle.dump(self.output, file)
 		# print(self.output)
@@ -245,8 +256,24 @@ class DeepRL(nn.Module):
 		for i in range(len(data)):
 			# l = data[i].split()
 			y = data[i][1]
+			vmMap[i][y] = 1
 			# print(self.output[i][y])
 			loss -= torch.log(self.output[i][y])
+
+		plt.imshow(vmMap,cmap='gray')
+		plt.savefig(PATH + 'sendMap.jpg')
+		plt.close()
+
+		file = open(PATH+"sendMap.txt", "w+")
+		file.write(str(vmMap))
+		file.close()
+
+		file = open(PATH+"DLmap.txt", "w+")
+		for i in range(len(data)):
+			host_list = self.output.data[i]
+			index = np.flip(np.argsort(host_list))[0]
+			file.write(str(i) + " " + str(index) + "\n")
+		file.close()
 
 		loss /= len(data)
 		# print(loss)
@@ -294,7 +321,7 @@ if __name__ == '__main__':
 	inp = "sendMap,1 0;2 0;3 1;4 2;5 2;6 3"
 	# inp = 'migratableVMs,'
 	inp = []
-	globalFile = open("logs.txt", "a")
+	globalFile = open(PATH+"logs.txt", "a")
 
 	while(True):
 		while(True):
@@ -303,7 +330,7 @@ if __name__ == '__main__':
 				break
 			inp.append(line)
 		if inp:
-			file = open("inputs.txt", "w+")
+			file = open(PATH+"DLinput.txt", "w+")
 			file.writelines(inp)
 			file.close()
 		if inp[0] == 'exit':

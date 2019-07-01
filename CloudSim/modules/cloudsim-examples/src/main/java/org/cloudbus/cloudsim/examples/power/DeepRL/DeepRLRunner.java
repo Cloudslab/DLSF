@@ -186,7 +186,7 @@ public class DeepRLRunner extends RunnerAbstract {
 //                cloudletList.addAll(cloudletListDynamic);
 //                vmList.addAll(vmListDynamic);
                 broker.createVmsAfter(vmListDynamic, i);
-                broker.destroyVMsAfter(vmListDynamic, i+Math.max(0,(int) (rnd.nextGaussian() * DeepRLConstants.vmTimestdGaussian + DeepRLConstants.vmTimemeanGaussian)));
+                broker.destroyVMsAfter(vmListDynamic, i+Math.max(300,(int) (rnd.nextGaussian() * DeepRLConstants.vmTimestdGaussian + DeepRLConstants.vmTimemeanGaussian)));
                 broker.submitCloudletList(cloudletListDynamic, i);
                 System.out.print('\r' + decimalFormat.format((int)(100*i/DeepRLConstants.SIMULATION_LIMIT)) + "%");
             }

@@ -14,11 +14,11 @@ public class DeepRLConstants {
 
     public final static String pythonClass = "DeepRL";
 
-    public final static double meanGaussian = 6;
+    public final static double meanGaussian = 12;
 
     public final static double stdGaussian = 5;
 
-    public final static double vmTimemeanGaussian = 600; // 10 minutes
+    public final static double vmTimemeanGaussian = 1800; // 30 minutes
 
     public final static double vmTimestdGaussian = 300; // 5 minutes
 

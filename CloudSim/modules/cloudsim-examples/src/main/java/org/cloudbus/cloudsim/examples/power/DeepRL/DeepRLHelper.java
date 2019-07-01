@@ -5,11 +5,13 @@ import org.cloudbus.cloudsim.UtilizationModel;
 import org.cloudbus.cloudsim.UtilizationModelNull;
 import org.cloudbus.cloudsim.*;
 
+import org.cloudbus.cloudsim.cost.models.CostModel;
 import org.cloudbus.cloudsim.cost.models.CostModelAzure.*;
 import org.cloudbus.cloudsim.examples.power.Constants;
 import org.cloudbus.cloudsim.power.*;
-import org.cloudbus.cloudsim.power.models.PowerModelSpecPowerDellPowerEdgeC6320;
+import org.cloudbus.cloudsim.power.models.*;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
+import org.cloudbus.cloudsim.provisioners.DiskBwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
@@ -195,15 +197,40 @@ public class DeepRLHelper {
                     i,
                     new RamProvisionerSimple(DeepRLConstants.HOST_RAM[hostType]),
                     new BwProvisionerSimple(DeepRLConstants.HOST_BW),
+                    new DiskBwProvisionerSimple(DeepRLConstants.HOST_DISK_BW),
                     DeepRLConstants.HOST_STORAGE,
                     peList,
                     new VmSchedulerTimeSharedOverSubscription(peList),
-                    new PowerModelSpecPowerDellPowerEdgeC6320(),
-                    new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.A0),
+                    getPowerModel(hostType),
+                    getCostModel(hostType),
                     false));
         }
         Log.print("Number of hosts created-> " + hostList.size());
         return hostList;
+    }
+
+    public static PowerModelSpecPower getPowerModel(int hostType){
+        switch (hostType){
+            case 0:
+                return new PowerModelSpecPowerDellPowerEdgeC6320();
+            case 1:
+                return new PowerModelSpecPowerDellPowerEdgeR820();
+            case 2:
+                return new PowerModelSpecPowerDEPORaceX340H();
+        }
+        return new PowerModelSpecPowerHitachiHA8000();
+    }
+
+    public static CostModel getCostModel(int hostType){
+        switch (hostType){
+            case 0:
+                return new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.D64);
+            case 1:
+                return new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.D32);
+            case 2:
+                return new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.B4ms);
+        }
+        return new CostModelAzure(Region.Australia_SouthEast, OS.Windows, Tier.Standard, Instance.B2S);
     }
 
     /**

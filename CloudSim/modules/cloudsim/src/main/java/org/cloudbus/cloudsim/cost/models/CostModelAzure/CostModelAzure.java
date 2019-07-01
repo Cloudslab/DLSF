@@ -101,6 +101,10 @@ public class CostModelAzure extends CostModel {
                                     case A2: return 0.3103;
                                     case B1S: return 0.0236;
                                     case B2S: return 0.0835;
+                                    case D64: return 6.944;
+                                    case D32: return 3.472;
+                                    case B4ms: return 0.227;
+                                    case B2ms: return  0.114;
                                 }
                             case Low_Priority:
                                 switch (instance){

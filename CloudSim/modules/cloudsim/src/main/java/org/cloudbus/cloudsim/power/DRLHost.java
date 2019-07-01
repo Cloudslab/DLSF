@@ -6,6 +6,7 @@ import org.cloudbus.cloudsim.cost.models.CostModel;
 import org.cloudbus.cloudsim.lists.PeList;
 import org.cloudbus.cloudsim.power.models.PowerModel;
 import org.cloudbus.cloudsim.provisioners.BwProvisioner;
+import org.cloudbus.cloudsim.provisioners.DiskBwProvisioner;
 import org.cloudbus.cloudsim.provisioners.RamProvisioner;
 import org.cloudbus.cloudsim.util.MathUtil;
 
@@ -51,6 +52,7 @@ public class DRLHost extends PowerHostUtilizationHistory{
             int id,
             RamProvisioner ramProvisioner,
             BwProvisioner bwProvisioner,
+            DiskBwProvisioner diskBwProvisioner,
             long storage,
             List<? extends Pe> peList,
             VmScheduler vmScheduler,
@@ -58,6 +60,7 @@ public class DRLHost extends PowerHostUtilizationHistory{
             CostModel costModel,
             boolean fog) {
         super(id, ramProvisioner, bwProvisioner, storage, peList, vmScheduler, powerModel);
+        setDiskBwProvisioner(diskBwProvisioner);
         setCostModel(costModel);
         this.isFog = fog;
     }

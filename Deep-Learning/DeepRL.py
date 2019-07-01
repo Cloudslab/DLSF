@@ -329,10 +329,6 @@ if __name__ == '__main__':
 			if "END" in line:
 				break
 			inp.append(line)
-		if inp:
-			file = open(PATH+"DLinput.txt", "w+")
-			file.writelines(inp)
-			file.close()
 		if inp[0] == 'exit':
 			break
 		funcName = inp[0]
@@ -340,6 +336,9 @@ if __name__ == '__main__':
 		inp = []
 
 		if 'setInput' in funcName:
+			file = open(PATH+"DLinput.txt", "w+")
+			file.writelines(data)
+			file.close()
 			flag = 0
 			cnn_data = np.zeros((100, 26), dtype=float)
 			lstm_data = np.zeros((100, 15), dtype=float)
@@ -393,6 +392,9 @@ if __name__ == '__main__':
 			stdout.flush()
 
 		elif 'sendMap' in funcName:
+			file = open(PATH+"DLsendMap.txt", "w+")
+			file.writelines(data)
+			file.close()
 			hostVmMap = []
 			for val in data:
 				val = val.split()

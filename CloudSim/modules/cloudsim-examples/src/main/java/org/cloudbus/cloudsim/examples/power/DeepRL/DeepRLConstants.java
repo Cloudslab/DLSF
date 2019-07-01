@@ -33,7 +33,7 @@ public class DeepRLConstants {
     public final static boolean OUTPUT_CSV    = true; //
 
     public final static double SCHEDULING_INTERVAL = 300; // 5 min
-    public final static double SIMULATION_LIMIT = 10*24*60*60; // 10 days
+    public final static double SIMULATION_LIMIT = 2*24*60*60; // 2 days
 
     public final static int CLOUDLET_LENGTH	=  5 * 60 * 1000; // 5 min
     public final static int CLOUDLET_PES	= 1;
@@ -89,11 +89,12 @@ public class DeepRLConstants {
 //    public final static int HOST_BW		 = 1000000; // 1 Gbit/s
 //    public final static int HOST_STORAGE = 1000000; // 1 GB
 
-    public final static int HOST_TYPES	 = 1; // 2
-    public final static int[] HOST_MIPS	 = {2660};//{ 2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660}; //Original is 2660
-    public final static int[] HOST_PES	 = { 1, 2, 4, 8 }; // {2,2} /2
-    public final static int[] HOST_RAM	 = { 515639 };// { 224096, 224096 };
+    public final static int HOST_TYPES	 = 4; // 2
+    public final static int[] HOST_MIPS	 = {2660, 2000, 2000, 2000};//{ 2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660}; //Original is 2660
+    public final static int[] HOST_PES	 = { 64, 32, 4, 2 }; // {2,2} /2
+    public final static int[] HOST_RAM	 = { 64000, 48000, 16000, 8000 };// { 224096, 224096 };
     public final static int HOST_BW		 =  100000000; //  100 Gbits- > previous//1000000; // 1 Gbit/s
+    public final static int HOST_DISK_BW    = 100000000;
     public final static int HOST_STORAGE = 1000000; // 1 GB
 
 

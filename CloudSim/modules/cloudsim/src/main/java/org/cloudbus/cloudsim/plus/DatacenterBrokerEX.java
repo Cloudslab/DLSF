@@ -375,10 +375,10 @@ public class DatacenterBrokerEX extends DatacenterBroker {
      *            - the vms to terminate. Must not be null.
      */
     public void destroyVMList(final List<? extends Vm> vms) {
-        if (getVmDestructsAcks() != getVmsDestroyed()) {
-            throw new IllegalStateException("#" + getVmsDestroyed() + " have been marked for termination, but only #"
-                    + getVmDestructsAcks() + " acknowlegdements have been received.");
-        }
+//        if (getVmDestructsAcks() != getVmsDestroyed()) {
+//            throw new IllegalStateException("#" + getVmsDestroyed() + " have been marked for termination, but only #"
+//                    + getVmDestructsAcks() + " acknowlegdements have been received.");
+//        }
 
         int requestedVmTerminations = 0;
         for (final Vm vm : vms) {

@@ -264,9 +264,6 @@ class DeepRL(nn.Module):
 		return s
 
 	def sendMap(self, data_input):
-		# if self.iter == 1:
-		# 	self.iter +=1
-		# 	return "Init Loss"
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 
 		total_loss = 0
@@ -312,7 +309,7 @@ class DeepRL(nn.Module):
 		#update parameters
 		optimizer.step()
 
-		if self.iter%1 == 0: 
+		if self.iter%10 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')
@@ -408,10 +405,6 @@ if __name__ == '__main__':
 			if "END" in line:
 				break
 			inp.append(line)
-		if inp:
-			file = open(PATH+"DLinput.txt", "w+")
-			file.writelines(inp)
-			file.close()
 		if inp[0] == 'exit':
 			break
 		funcName = inp[0]
@@ -419,6 +412,9 @@ if __name__ == '__main__':
 		inp = []
 
 		if 'setInput' in funcName:
+			file = open(PATH+"DLinput.txt", "w+")
+			file.writelines(data)
+			file.close()
 			flag = 0
 			cnn_data = np.zeros((100, 126), dtype=float)
 			lstm_data = np.zeros((100, 116), dtype=float)
@@ -465,10 +461,6 @@ if __name__ == '__main__':
 				cnn_data = normalize(cnn_data, cnn_min_max)
 				lstm_data = normalize(lstm_data, lstm_min_max)
 
-				file1 = open(PATH + 'check.txt','w')
-				file1.write(str(cnn_data))
-				file1.close()
-
 				# print(cnn_data.shape, lstm_data.shape)
 				model.setInput(cnn_data, lstm_data)
 				cnn_input = []
@@ -498,8 +490,12 @@ if __name__ == '__main__':
 			stdout.flush()
 
 		elif 'sendMap' in funcName:
+			file = open(PATH+"DLsendMap.txt", "w+")
+			file.writelines(data)
+			file.close()
 			if model.iter == 1:
-				print('Init Loss')
+				stdout.write("Init Loss\n")
+				stdout.flush()
 				model.iter += 1
 				continue
 

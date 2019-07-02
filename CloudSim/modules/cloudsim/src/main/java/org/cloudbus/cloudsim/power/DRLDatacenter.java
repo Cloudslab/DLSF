@@ -145,7 +145,7 @@ public class DRLDatacenter extends PowerDatacenter {
         for(PowerVm vm : this.<PowerVm>getVmList()){
             temp = "";
             PowerHost host = (PowerHost)vm.getHost();
-            temp = temp + ((host != null) ? (this.getHostList().indexOf(host)) : "NA")  + " "; // Categorical
+            temp = temp + ((host != null) ? oneHot(this.getHostList().indexOf(host), 100) : "NA")  + " "; // Categorical
             temp = temp + vm.getNumberOfPes() + " "; // Continuous
             temp = temp + MathUtil.sum(vm.getCurrentRequestedMips()) + " "; // Continuous
             temp = temp + vm.getCurrentRequestedMaxMips() + " "; // Continuous
@@ -171,7 +171,8 @@ public class DRLDatacenter extends PowerDatacenter {
             temp = temp + ((host != null) ? (host.getBwProvisioner().getAvailableBw()) : "NA")  + " "; // Continuous
             temp = temp + ((host != null) ? (host.getDiskBwProvisioner().getAvailableDiskBw()) : "NA")  + " "; // Continuous
             temp = temp + ((host != null) ? (host.getVmList().size()) : "0")  + " "; // Continuous
-            temp = temp + ((host != null) ? (this.hostEnergy[getHostList().indexOf(vm.getHost())]) : "NA"); // Continuous
+            temp = temp + ((host != null) ? (this.hostEnergy[getHostList().indexOf(vm.getHost())]) : "NA") + " "; // Continuous
+            temp = temp + ((host != null) ? (((double)vm.getRam())/vm.getHost().getBw()) : "NA"); // Continuous
             input = input + temp +  "\n";
         }
         input = input + "LSTM data\n";
@@ -193,15 +194,25 @@ public class DRLDatacenter extends PowerDatacenter {
             temp = temp + host.getDiskBwProvisioner().getDiskBw() + " "; // Continuous
             temp = temp + host.getVmsMigratingIn().size() + " "; // Continuous
             // Parameters from other policies
-            temp = temp + vmAllocLr.isHostOverUtilized(host) + " "; // Boolean
+//            temp = temp + vmAllocLr.isHostOverUtilized(host) + " "; // Boolean
             temp = temp + vmAllocSt.isHostOverUtilized(host) + " "; // Boolean
-            temp = temp + vmAllocMad.isHostOverUtilized(host) + " "; // Boolean
-            temp = temp + this.getVmList().indexOf(vmSelMc.getVmToMigrate(host)) + " "; // Categorical
-            temp = temp + this.getVmList().indexOf(vmSelMmt.getVmToMigrate(host)) + " "; // Categorical
-            temp = temp + this.getVmList().indexOf(vmSelMu.getVmToMigrate(host)); // Categorical
+//            temp = temp + vmAllocMad.isHostOverUtilized(host) + " "; // Boolean
+//            temp = temp + oneHot(this.getVmList().indexOf(vmSelMc.getVmToMigrate(host)),100) + " "; // Categorical
+//            temp = temp + oneHot(this.getVmList().indexOf(vmSelMmt.getVmToMigrate(host)),100) + " "; // Categorical
+            temp = temp + oneHot(this.getVmList().indexOf(vmSelMu.getVmToMigrate(host)),100); // Categorical
             input = input + temp +  "\n";
         }
         return input;
+    }
+
+    public String oneHot(int value, int range){
+        String res = "";
+        for(int i = 0; i < range; i++){
+            res = res + ((value == i) ? "1" : "0");
+            if(i < range - 1)
+                res += " ";
+        }
+        return res;
     }
 
     @Override

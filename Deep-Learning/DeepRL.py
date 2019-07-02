@@ -341,10 +341,11 @@ if __name__ == '__main__':
 			file.close()
 			flag = 0
 			cnn_data = np.zeros((100, 26), dtype=float)
-			lstm_data = np.zeros((100, 15), dtype=float)
+			lstm_data = np.zeros((100, 21), dtype=float)
 			cnn_count = 0
 			lstm_count = 0
 			for val in data:
+				val = val.replace('-1','0')
 				val = val.replace('false','0')
 				val = val.replace('true','1')
 				val = val.replace('NaN','0')

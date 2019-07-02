@@ -92,7 +92,12 @@ public class PowerVmSelectionPolicyMaximumCorrelation extends PowerVmSelectionPo
 		for (int i = 0; i < n; i++) {
 			List<Double> vmUtilization = vmList.get(i).getUtilizationHistory();
 			for (int j = 0; j < vmUtilization.size(); j++) {
-				utilization[i][j] = vmUtilization.get(j);
+				try{
+					utilization[i][j] = vmUtilization.get(j);
+				}
+				catch(Exception e){
+
+				}
 			}
 		}
 		return utilization;

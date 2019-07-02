@@ -18,6 +18,7 @@ import io
 torch.set_printoptions(threshold=10000)
 np.set_printoptions(threshold=np.inf)
 
+# torch.set_default_tensor_type('torch.cuda.FloatTensor')
 
 # batch_size = 5
 input_dim = 15
@@ -52,6 +53,7 @@ class DeepRL(nn.Module):
 		self.iter = 1
 		self.loss_backprop = []
 		self.loss_map = []
+		# self.scheduler = lr_scheduler.CosineAnnealingLR(optimizer, 5*24*12, eta_min=learning_rate)
 
 		for i in range(no_of_hosts):
 			self.hidden += [self.init_hidden()]
@@ -68,11 +70,14 @@ class DeepRL(nn.Module):
 
 		# self.bn1 = nn.BatchNorm1d(26)
 
-		self.fc1 = nn.Linear(24200, 15000)
-		# self.fc2 = nn.Linear(25000, 17500)
-		# self.fc3 = nn.Linear(17500, 15000)
-		# self.fc4 = nn.Linear(15000, 12500)
-		self.fc5 = nn.Linear(15000, 10000)
+		self.relu = nn.ELU()
+
+		self.fc1 = nn.Linear(24200, 5000)
+		self.fc2 = nn.Linear(5000, 2500)
+		self.fc3 = nn.Linear(2500, 2500)
+		self.fc4 = nn.Linear(2500, 2500)
+		self.fc5 = nn.Linear(2500, 2500)
+		self.fc6 = nn.Linear(2500, 10000)
 
 		if os.path.isfile(file_path):
 			self.load_state_dict(torch.load(file_path))
@@ -95,60 +100,17 @@ class DeepRL(nn.Module):
 		lstm_data = lstm_data.reshape(-1,lstm_data.shape[1]*lstm_data.shape[2])
 		data = torch.cat((cnn_data, lstm_data),1)
 
-		data = self.fc1(data)
-		# data = self.fc2(data)
-		# data = self.fc3(data)
-		# data = self.fc4(data)
-		data = self.fc5(data)
+		data = self.relu(self.fc1(data))
+		data = self.relu(self.fc2(data))
+		data = self.relu(self.fc3(data))
+		data = self.relu(self.fc4(data))
+		data = self.relu(self.fc5(data))
+		data = self.relu(self.fc6(data))
 
 		data = data.reshape(-1,self.output_dim,self.output_dim)
 		data = F.softmax(data, dim=2)
 
 		return data
-
-
-		# lstm_out_host = []
-		# for i in range(lstm_data.shape[1]):
-		# 	# print(lstm_data[:,i,:])
-		# 	out, hidden = self.lstm(lstm_data[:,i,:].view(-1,1,lstm_data.shape[2]))
-		# 	self.hidden[i] = hidden
-		# 	lstm_out_host += [out]
-		# 	# lstm_out_host += [self.bn1(out.view(-1,out.shape[2])).view(-1,1,out.shape[1])]
-
-		# # lstm_out = np.array(lstm_out)
-		# # print(lstm_out_host[0].shape)
-		# lstm_out = lstm_out_host[0]
-		# for i in range(1,lstm_data.shape[1]):
-		# 	lstm_out = torch.cat((lstm_out,lstm_out_host[i]),1)
-		# # print(lstm_out)
-		# # print(self.hidden[0].shape)
-		# x1 = lstm_out.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
-		# x1 = F.relu(F.max_pool2d(self.conv1(x1),2))
-		# x1 = self.conv2(x1)
-
-		# cnn_data = cnn_data.reshape((-1,1,cnn_data.shape[1],cnn_data.shape[2]))
-		# x2 = F.relu(F.max_pool2d(self.conv1(cnn_data),2))
-		# x2 = self.conv2(x2)
-
-		# x3 = torch.cat((x1,x2),2)
-
-		# x3 = self.conv1(x3)
-		# x3 = F.max_pool2d((x3),2)
-		# x3 = self.conv2(x3)
-
-		# x3 = x3.reshape(-1,x3.shape[2]*x3.shape[3])
-
-		# x4 = self.fc1(x3)
-		# x4 = self.fc2(x4)
-		# x4  =self.fc3(x4)
-
-		# x4 = x4.reshape(-1,self.output_dim,self.output_dim)
-		# # print(x4)
-		# x4 = F.softmax(x4, dim=2)
-		# # print(x4[0][0])
-
-		# return x4
-
 
 	def setInput(self, cnn_data, lstm_data):
 		# for name, param in self.named_parameters():
@@ -167,6 +129,8 @@ class DeepRL(nn.Module):
 		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor))
 		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor))
 
+		train_cnn
+		train_lstm
 		# print(train_lstm.shape)
 		self.output = self.forward(train_cnn, train_lstm)
 		# self.output = self.output.view(self.output.shape[1],self.output.shape[2])
@@ -187,7 +151,6 @@ class DeepRL(nn.Module):
 	def backprop(self, loss_parameters):
 		if self.iter == 1:
 			return("Init Loss")
-		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 		
 		loss_value = loss_parameters[3]/1000000 + loss_parameters[7] + loss_parameters[8]
 		loss_value = torch.Tensor(np.array(loss_value)).type(torch.FloatTensor)
@@ -203,7 +166,7 @@ class DeepRL(nn.Module):
 		#update parameters
 		optimizer.step()
 
-		if self.iter%10 == 0: 
+		if self.iter%1 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')
@@ -264,7 +227,6 @@ class DeepRL(nn.Module):
 		return s
 
 	def sendMap(self, data_input):
-		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 
 		total_loss = 0
 		index = 0
@@ -290,26 +252,19 @@ class DeepRL(nn.Module):
 			file = open(PATH+"sendMap.txt", "w+")
 			file.write(str(vmMap))
 			file.close()
-
-			# file = open(PATH+"DLmap.txt", "w+")
-			# for i in range(len(data)):
-			# 	host_list = self.output.data[i]
-			# 	index = np.flip(np.argsort(host_list))[0]
-			# 	file.write(str(i) + " " + str(index) + "\n")
-			# file.close()
-
 			index += 1
 			loss /= len(data)
 			total_loss += loss
 		
 		total_loss /= len(data_input)
 		# print(loss)
+		total_loss
 		total_loss.backward()
 
 		#update parameters
 		optimizer.step()
 
-		if self.iter%10 == 0: 
+		if self.iter%1 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')
@@ -360,18 +315,11 @@ def normalize(data, min_max):
 			data[:,:,i] = 0
 		else:
 			data[:,:,i] = (data[:,:,i] - min_max[i][0]) / (min_max[i][1] - min_max[i][0])
-	# for i in range(len(data[0][0])):
-	# 	for j in range(len(data)):
-	# 		for k in range(len(data[0])):
-	# 			if min_max[i][0] == min_max[i][1]:
-	# 				data[j][k][i] = 0
-	# 			else:
-	# 				data[j][k][i] = (data[j][k][i] - min_max[i][0]) / (min_max[i][1] - min_max[i][0])
-
 	return data
 
 
 if __name__ == '__main__':
+	global optimizer
 
 	file = open('../Deep-Learning/cnn_min_max.pickle','rb')
 	cnn_min_max = pickle.load(file)
@@ -379,9 +327,9 @@ if __name__ == '__main__':
 	file = open('../Deep-Learning/lstm_min_max.pickle','rb')
 	lstm_min_max = pickle.load(file)
 
-	batch_size = 1
+	batch_size = 12
 	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
-
+	model
 	# inp = "backprop,CurrentTime 300.1;LastTime 0.0;TimeDiff 300.1;TotalEnergy 105358.10624075294;NumVsEnded 1.0;AverageResponseTime 0.0;AverageMigrationTime 0.0;TotalCost 0.3317772222222221;SLAOverall NaN"
 	# inp = "setInput,CNN data;1 2 3;4 5 6;LSTM data;7 8 9;1 2 3"
 	# inp = "host_rank,4"
@@ -398,6 +346,11 @@ if __name__ == '__main__':
 	mean = 0
 	std = 0
 	data_flag = 0
+
+	optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)	
+
+	# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+	# print(device)
 
 	while(True):
 		while(True):

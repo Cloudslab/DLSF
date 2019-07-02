@@ -19,7 +19,7 @@ torch.set_printoptions(threshold=10000)
 np.set_printoptions(threshold=np.inf)
 
 
-batch_size = 5
+# batch_size = 5
 input_dim = 15
 hidden_dim = 26
 num_layers = 2
@@ -28,7 +28,7 @@ output_dim = 100
 learning_rate = 0.00001
 
 seq_dim = 1 
-PATH = './model1/'
+PATH = './model2/'
 
 no_of_hosts = 100
 no_of_vms = 100
@@ -56,17 +56,23 @@ class DeepRL(nn.Module):
 		for i in range(no_of_hosts):
 			self.hidden += [self.init_hidden()]
 
-		self.lstm = nn.LSTM(self.input_dim, self.hidden_dim, self.num_layers, batch_first=True)
-		# self.lstm2 = nn.LSTM(hidden_dim, hidden_dim, batch_first=True)
-		self.conv1 = nn.Conv2d(1, 10, kernel_size=2)
-		self.conv2 = nn.Conv2d(10, 1, kernel_size=3)
-		self.conv3 = nn.Conv2d(10, 10, kernel_size=2)
+		# self.lstm = nn.LSTM(self.input_dim, self.hidden_dim, self.num_layers, batch_first=True)
+		# # self.lstm2 = nn.LSTM(hidden_dim, hidden_dim, batch_first=True)
+		# self.conv1 = nn.Conv2d(1, 10, kernel_size=2)
+		# self.conv2 = nn.Conv2d(10, 1, kernel_size=3)
+		# self.conv3 = nn.Conv2d(10, 10, kernel_size=2)
 
-		self.fc1 = nn.Linear(88, 1000)
-		self.fc2 = nn.Linear(1000, 5000)
-		self.fc3 = nn.Linear(5000, 10000)
+		# self.fc1 = nn.Linear(88, 1000)
+		# self.fc2 = nn.Linear(1000, 5000)
+		# self.fc3 = nn.Linear(5000, 10000)
 
-		self.bn1 = nn.BatchNorm1d(26)
+		# self.bn1 = nn.BatchNorm1d(26)
+
+		self.fc1 = nn.Linear(24200, 15000)
+		# self.fc2 = nn.Linear(25000, 17500)
+		# self.fc3 = nn.Linear(17500, 15000)
+		# self.fc4 = nn.Linear(15000, 12500)
+		self.fc5 = nn.Linear(15000, 10000)
 
 		if os.path.isfile(file_path):
 			self.load_state_dict(torch.load(file_path))
@@ -85,47 +91,63 @@ class DeepRL(nn.Module):
 				torch.zeros(self.num_layers,self.batch_size, self.hidden_dim))
 
 	def forward(self, cnn_data, lstm_data):
-		lstm_out_host = []
-		for i in range(lstm_data.shape[1]):
-			# print(lstm_data[:,i,:])
-			out, hidden = self.lstm(lstm_data[:,i,:].view(-1,1,lstm_data.shape[2]))
-			self.hidden[i] = hidden
-			lstm_out_host += [out]
-			# lstm_out_host += [self.bn1(out.view(-1,out.shape[2])).view(-1,1,out.shape[1])]
+		cnn_data = cnn_data.reshape(-1,cnn_data.shape[1]*cnn_data.shape[2])
+		lstm_data = lstm_data.reshape(-1,lstm_data.shape[1]*lstm_data.shape[2])
+		data = torch.cat((cnn_data, lstm_data),1)
 
-		# lstm_out = np.array(lstm_out)
-		# print(lstm_out_host[0].shape)
-		lstm_out = lstm_out_host[0]
-		for i in range(1,lstm_data.shape[1]):
-			lstm_out = torch.cat((lstm_out,lstm_out_host[i]),1)
-		# print(lstm_out)
-		# print(self.hidden[0].shape)
-		x1 = lstm_out.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
-		x1 = F.relu(F.max_pool2d(self.conv1(x1),2))
-		x1 = self.conv2(x1)
+		data = self.fc1(data)
+		# data = self.fc2(data)
+		# data = self.fc3(data)
+		# data = self.fc4(data)
+		data = self.fc5(data)
 
-		cnn_data = cnn_data.reshape((-1,1,cnn_data.shape[1],cnn_data.shape[2]))
-		x2 = F.relu(F.max_pool2d(self.conv1(cnn_data),2))
-		x2 = self.conv2(x2)
+		data = data.reshape(-1,self.output_dim,self.output_dim)
+		data = F.softmax(data, dim=2)
 
-		x3 = torch.cat((x1,x2),2)
+		return data
 
-		x3 = self.conv1(x3)
-		x3 = F.max_pool2d((x3),2)
-		x3 = self.conv2(x3)
 
-		x3 = x3.reshape(-1,x3.shape[2]*x3.shape[3])
+		# lstm_out_host = []
+		# for i in range(lstm_data.shape[1]):
+		# 	# print(lstm_data[:,i,:])
+		# 	out, hidden = self.lstm(lstm_data[:,i,:].view(-1,1,lstm_data.shape[2]))
+		# 	self.hidden[i] = hidden
+		# 	lstm_out_host += [out]
+		# 	# lstm_out_host += [self.bn1(out.view(-1,out.shape[2])).view(-1,1,out.shape[1])]
 
-		x4 = self.fc1(x3)
-		x4 = self.fc2(x4)
-		x4  =self.fc3(x4)
+		# # lstm_out = np.array(lstm_out)
+		# # print(lstm_out_host[0].shape)
+		# lstm_out = lstm_out_host[0]
+		# for i in range(1,lstm_data.shape[1]):
+		# 	lstm_out = torch.cat((lstm_out,lstm_out_host[i]),1)
+		# # print(lstm_out)
+		# # print(self.hidden[0].shape)
+		# x1 = lstm_out.reshape((lstm_out.shape[0],1,lstm_out.shape[1],lstm_out.shape[2]))
+		# x1 = F.relu(F.max_pool2d(self.conv1(x1),2))
+		# x1 = self.conv2(x1)
 
-		x4 = x4.reshape(-1,self.output_dim,self.output_dim)
-		# print(x4)
-		x4 = F.softmax(x4, dim=2)
-		# print(x4[0][0])
+		# cnn_data = cnn_data.reshape((-1,1,cnn_data.shape[1],cnn_data.shape[2]))
+		# x2 = F.relu(F.max_pool2d(self.conv1(cnn_data),2))
+		# x2 = self.conv2(x2)
 
-		return x4
+		# x3 = torch.cat((x1,x2),2)
+
+		# x3 = self.conv1(x3)
+		# x3 = F.max_pool2d((x3),2)
+		# x3 = self.conv2(x3)
+
+		# x3 = x3.reshape(-1,x3.shape[2]*x3.shape[3])
+
+		# x4 = self.fc1(x3)
+		# x4 = self.fc2(x4)
+		# x4  =self.fc3(x4)
+
+		# x4 = x4.reshape(-1,self.output_dim,self.output_dim)
+		# # print(x4)
+		# x4 = F.softmax(x4, dim=2)
+		# # print(x4[0][0])
+
+		# return x4
 
 
 	def setInput(self, cnn_data, lstm_data):
@@ -133,29 +155,30 @@ class DeepRL(nn.Module):
 		#     if param.requires_grad:
 		#         print(name, param.data)
 		self.vm_map = []
-		for i in range(cnn_data.shape[0]):
-			self.vm_map += [cnn_data[i][0]]
+		for i in range(cnn_data.shape[1]):
+			self.vm_map += [cnn_data[0][i][0]]
 
 		# file = open(PATH + 'vm_map.pickle','wb')
 		# pickle.dump(self.vm_map, file)
 
-		lstm_data = preprocessing.normalize(lstm_data)
-		cnn_data = preprocessing.normalize(cnn_data)
+		# lstm_data = preprocessing.normalize(lstm_data)
+		# cnn_data = preprocessing.normalize(cnn_data)
 
-		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor).view(1,cnn_data.shape[0],cnn_data.shape[1]))
-		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor).view(1,lstm_data.shape[0],lstm_data.shape[1]))
+		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor))
+		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor))
 
 		# print(train_lstm.shape)
 		self.output = self.forward(train_cnn, train_lstm)
-		self.output = self.output.view(self.output.shape[1],self.output.shape[2])
+		# self.output = self.output.view(self.output.shape[1],self.output.shape[2])
 
-		file = open(PATH+"DLoutput.txt", "w+")
-		file.write(str(self.output))
-		file.close()
+		for out in self.output:
+			file = open(PATH+"DLoutput.txt", "w+")
+			file.write(str(out))
+			file.close()
 
-		plt.imshow(self.output.detach().numpy(),cmap='gray')
-		plt.savefig(PATH + 'DLoutput.jpg')
-		plt.close()
+			plt.imshow(out.detach().numpy(),cmap='gray')
+			plt.savefig(PATH + 'DLoutput.jpg')
+			plt.close()
 		# file = open(PATH + 'output.pickle','wb')
 		# pickle.dump(self.output, file)
 		# print(self.output)
@@ -240,49 +263,56 @@ class DeepRL(nn.Module):
 			s += str(index) + ' '
 		return s
 
-	def sendMap(self, data):
-		if self.iter == 1:
-			self.iter +=1
-			return "Init Loss"
+	def sendMap(self, data_input):
+		# if self.iter == 1:
+		# 	self.iter +=1
+		# 	return "Init Loss"
 		optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
 
-		vmMap = np.zeros((100,100), dtype=int)
-		# print(vmMap.shape)
+		total_loss = 0
+		index = 0
+		for data in data_input:
+			vmMap = np.zeros((100,100), dtype=int)
+			# print(vmMap.shape)
 
-		# file = open('output.pickle','rb')
-		# self.output = pickle.load(file)
+			# file = open('output.pickle','rb')
+			# self.output = pickle.load(file)
 
-		loss = 0
-		for i in range(len(data)):
-			# l = data[i].split()
-			y = data[i][1]
-			vmMap[i][y] = 1
-			# print(self.output[i][y])
-			loss -= torch.log(self.output[i][y])
+			loss = 0
+			for i in range(len(data)):
+				# l = data[i].split()
+				y = data[i][1]
+				vmMap[i][y] = 1
+				# print(self.output[i][y])
+				loss -= torch.log(self.output[index][i][y])
 
-		plt.imshow(vmMap,cmap='gray')
-		plt.savefig(PATH + 'sendMap.jpg')
-		plt.close()
+			plt.imshow(vmMap,cmap='gray')
+			plt.savefig(PATH + 'sendMap.jpg')
+			plt.close()
 
-		file = open(PATH+"sendMap.txt", "w+")
-		file.write(str(vmMap))
-		file.close()
+			file = open(PATH+"sendMap.txt", "w+")
+			file.write(str(vmMap))
+			file.close()
 
-		file = open(PATH+"DLmap.txt", "w+")
-		for i in range(len(data)):
-			host_list = self.output.data[i]
-			index = np.flip(np.argsort(host_list))[0]
-			file.write(str(i) + " " + str(index) + "\n")
-		file.close()
+			# file = open(PATH+"DLmap.txt", "w+")
+			# for i in range(len(data)):
+			# 	host_list = self.output.data[i]
+			# 	index = np.flip(np.argsort(host_list))[0]
+			# 	file.write(str(i) + " " + str(index) + "\n")
+			# file.close()
 
-		loss /= len(data)
+			index += 1
+			loss /= len(data)
+			total_loss += loss
+		
+		total_loss /= len(data_input)
 		# print(loss)
-		loss.backward()
+		total_loss.backward()
 
 		#update parameters
 		optimizer.step()
 
-		if self.iter%5 == 0: 
+		if self.iter%1 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')
@@ -307,12 +337,52 @@ class DeepRL(nn.Module):
 
 		self.iter += 1
 		
-		self.loss_map += [loss.item()]
-		return str(loss.item())
+		self.loss_map += [total_loss.item()]
+		return str(total_loss.item())
+
+
+def preprocess(data, mean_old, std_old, flag):
+	alpha = 0.5
+	beta = 0.5
+	for i in range(data.shape[2]):
+		l = data[:,:,i]
+		mean_new = np.mean(l)
+		std_new = np.std(l)
+		if flag == 0:
+			mean_new = alpha*mean_new + (1-alpha)*mean_old
+			std_new = beta*std_new + (1-beta)*std_old
+		if std_new!=0:
+			data[:,:,i] = (data[:,:,i] - mean_new) / std_new
+		else:
+			data[:,:,i] = 0
+	return (data, mean_new, std_new)
+
+def normalize(data, min_max):
+	for i in range(data.shape[2]):
+		if min_max[i][1] == min_max[i][0]:
+			data[:,:,i] = 0
+		else:
+			data[:,:,i] = (data[:,:,i] - min_max[i][0]) / (min_max[i][1] - min_max[i][0])
+	# for i in range(len(data[0][0])):
+	# 	for j in range(len(data)):
+	# 		for k in range(len(data[0])):
+	# 			if min_max[i][0] == min_max[i][1]:
+	# 				data[j][k][i] = 0
+	# 			else:
+	# 				data[j][k][i] = (data[j][k][i] - min_max[i][0]) / (min_max[i][1] - min_max[i][0])
+
+	return data
 
 
 if __name__ == '__main__':
 
+	file = open('../Deep-Learning/cnn_min_max.pickle','rb')
+	cnn_min_max = pickle.load(file)
+
+	file = open('../Deep-Learning/lstm_min_max.pickle','rb')
+	lstm_min_max = pickle.load(file)
+
+	batch_size = 1
 	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
 
 	# inp = "backprop,CurrentTime 300.1;LastTime 0.0;TimeDiff 300.1;TotalEnergy 105358.10624075294;NumVsEnded 1.0;AverageResponseTime 0.0;AverageMigrationTime 0.0;TotalCost 0.3317772222222221;SLAOverall NaN"
@@ -323,12 +393,25 @@ if __name__ == '__main__':
 	inp = []
 	globalFile = open(PATH+"logs.txt", "a")
 
+	batch_count_forward = 0
+	batch_count_backward = 0
+	cnn_input = []
+	lstm_input = []
+	hostVm_input = []
+	mean = 0
+	std = 0
+	data_flag = 0
+
 	while(True):
 		while(True):
 			line = stdin.readline()
 			if "END" in line:
 				break
 			inp.append(line)
+		if inp:
+			file = open(PATH+"DLinput.txt", "w+")
+			file.writelines(inp)
+			file.close()
 		if inp[0] == 'exit':
 			break
 		funcName = inp[0]
@@ -336,16 +419,12 @@ if __name__ == '__main__':
 		inp = []
 
 		if 'setInput' in funcName:
-			file = open(PATH+"DLinput.txt", "w+")
-			file.writelines(data)
-			file.close()
 			flag = 0
-			cnn_data = np.zeros((100, 26), dtype=float)
-			lstm_data = np.zeros((100, 21), dtype=float)
+			cnn_data = np.zeros((100, 126), dtype=float)
+			lstm_data = np.zeros((100, 116), dtype=float)
 			cnn_count = 0
 			lstm_count = 0
 			for val in data:
-				val = val.replace('-1','0')
 				val = val.replace('false','0')
 				val = val.replace('true','1')
 				val = val.replace('NaN','0')
@@ -368,7 +447,33 @@ if __name__ == '__main__':
 						lstm_data[lstm_count][i] = float(x[i])
 					lstm_count += 1
 
-			model.setInput(cnn_data, lstm_data)
+			# cnn_data = preprocessing.normalize(cnn_data)
+			# lstm_data = preprocessing.normalize(lstm_data)
+			
+			cnn_input += [cnn_data]
+			lstm_input += [lstm_data]
+			batch_count_forward += 1
+
+			if batch_count_forward == batch_size:
+				cnn_data = np.array(cnn_input)
+				lstm_data = np.array(lstm_input)
+
+				# cnn_data, mean, std = preprocess(cnn_data,mean,std,data_flag)
+				# lstm_data, mean, std = preprocess(lstm_data,mean,std,data_flag)
+				# data_flag = 1
+
+				cnn_data = normalize(cnn_data, cnn_min_max)
+				lstm_data = normalize(lstm_data, lstm_min_max)
+
+				file1 = open(PATH + 'check.txt','w')
+				file1.write(str(cnn_data))
+				file1.close()
+
+				# print(cnn_data.shape, lstm_data.shape)
+				model.setInput(cnn_data, lstm_data)
+				cnn_input = []
+				lstm_input = []
+				batch_count_forward = 0
 
 		elif funcName == 'backprop':
 			loss_data = []
@@ -393,14 +498,34 @@ if __name__ == '__main__':
 			stdout.flush()
 
 		elif 'sendMap' in funcName:
-			file = open(PATH+"DLsendMap.txt", "w+")
-			file.writelines(data)
-			file.close()
+			if model.iter == 1:
+				print('Init Loss')
+				model.iter += 1
+				continue
+
 			hostVmMap = []
 			for val in data:
 				val = val.split()
 				l = [int(val[0]), int(val[1])]
 				hostVmMap += [l]
 
-			stdout.write(model.sendMap(hostVmMap)+"\n")
-			stdout.flush()
+			hostVm_input += [hostVmMap]
+			
+			batch_count_backward += 1
+			# print(hostVmMap)
+			if batch_count_backward == batch_size:
+				# print(model.sendMap(hostVm_input))
+				# print(hostVm_input)
+				ans = model.sendMap(hostVm_input)
+				# file1 = open('check.txt','a')
+				# file1.write(ans + '\n')
+				# file1.close()
+				# print(batch_count_forward, batch_count_backward)
+				stdout.write(ans+"\n")
+				stdout.flush()
+				hostVm_input = []
+				batch_count_backward = 0
+
+			else:
+				stdout.write(str(0.1)+"\n")
+				stdout.flush()

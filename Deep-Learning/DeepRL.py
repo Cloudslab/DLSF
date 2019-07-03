@@ -106,8 +106,13 @@ class DeepRL(nn.Module):
 		#     if param.requires_grad:
 		#         print(name, param.data)
 		self.vm_map = []
+		# print(cnn_data.shape)
 		for i in range(cnn_data.shape[1]):
-			self.vm_map += [cnn_data[0][i][0]]
+			for j in range(cnn_data.shape[2]):
+				if cnn_data[0][i][j] == 1:
+					self.vm_map += [j]
+					break
+		# print(self.vm_map)
 
 		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor))
 		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor))
@@ -145,7 +150,7 @@ class DeepRL(nn.Module):
 			# file = open('output.pickle','rb')
 			# self.output = pickle.load(file)
 
-			loss_value = data.sum()
+			loss_value = 50*data[0] + data[3] + data[5] + 10*data[6] + data[7] + data[8]/10000 + data[9]/100
 			loss_value = torch.Tensor(np.array(loss_value)).type(torch.FloatTensor)
 
 			loss = self.output[0].min()
@@ -222,7 +227,7 @@ class DeepRL(nn.Module):
 		s = ''
 		for index in indices:
 			s += str(index) + ' '
-		return s
+		return s.rstrip()
 
 	def migratableVMs(self):
 		# file = open('output.pickle','rb')
@@ -233,16 +238,17 @@ class DeepRL(nn.Module):
 
 		# print(self.output[0].data)
 		output_index = np.argmax(self.output[-1].data, axis=1)
+		# print(output_index)
 		
 		migratableIndex = []
-		for i in range(len(output_index)):
+		for i in range(len(self.vm_map)):
 			if self.vm_map[i] != output_index[i].item():
 				migratableIndex += [i]
 		# print(migratableIndex)
 		s = ''
 		for index in migratableIndex:
 			s += str(index) + ' '
-		return s
+		return s.rstrip()
 
 	def sendMap(self, data_input):
 
@@ -339,7 +345,7 @@ def normalize(data, min_max):
 
 def normalize_loss(data, min_max):
 	# print(data)
-	for i in range(data.shape[1]):
+	for i in range(10):
 		if min_max[i][1] == min_max[i][0]:
 			data[:,i] = 0
 		else:
@@ -362,7 +368,8 @@ if __name__ == '__main__':
 	file = open('../Deep-Learning/loss_min_max.pickle','rb')
 	loss_min_max = pickle.load(file)
 
-	batch_size = 2
+
+	batch_size = 12
 	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
 	model
 	# inp = "backprop,CurrentTime 300.1;LastTime 0.0;TimeDiff 300.1;TotalEnergy 105358.10624075294;NumVsEnded 1.0;AverageResponseTime 0.0;AverageMigrationTime 0.0;TotalCost 0.3317772222222221;SLAOverall NaN"
@@ -490,7 +497,8 @@ if __name__ == '__main__':
 				stdout.flush()
 				loss_input = []
 				batch_count_backward = 0
-				output_flag = 1
+				# if output_flag == 1:
+				model.output = []
 
 			else:
 				stdout.write(str(0.1)+"\n")
@@ -504,9 +512,9 @@ if __name__ == '__main__':
 			stdout.write(model.host_rank(vm) + '\n')
 			stdout.flush()
 
-			if output_flag == 1:
-				model.output = []
-				output_flag = 0
+			# if output_flag == 1:
+			# 	model.output = []
+			# 	output_flag = 0
 
 		elif 'getVmsToMigrate' in funcName:
 			stdout.write(model.migratableVMs() + '\n')
@@ -540,6 +548,7 @@ if __name__ == '__main__':
 				stdout.flush()
 				hostVm_input = []
 				batch_count_backward = 0
+				model.output = []
 
 			else:
 				stdout.write(str(0.1)+"\n")

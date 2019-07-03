@@ -103,7 +103,7 @@ public class DRLDatacenter extends PowerDatacenter {
     protected void updateDLModel(){
         String loss = "Error!";
         try{
-            if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
+            if(getVmAllocationPolicy().getClass().getName().equals("org.cloudbus.cloudsim.power.DRLVmAllocationPolicy")){
                 toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
             }
             else{
@@ -139,7 +139,7 @@ public class DRLDatacenter extends PowerDatacenter {
         loss = loss + "SLAOverall " + getSlaOverall(this.getVmList()) +  "\n";
         loss = loss + "VMsMigrated " + (this.getMigrationCount() - this.lastMigrationCount) + "\n";
         this.lastMigrationCount = this.getMigrationCount();
-        if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
+        if(getVmAllocationPolicy().getClass().getName().equals("org.cloudbus.cloudsim.power.DRLVmAllocationPolicy")){
             loss = loss + "HostPenalty " + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty +  "\n";
             loss = loss + "MigrationPenalty " + ((DRLVmSelectionPolicy)
                     ((DRLVmAllocationPolicy)

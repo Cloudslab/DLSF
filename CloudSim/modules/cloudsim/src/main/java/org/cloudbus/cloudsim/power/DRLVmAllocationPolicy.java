@@ -79,7 +79,7 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
         Log.printLine();
         restoreAllocation();
 
-        getExecutionTimeHistoryTotal().add(ExecutionTimeMeasurer.end("optimizeAllocationTotal"));
+//        getExecutionTimeHistoryTotal().add(ExecutionTimeMeasurer.end("optimizeAllocationTotal"));
 
         return migrationMap;
     }
@@ -107,7 +107,7 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
             try{
                 DRLDatacenter.toPython.println(("getSortedHost\n"+vmIndex+"\nEND")); DRLDatacenter.toPython.flush();
                 result = DRLDatacenter.fromPython.readLine();
-                sortedHosts = new ArrayList<>(Arrays.asList(result.split(",")));
+                sortedHosts = new ArrayList<>(Arrays.asList(result.split(" ")));
             }
             catch(Exception e){
                 System.out.println(e.getMessage());

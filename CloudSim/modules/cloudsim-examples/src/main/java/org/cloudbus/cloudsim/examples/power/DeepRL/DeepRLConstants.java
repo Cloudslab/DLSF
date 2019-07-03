@@ -92,7 +92,7 @@ public class DeepRLConstants {
     public final static int HOST_TYPES	 = 4; // 2
     public final static int[] HOST_MIPS	 = {2660, 2000, 2000, 2000};//{ 2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660,2660}; //Original is 2660
     public final static int[] HOST_PES	 = { 64, 32, 4, 2 }; // {2,2} /2
-    public final static int[] HOST_RAM	 = { 64000, 48000, 16000, 8000 };// { 224096, 224096 };
+    public final static int[] HOST_RAM	 = { 64000, 48000, 16000, 16000 };// { 224096, 224096 };
     public final static int HOST_BW		 =  100000000; //  100 Gbits- > previous//1000000; // 1 Gbit/s
     public final static int HOST_DISK_BW    = 100000000;
     public final static int HOST_STORAGE = 1000000; // 1 GB

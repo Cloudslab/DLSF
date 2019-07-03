@@ -153,7 +153,7 @@ public class DeepRLHelper {
         List<Vm> vms = new ArrayList<Vm>();
         for (int i = 0; i < vmsNumber; i++) {
             int vmType = i / (int) Math.ceil((double) vmsNumber / DeepRLConstants.VM_TYPES);
-            Log.printLine("Creating VM with VMID = " + lastvmId);
+            Log.printLine("Creating VM with VMID = " + lastvmId + " vmType = " + vmType);
             vms.add(new DRLVm(
                     lastvmId,
                     brokerId,
@@ -203,7 +203,7 @@ public class DeepRLHelper {
                     new VmSchedulerTimeSharedOverSubscription(peList),
                     getPowerModel(hostType),
                     getCostModel(hostType),
-                    false));
+                    hostType%4==3 ));
         }
         Log.print("Number of hosts created-> " + hostList.size());
         return hostList;

@@ -9,7 +9,6 @@ import org.cloudbus.cloudsim.util.MathUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -37,9 +36,11 @@ public class DRLDatacenter extends PowerDatacenter {
 
     private double numVmsEnded;
 
-    private double totalResponseTime;
+    private double totalResponseTime = 0;
 
-    private double totalMigrationTime;
+    private double totalMigrationTime = 0;
+
+    private double totalCompletionTime = 0;
 
     private int InputLimit = 100;
 
@@ -126,6 +127,7 @@ public class DRLDatacenter extends PowerDatacenter {
         loss = loss + "NumVsEnded " + this.numVmsEnded +  "\n";
         loss = loss + "AverageResponseTime " + this.totalResponseTime/this.numVmsEnded +  "\n";
         loss = loss + "AverageMigrationTime " + this.totalMigrationTime/this.numVmsEnded +  "\n";
+        loss = loss + "AverageCompletionTime " + this.totalCompletionTime/this.numVmsEnded + "\n";
         this.numVmsEnded = 0; this.totalMigrationTime = 0; this.totalResponseTime = 0;
         loss = loss + "TotalCost " + totalDataCenterCost +  "\n";
         loss = loss + "SLAOverall " + getSlaOverall(this.getVmList()) +  "\n";
@@ -453,8 +455,9 @@ public class DRLDatacenter extends PowerDatacenter {
         Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId,
                 " has been destroyed in Datacenter #", this.getId());
         Log.printLine("VM #" + vm.getId() + " has been deallocated from host #" + vm.getHost().getId() + "with total reponse time " + ((DRLVm)vm).totalResponseTime + " and migration time " + ((DRLVm)vm).totalMigrationTime);
-        this.totalResponseTime = ((DRLVm)vm).totalResponseTime;
-        this.totalMigrationTime = ((DRLVm)vm).totalMigrationTime;
+        this.totalResponseTime += ((DRLHost)((DRLVm)vm).getHost()).getResponseTime();
+        this.totalMigrationTime += ((DRLVm)vm).totalMigrationTime;
+        this.totalCompletionTime += (CloudSim.clock() - ((DRLVm)vm).startTime);
         this.numVmsEnded += 1;
         getVmAllocationPolicy().deallocateHostForVm(vm);
         getVmList().remove(vm);

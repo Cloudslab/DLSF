@@ -5,11 +5,11 @@ PATH = "../Models/"
 
 Models = ['FCN-LR-MMT']
 
-ParamNames = ['Interval Energy', 'Total Energy', 'Number of Completed VMs', 'Average Response Time',\
-	'Interval Response Time', 'Total Response Time', 'Average Migration Time', 'Total Migration Time',\
-	'Average Completion Time', 'Interval Completion Time', 'Total Completion Time',\
-	'Interval Cost', 'Total Cost', 'Interval SLA Violations', 'Total SLA Violations',\
-	'VMs migrated in Interval', 'Total VMs migrated']
+ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
+	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\
+	'Migration Time (total)',	'Completion Time (average)', 'Completion Time  (each interval)', 'Completion Time (total)',\
+	'Cost  (each interval)', 'Cost', 'SLA Violations  (each interval)', 'Total SLA Violations',\
+	'VMs migrated (each interval)', 'VMs migrated in total']
 
 Colors = ['red', 'blue', 'green']
 
@@ -42,6 +42,12 @@ IntervalVmsMigrated, TotalVmsMigrated]
 Params = dict(zip(ParamNames,ParamList))
 ModelColors = dict(zip(Models,Colors))
 
+def parseLine(line):
+	res = line.strip().split(" ")[1]
+	if('Inf' in res or 'NaN' in res):
+		return 0
+	return float(res)
+
 for model in Models:
 	IE = []; TE = [0]; NVE = []; ART = []; IRT = []; TRT = [0]; AMT = []; IMT = []; TMT = [0]
 	ACT = []; ICT = []; TCT = [0]; IC = []; TC = [0]; ISLA = []; TSLA = [0]; IVM = []; TVM = [0]
@@ -56,44 +62,45 @@ for model in Models:
 		if not "TotalEnergy" in line:
 			continue
 		# Energy
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		IE.append(val)
 		TE.append(TE[-1] + val)
 		# Num Vms Ended
 		line = file.readline()
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		NVE.append(val)
 		# Response Time
 		line = file.readline()
-		val = float(line.split(" ")[1])
-		ART.append(val)
+		val = parseLine(line)
+		ART.append(val if val != 0 else 0.001)
 		IRT.append(val * NVE[-1])
 		TRT.append(TRT[-1] + IRT[-1])
 		# Migration Time
 		line = file.readline()
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		AMT.append(val)
 		IMT.append(val * NVE[-1])
 		TMT.append(TMT[-1] + IMT[-1])
 		# Completion Time
 		line = file.readline()
-		val = float(line.split(" ")[1])
-		ACT.append(val)
-		ICT.append(val * NVE[-1])
-		TCT.append(TMT[-1] + IMT[-1])
+		val = parseLine(line)
+		ACT.append(val if val != 0 else ACT[-1])
+		ICT.append(val * NVE[-1] if val != 0 else ICT[-1])
+		TCT.append(TCT[-1] + ICT[-1])
+		print(ICT[-1])
 		# Cost
 		line = file.readline()
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		IC.append(val)
 		TC.append(TC[-1] + val)
 		# SLA
 		line = file.readline()
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		ISLA.append(val)
-		TSLA.append(TC[-1] + val)
+		TSLA.append(TSLA[-1] + val)
 		# VM Migrations
 		line = file.readline()
-		val = float(line.split(" ")[1])
+		val = parseLine(line)
 		IVM.append(val)
 		TVM.append(TVM[-1] + val)
 

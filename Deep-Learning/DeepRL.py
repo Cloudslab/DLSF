@@ -58,18 +58,6 @@ class DeepRL(nn.Module):
 		for i in range(no_of_hosts):
 			self.hidden += [self.init_hidden()]
 
-		# self.lstm = nn.LSTM(self.input_dim, self.hidden_dim, self.num_layers, batch_first=True)
-		# # self.lstm2 = nn.LSTM(hidden_dim, hidden_dim, batch_first=True)
-		# self.conv1 = nn.Conv2d(1, 10, kernel_size=2)
-		# self.conv2 = nn.Conv2d(10, 1, kernel_size=3)
-		# self.conv3 = nn.Conv2d(10, 10, kernel_size=2)
-
-		# self.fc1 = nn.Linear(88, 1000)
-		# self.fc2 = nn.Linear(1000, 5000)
-		# self.fc3 = nn.Linear(5000, 10000)
-
-		# self.bn1 = nn.BatchNorm1d(26)
-
 		self.relu = nn.ELU()
 
 		self.fc1 = nn.Linear(24200, 5000)
@@ -119,12 +107,6 @@ class DeepRL(nn.Module):
 		self.vm_map = []
 		for i in range(cnn_data.shape[1]):
 			self.vm_map += [cnn_data[0][i][0]]
-
-		# file = open(PATH + 'vm_map.pickle','wb')
-		# pickle.dump(self.vm_map, file)
-
-		# lstm_data = preprocessing.normalize(lstm_data)
-		# cnn_data = preprocessing.normalize(cnn_data)
 
 		train_cnn  = Variable(torch.from_numpy(cnn_data).type(torch.FloatTensor))
 		train_lstm = Variable(torch.from_numpy(lstm_data).type(torch.FloatTensor))

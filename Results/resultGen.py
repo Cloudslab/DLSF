@@ -3,7 +3,7 @@ import itertools
 
 PATH = "../Models/"
 
-Models = ['FCN-LR-MMT']
+Models = ['FCN-LR-MMT', 'LR-MMT']
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\
@@ -128,7 +128,7 @@ x = range(5,24*12,5)
 for paramname in ParamNames:
 	plt.title(paramname)
 	for model in Models:
-		plt.plot(Params[paramname][model], marker='.', color=ModelColors[model], linewidth=1, label=paramname)
+		plt.plot(Params[paramname][model], marker='.', color=ModelColors[model], linewidth=1, label=model)
 	plt.legend()
 	plt.savefig(paramname+".png")
 	plt.clf()

@@ -101,8 +101,12 @@ public class DRLDatacenter extends PowerDatacenter {
     protected void updateDLModel(){
         String loss = "Error!";
         try{
-//            DRLDatacenter.toPython.write(("backprop,"+getLoss()).getBytes()); toPython.flush();
-            toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
+            if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
+                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
+            }
+            else{
+                toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
+            }
             loss = DRLDatacenter.fromPython.readLine();
             System.out.println("DL Loss = " + loss);
             toPython.println(("setInput\n"+getInput()+"END")); toPython.flush();

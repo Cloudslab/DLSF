@@ -403,6 +403,14 @@ if __name__ == '__main__':
 				batch_count_forward = 0
 
 		elif funcName == 'backprop':
+			file = open(PATH+"DLbackprop.txt", "w+")
+			file.writelines(data)
+			file.close()
+			if model.iter == 1:
+				stdout.write("Init Loss\n")
+				stdout.flush()
+				model.iter += 1
+				continue
 			loss_data = []
 			for val in data:
 				val = val.replace('false','0')

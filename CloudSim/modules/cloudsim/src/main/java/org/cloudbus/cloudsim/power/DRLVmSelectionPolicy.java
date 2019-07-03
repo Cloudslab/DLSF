@@ -56,7 +56,7 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
         List<DRLVm> vmsToMigrate = new LinkedList<DRLVm>();
         List<PowerVm> migratableVms = getAllMigratableVms(hosts);
         // @todo : Parse output from DL model
-        String result; ArrayList<String> vms = new ArrayList();
+        String result = ""; ArrayList<String> vms = new ArrayList();
         try{
             DRLDatacenter.toPython.println(("getVmsToMigrate\nEND")); DRLDatacenter.toPython.flush();
             result = DRLDatacenter.fromPython.readLine();
@@ -66,8 +66,15 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
             System.out.println(e.getMessage());
         }
         migrationPenalty = 0;
+        DRLVm vm = (DRLVm)vmList.get(0);
         for (int i = 0; i < vms.size(); i++) {
-            DRLVm vm = (DRLVm)vmList.get(Integer.parseInt(vms.get(i)));
+            try{
+                vm = (DRLVm)vmList.get(Integer.parseInt(vms.get(i)));
+            }
+            catch(Exception e){
+                System.out.println("Error in integer parse: " + vms.size() + ", " + vms.get(i) + ", -" + result + "-");
+                System.exit(0);
+            }
             if(migratableVms.contains(vm)){
                 vmsToMigrate.add(vm);
             }

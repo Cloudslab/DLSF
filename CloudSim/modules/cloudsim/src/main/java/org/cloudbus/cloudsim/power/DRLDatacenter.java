@@ -101,15 +101,15 @@ public class DRLDatacenter extends PowerDatacenter {
     }
 
     protected void updateDLModel(){
-        String loss = "Error!";
+        String loss = "Not learning!";
         try{
             if(getVmAllocationPolicy().getClass().getName().equals("org.cloudbus.cloudsim.power.DRLVmAllocationPolicy")){
-                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
+//                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
             }
             else{
                 toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
             }
-            loss = DRLDatacenter.fromPython.readLine();
+//            loss = DRLDatacenter.fromPython.readLine();
             System.out.println("DL Loss = " + loss);
             toPython.println(("setInput\n"+getInput()+"END")); toPython.flush();
         }
@@ -124,7 +124,7 @@ public class DRLDatacenter extends PowerDatacenter {
         double totalDataCenterCost = 0.0;
         for(DRLHost host : this.<DRLHost>getHostList()){
             totalDataCenterEnergy += this.hostEnergy[getHostList().indexOf(host)];
-            totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff * host.getUtilizationOfCpu()) / (60 * 60);
+            totalDataCenterCost += (host.getCostModel().getCostPerCPUtime() * this.savedTimeDiff) / (60 * 60);
         }
         loss = loss + "CurrentTime " + this.savedCurrentTime +  "\n";
         loss = loss + "LastTime " + this.savedLastTime +  "\n";

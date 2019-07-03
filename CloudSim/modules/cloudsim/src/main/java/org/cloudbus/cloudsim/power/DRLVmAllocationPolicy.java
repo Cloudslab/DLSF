@@ -53,8 +53,10 @@ public class DRLVmAllocationPolicy extends PowerVmAllocationPolicyAbstract{
      */
     public DRLVmAllocationPolicy(
             List<? extends Host> hostList,
+            DRLVmSelectionPolicy selectionPolicy,
             PowerVmAllocationPolicyMigrationAbstract fallbackVmAllocationPolicy) {
         super(hostList);
+        this.vmSelectionPolicy = selectionPolicy;
         setFallbackVmAllocationPolicy(fallbackVmAllocationPolicy);
         hostPenalty = 0;
     }

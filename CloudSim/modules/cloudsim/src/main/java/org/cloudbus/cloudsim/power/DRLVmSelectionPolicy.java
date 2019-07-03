@@ -60,7 +60,7 @@ public class DRLVmSelectionPolicy extends PowerVmSelectionPolicy{
         try{
             DRLDatacenter.toPython.println(("getVmsToMigrate\n \nEND")); DRLDatacenter.toPython.flush();
             result = DRLDatacenter.fromPython.readLine();
-            vms = new ArrayList<>(Arrays.asList(result.split(",")));
+            vms = new ArrayList<>(Arrays.asList(result.split(" ")));
         }
         catch(Exception e){
             System.out.println(e.getMessage());

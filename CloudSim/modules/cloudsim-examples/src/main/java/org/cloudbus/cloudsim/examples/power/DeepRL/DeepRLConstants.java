@@ -33,7 +33,7 @@ public class DeepRLConstants {
     public final static boolean OUTPUT_CSV    = true; //
 
     public final static double SCHEDULING_INTERVAL = 300; // 5 min
-    public final static double SIMULATION_LIMIT = 3*24*60*60; // 2 days
+    public final static double SIMULATION_LIMIT = 1*60*60; // 2 days
 
     public final static int CLOUDLET_LENGTH	=  5 * 60 * 1000; // 5 min
     public final static int CLOUDLET_PES	= 1;

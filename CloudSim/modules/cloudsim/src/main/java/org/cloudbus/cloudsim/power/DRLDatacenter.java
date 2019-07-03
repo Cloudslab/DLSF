@@ -44,6 +44,8 @@ public class DRLDatacenter extends PowerDatacenter {
 
     private int InputLimit = 100;
 
+    private int lastMigrationCount = 0;
+
     private PowerVmAllocationPolicyMigrationStaticThreshold vmAllocSt = new PowerVmAllocationPolicyMigrationStaticThreshold(this.getHostList(),null,0.7);
 
     private PowerVmAllocationPolicyMigrationLocalRegression vmAllocLr = new PowerVmAllocationPolicyMigrationLocalRegression(this.getHostList(),null,0,300,vmAllocSt);
@@ -135,6 +137,8 @@ public class DRLDatacenter extends PowerDatacenter {
         this.numVmsEnded = 0; this.totalMigrationTime = 0; this.totalResponseTime = 0;
         loss = loss + "TotalCost " + totalDataCenterCost +  "\n";
         loss = loss + "SLAOverall " + getSlaOverall(this.getVmList()) +  "\n";
+        loss = loss + "VMsMigrated " + (this.getMigrationCount() - this.lastMigrationCount) + "\n";
+        this.lastMigrationCount = this.getMigrationCount();
         if(getVmAllocationPolicy().getClass().getName().equals("DRLVmAllocationPolicy")){
             loss = loss + "HostPenalty " + ((DRLVmAllocationPolicy) getVmAllocationPolicy()).hostPenalty +  "\n";
             loss = loss + "MigrationPenalty " + ((DRLVmSelectionPolicy)

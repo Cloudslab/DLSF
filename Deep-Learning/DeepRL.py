@@ -148,7 +148,7 @@ class DeepRL(nn.Module):
 		#update parameters
 		optimizer.step()
 
-		if self.iter%1 == 0: 
+		if self.iter%6 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')
@@ -246,7 +246,7 @@ class DeepRL(nn.Module):
 		#update parameters
 		optimizer.step()
 
-		if self.iter%1 == 0: 
+		if self.iter%6 == 0: 
 			torch.save(model.state_dict(), PATH + 'running_model.pth')
 			
 			file = open(PATH + 'hidden_state.pickle','wb')

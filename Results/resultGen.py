@@ -87,7 +87,6 @@ for model in Models:
 		ACT.append(val if val != 0 else ACT[-1])
 		ICT.append(val * NVE[-1] if val != 0 else ICT[-1])
 		TCT.append(TCT[-1] + ICT[-1])
-		print(ICT[-1])
 		# Cost
 		line = file.readline()
 		val = parseLine(line)

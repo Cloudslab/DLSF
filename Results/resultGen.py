@@ -43,15 +43,9 @@ IntervalVmsMigrated, TotalVmsMigrated]
 Params = dict(zip(ParamNames,ParamList))
 ModelColors = dict(zip(Models,Colors))
 
-def parseLine(line):
-	res = line.strip().split(" ")[1]
-	if('Inf' in res or 'NaN' in res):
-		return 0
-	return float(res)
-
 for model in Models:
 	for param in ParamNames:
-		file = open(model+'/'+param+'.pickle', 'rb')
+		file = open('Data/'+model+'/'+param+'.pickle', 'rb')
 		l = []
 		l = pickle.load(file)
 		Params[param][model] = l

@@ -128,11 +128,11 @@ x = range(5,24*12,5)
 
 for model in Models:
 	try:
-		os.mkdir(model)
+		os.mkdir('Data/'+model)
 	except:
 		pass
 	for param in ParamNames:
-		file = open(model+'/'+param+'.pickle', 'wb')
+		file = open('Data/'+model+'/'+param+'.pickle', 'wb')
 		pickle.dump(Params[param][model], file)
 		file.close()
 

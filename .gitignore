@@ -109,3 +109,4 @@ venv.bak/
 .mypy_cache/
 CloudSim/DL.txt
 CloudSim/output.txt
+*.pickle

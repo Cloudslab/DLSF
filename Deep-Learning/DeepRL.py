@@ -150,10 +150,10 @@ class DeepRL(nn.Module):
 			# file = open('output.pickle','rb')
 			# self.output = pickle.load(file)
 			file = open(PATH+"BackpropLoss.txt", "a")
-			file.writeline(str(data))
+			file.write(str(data)+ "\n")
 			file.close()
 
-			loss_value = 5000*data[0] + data[3] + 10*data[6] + data[8]/10000 + data[9]/100
+			loss_value = 5000*data[6] + data[8]/10000 + data[9]/100
 			loss_value = torch.Tensor(np.array(loss_value)).type(torch.FloatTensor)
 
 			loss = self.output[0].min()
@@ -372,7 +372,7 @@ if __name__ == '__main__':
 	loss_min_max = pickle.load(file)
 
 
-	batch_size = 12
+	batch_size = 1
 	model = DeepRL(input_dim, hidden_dim, num_layers, output_dim, batch_size)
 	model
 	# inp = "backprop,CurrentTime 300.1;LastTime 0.0;TimeDiff 300.1;TotalEnergy 105358.10624075294;NumVsEnded 1.0;AverageResponseTime 0.0;AverageMigrationTime 0.0;TotalCost 0.3317772222222221;SLAOverall NaN"

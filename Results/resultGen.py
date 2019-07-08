@@ -4,7 +4,7 @@ import pickle
 
 PATH = "../Models/"
 
-Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN-LR-MMT']
+Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\
@@ -12,7 +12,7 @@ ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed V
 	'Cost  (each interval)', 'Cost', 'SLA Violations  (each interval)', 'Total SLA Violations',\
 	'VMs migrated (each interval)', 'VMs migrated in total']
 
-Colors = ['red', 'blue', 'green', 'orange']
+Colors = ['red', 'blue', 'green', 'orange', 'pink', 'cyan']
 
 Params = {}
 

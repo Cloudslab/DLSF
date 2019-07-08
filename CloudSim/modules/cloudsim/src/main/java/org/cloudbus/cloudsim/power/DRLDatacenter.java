@@ -107,7 +107,7 @@ public class DRLDatacenter extends PowerDatacenter {
 //                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
             }
             else{
-                toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
+//                toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
             }
 //            loss = DRLDatacenter.fromPython.readLine();
             System.out.println("DL Loss = " + loss);

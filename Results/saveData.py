@@ -5,7 +5,7 @@ import pickle
 
 PATH = "../Models/"
 
-Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN-LR-MMT']
+Models = ['FCN', 'FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\
@@ -52,7 +52,7 @@ def parseLine(line):
 
 for model in Models:
 	IE = []; TE = [0]; NVE = []; ART = []; IRT = []; TRT = [0]; AMT = []; IMT = []; TMT = [0]
-	ACT = []; ICT = []; TCT = [0]; IC = []; TC = [0]; ISLA = []; TSLA = [0]; IVM = []; TVM = [0]
+	ACT = [0]; ICT = [0]; TCT = [0]; IC = []; TC = [0]; ISLA = []; TSLA = [0]; IVM = []; TVM = [0]
 
 	print("Parsing model "+model)
 

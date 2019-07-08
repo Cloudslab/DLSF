@@ -125,12 +125,16 @@ paramname = 'Number of Completed VMs'
 plt.title(TitleDict[paramname])
 plt.xlabel('Model')
 plt.ylabel(yLabelDict[paramname])
-values = []
+values = []; values2 = []; values3 = []
 for model in Models:
-	values.append(sum(Params[paramname][model]))
-plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
-plt.bar(range(len(values)), values, align='center', color=Colors)
+	values3.append(sum(Params[paramname][model]))
+	values.append(sum(Params[paramname][model])*Params['Total SLA Violations'][model][-1])
+	values2.append(sum(Params[paramname][model])*(1-Params['Total SLA Violations'][model][-1]))
+plt.ylim(0, max(values3)+10*statistics.stdev(values3))
+p1 = plt.bar(range(len(values)), values2, align='center', color='blue')
+p2 = plt.bar(range(len(values)), values, bottom=values2, align='center', color='red')
 plt.xticks(range(len(values)), Models)
+plt.legend((p1[0], p2[0]), ('Completed in Expected Time', 'Exceeded Expected Time'))
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
@@ -184,6 +188,20 @@ plt.xlabel('Time (seconds)')
 values = []
 for model in Models:
 	values.append(Params['Completion Time (total)'][model][-1]/sum(Params['Number of Completed VMs'][model]))
+plt.xlim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
+plt.barh(range(len(values)), values, align='center', color=Colors)
+plt.yticks(range(len(values)), Models)
+plt.savefig(paramname+"-Bar.pdf")
+plt.clf()
+
+## Response Time
+paramname = 'Response Time (total)'
+plt.title(paramname)
+plt.ylabel('Model')
+plt.xlabel('Time (seconds)')
+values = []
+for model in Models:
+	values.append(Params[paramname][model][-1])
 plt.xlim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
 plt.barh(range(len(values)), values, align='center', color=Colors)
 plt.yticks(range(len(values)), Models)

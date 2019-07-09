@@ -5,7 +5,7 @@ import pickle
 
 PATH = "../Models/"
 
-Models = ['FCN', 'FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
+Models = ['FCN2']
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\

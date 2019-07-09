@@ -17,8 +17,10 @@ PATH = "../Models/"
 # Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
 # Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
 
-Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN-LR-MMT']
-Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN']
+Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
+Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
+
+rot = 15 if len(Models) > 4 else 0
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\
@@ -124,7 +126,7 @@ for model in Models:
 	values.append(Params[paramname][model][-1])
 plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
 plt.bar(range(len(values)), values, align='center', color=Colors)
-plt.xticks(range(len(values)), Labels)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
@@ -141,7 +143,7 @@ for model in Models:
 plt.ylim(0, max(values3)+10*statistics.stdev(values3))
 p1 = plt.bar(range(len(values)), values2, align='center', color='dimgray')
 p2 = plt.bar(range(len(values)), values, bottom=values2, align='center', color='silver')
-plt.xticks(range(len(values)), Labels)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.legend((p1[0], p2[0]), ('Completed in Expected Time', 'Exceeded Expected Time'))
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
@@ -156,7 +158,7 @@ for model in Models:
 	values.append(Params[paramname][model][-1])
 plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
 plt.bar(range(len(values)), values, align='center', color=Colors)
-plt.xticks(range(len(values)), Labels)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
@@ -170,7 +172,7 @@ for model in Models:
 	values.append(Params[paramname][model][-1])
 plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
 plt.bar(range(len(values)), values, align='center', color=Colors)
-plt.xticks(range(len(values)), Labels)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
@@ -184,7 +186,7 @@ for model in Models:
 	values.append(Params[paramname][model][-1])
 plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
 plt.bar(range(len(values)), values, align='center', color=Colors)
-plt.xticks(range(len(values)), Labels)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 

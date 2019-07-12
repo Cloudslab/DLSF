@@ -130,7 +130,7 @@ class DeepRL(nn.Module):
 			file.write(str(out))
 			file.close()
 
-			plt.imshow(out.detach().numpy(),cmap='gray')
+			plt.imshow(out.detach().numpy(),cmap='gnuplot')
 			plt.savefig(PATH + 'DLoutput.jpg')
 			plt.close()
 		# file = open(PATH + 'output.pickle','wb')

@@ -2,7 +2,7 @@ package org.cloudbus.cloudsim.power.models;
 
 /**
  * The power model of an Hitachi HA 8000 (Intel Core i3-540 2 core 3.06 GHz)
- * *The data is accessed from https://www.spec.org/power_ssj2008/results/res2014q4/power_ssj2008-20141023-00677.html
+ * *The data is accessed from https://www.spec.org/power_ssj2008/results/res2011q1/power_ssj2008-20110206-00346.html
  * @author Shreshth Tuli
  * @since CloudSim Toolkit 5.0
  *

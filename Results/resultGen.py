@@ -14,11 +14,11 @@ def reduce(l):
 
 PATH = "../Models/"
 
-# Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
-# Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
+Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
+Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
 
-Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
-Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
+# Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
+# Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
 
 rot = 15 if len(Models) > 4 else 0
 
@@ -205,11 +205,11 @@ plt.yticks(range(len(values)), Labels)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
-## Response Time
+## Average Response Time
 paramname = 'Response Time (total)'
 # plt.title(paramname)
 plt.ylabel('Model')
-plt.xlabel('Time (seconds)')
+plt.xlabel('Time (milliseconds)')
 values = []
 for model in Models:
 	values.append(Params[paramname][model][-1])

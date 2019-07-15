@@ -14,6 +14,7 @@ import math
 import matplotlib.pyplot as plt
 from sys import stdin, stdout
 import io
+from time import time
 
 torch.set_printoptions(threshold=10000)
 np.set_printoptions(threshold=np.inf)
@@ -85,6 +86,7 @@ class DeepRL(nn.Module):
 				torch.zeros(self.num_layers,self.batch_size, self.hidden_dim))
 
 	def forward(self, cnn_data, lstm_data):
+		start = time()
 		cnn_data = cnn_data.reshape(-1,cnn_data.shape[1]*cnn_data.shape[2])
 		lstm_data = lstm_data.reshape(-1,lstm_data.shape[1]*lstm_data.shape[2])
 		data = torch.cat((cnn_data, lstm_data),1)
@@ -98,7 +100,7 @@ class DeepRL(nn.Module):
 
 		data = data.reshape(-1,self.output_dim,self.output_dim)
 		data = F.softmax(data, dim=2)
-
+		# print('Time = '+str(time()-start))
 		return data
 
 	def setInput(self, cnn_data, lstm_data):
@@ -131,7 +133,11 @@ class DeepRL(nn.Module):
 			file.close()
 
 			plt.imshow(out.detach().numpy(),cmap='gnuplot')
-			plt.savefig(PATH + 'DLoutput.jpg')
+			ax = plt.gca();
+			ax.set_xticks(np.arange(-0.5, 100, 1), minor=True);
+			ax.set_yticks(np.arange(-0.5, 100, 1), minor=True);
+			ax.grid(which='minor', color='w', linestyle='-', linewidth=0.1)
+			plt.savefig(PATH + 'DLoutput.pdf', bbox_inches='tight')
 			plt.close()
 		# file = open(PATH + 'output.pickle','wb')
 		# pickle.dump(self.output, file)

@@ -14,13 +14,13 @@ def reduce(l):
 
 PATH = "../Models/"
 
-Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
-Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
+# Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
+# Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
 
-# Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
-# Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
+Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
+Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
 
-rot = 15 if len(Models) > 4 else 0
+rot = 0 if '=1' in Labels[0] else 15
 
 ParamNames = ['Energy (each interval)', 'Energy (total)', 'Number of Completed VMs', 'Response Time (average)',\
 	'Response Time (each interval)', 'Response Time (total)', 'Migration Time (average)', 'Migration Time  (each interval)',\

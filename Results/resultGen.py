@@ -14,11 +14,11 @@ def reduce(l):
 
 PATH = "../Models/"
 
-# Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
-# Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
+Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
+Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
 
-Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
-Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
+# Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
+# Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
 
 rot = 0 if '=1' in Labels[0] else 15
 
@@ -93,58 +93,61 @@ for model in Models:
 
 x = range(5,24*60,5)
 
-for paramname in ParamNames:
-	# plt.title(TitleDict[paramname])
-	plt.xlabel(xLabel)
-	plt.ylabel(yLabelDict[paramname])
-	for model in Models:
-		x1 = range(5,24*60,5) if len(Params[paramname][model]) == 287 else range(0,24*60,5)
-		x1 = x1[0:len(Params[paramname][model])]
-		plt.plot(x1, Params[paramname][model], color=ModelColors[model], linewidth=1, label=ModelLabels[model], alpha=0.7)
-	plt.legend()
-	plt.savefig(paramname+".pdf")
-	plt.clf()
+# for paramname in ParamNames:
+# 	# plt.title(TitleDict[paramname])
+# 	plt.xlabel(xLabel)
+# 	plt.ylabel(yLabelDict[paramname])
+# 	for model in Models:
+# 		x1 = range(5,24*60,5) if len(Params[paramname][model]) == 287 else range(0,24*60,5)
+# 		x1 = x1[0:len(Params[paramname][model])]
+# 		plt.plot(x1, Params[paramname][model], color=ModelColors[model], linewidth=1, label=ModelLabels[model], alpha=0.7)
+# 	plt.legend()
+# 	plt.savefig(paramname+".pdf")
+# 	plt.clf()
 
-for paramname in ParamNames:
-	# plt.title(TitleDict[paramname])
-	plt.xlabel('Simulation Time (Hours)')
-	plt.ylabel(yLabelDict[paramname])
-	for model in Models:
-		plt.plot(reduce(Params[paramname][model]), color=ModelColors[model], linewidth=1, label=ModelLabels[model], alpha=0.7)
-	plt.legend()
-	plt.savefig("Reduced-"+paramname+".pdf")
-	plt.clf()
+# for paramname in ParamNames:
+# 	# plt.title(TitleDict[paramname])
+# 	plt.xlabel('Simulation Time (Hours)')
+# 	plt.ylabel(yLabelDict[paramname])
+# 	for model in Models:
+# 		plt.plot(reduce(Params[paramname][model]), color=ModelColors[model], linewidth=1, label=ModelLabels[model], alpha=0.7)
+# 	plt.legend()
+# 	plt.savefig("Reduced-"+paramname+".pdf")
+# 	plt.clf()
 
 
-## Cost
-paramname = 'Cost'
-# plt.title(TitleDict[paramname])
-plt.xlabel('Model')
-plt.ylabel(yLabelDict[paramname])
-values = []
-for model in Models:
-	values.append(Params[paramname][model][-1])
-plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
-plt.bar(range(len(values)), values, align='center', color=Colors)
-plt.xticks(range(len(values)), Labels, rotation=rot)
-plt.savefig(paramname+"-Bar.pdf")
-plt.clf()
+# ## Cost
+# paramname = 'Cost'
+# # plt.title(TitleDict[paramname])
+# plt.xlabel('Model')
+# plt.ylabel(yLabelDict[paramname])
+# values = []
+# for model in Models:
+# 	values.append(Params[paramname][model][-1])
+# plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
+# plt.bar(range(len(values)), values, align='center', color=Colors)
+# plt.xticks(range(len(values)), Labels, rotation=rot)
+# plt.savefig(paramname+"-Bar.pdf")
+# plt.clf()
 
 ## Number of Completed VMs
 paramname = 'Number of Completed VMs'
 # plt.title(TitleDict[paramname])
 plt.xlabel('Model')
 plt.ylabel(yLabelDict[paramname])
-values = []; values2 = []; values3 = []
+values = []; values2 = []
 for model in Models:
-	values3.append(sum(Params[paramname][model]))
-	values.append(sum(Params[paramname][model])*Params['Total SLA Violations'][model][-1])
-	values2.append(sum(Params[paramname][model])*(1-Params['Total SLA Violations'][model][-1]))
-plt.ylim(0, max(values3)+10*statistics.stdev(values3))
-p1 = plt.bar(range(len(values)), values2, align='center', color='dimgray')
-p2 = plt.bar(range(len(values)), values, bottom=values2, align='center', color='silver')
+	values.append(sum(Params[paramname][model]))
+	values2.append(Params['Total SLA Violations'][model][-1])
+plt.ylim(0, max(values)+10*statistics.stdev(values))
+p1 = plt.bar(range(len(values)), values, align='center', color='grey', label='Number of Completed VMs')
+# plt.legend()
 plt.xticks(range(len(values)), Labels, rotation=rot)
-plt.legend((p1[0], p2[0]), ('Completed in Expected Time', 'Exceeded Expected Time'))
+plt.twinx()
+plt.ylabel('Exceeded Expected Time (%)')
+plt.ylim(0, max(values2)+10*statistics.stdev(values2))
+p2 = plt.plot(values2, color='black', alpha=0.7, label='Exceeded Expected Time (%)', marker='s')
+plt.legend((p1[0], p2[0]), ('Number of Completed Tasks', 'Exceeded Expected Time (%)'), loc=1)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 

@@ -1,6 +1,0 @@
-			Energy (total)			Response Time (total)	Completion Time (total)	Cost					Migration Time (total)	Total SLA Violations	VMs migrated in total	
-LR-MMT		9.47e+07				8.56e+00				3.51e+09				6.32e+03				1.89e+03				5.79e-02				4.44e+03				
-LRR-MC		9.44e+07				8.42e+00				3.39e+09				6.33e+03				6.16e+02				1.34e-01				4.16e+03				
-MAD-MMT		8.60e+07				8.71e+00				3.54e+09				6.33e+03				5.70e+02				6.85e-02				7.88e+03				
-FCN2		8.46e+07				8.40e+00				3.35e+09				6.31e+03				2.19e+03				5.79e-02				1.05e+04				
-FCN-LR-MMT		8.24e+07				7.75e+00				2.96e+09				6.20e+03				5.43e+02				3.94e-02				3.52e+03				

@@ -14,11 +14,11 @@ def reduce(l):
 
 PATH = "../Models/"
 
-Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
-Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
+# Models = ['FCN-AvgE', 'FCN-Res', 'FCN-Mig', 'FCN-Cost', 'FCN-SLA']
+# Labels = ['\u03B1=1', '\u03B2=1', '\u03B3=1', '\u03B4=1', '\u03B5=1']
 
-# Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
-# Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
+Models = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'FCN2', 'FCN-LR-MMT']
+Labels = ['LR-MMT', 'LRR-MC', 'MAD-MMT', 'RL', 'FCN']
 
 rot = 0 if '=1' in Labels[0] else 15
 
@@ -196,29 +196,29 @@ plt.clf()
 ## Average Completion Time
 paramname = 'Average Task Completion Time for a task'
 # plt.title(paramname)
-plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-plt.ylabel('Model')
-plt.xlabel('Time (seconds)')
+plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+plt.xlabel('Model')
+plt.ylabel('Time (seconds)')
 values = []
 for model in Models:
 	values.append(Params['Completion Time (total)'][model][-1]/sum(Params['Number of Completed VMs'][model]))
-plt.xlim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
-plt.barh(range(len(values)), values, align='center', color=Colors)
-plt.yticks(range(len(values)), Labels)
+plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
+plt.bar(range(len(values)), values, align='center', color=Colors)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 
 ## Average Response Time
 paramname = 'Response Time (total)'
 # plt.title(paramname)
-plt.ylabel('Model')
-plt.xlabel('Time (milliseconds)')
+plt.xlabel('Model')
+plt.ylabel('Time (milliseconds)')
 values = []
 for model in Models:
 	values.append(Params[paramname][model][-1])
-plt.xlim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
-plt.barh(range(len(values)), values, align='center', color=Colors)
-plt.yticks(range(len(values)), Labels)
+plt.ylim(min(values)-statistics.stdev(values), max(values)+statistics.stdev(values))
+plt.bar(range(len(values)), values, align='center', color=Colors)
+plt.xticks(range(len(values)), Labels, rotation=rot)
 plt.savefig(paramname+"-Bar.pdf")
 plt.clf()
 

@@ -104,12 +104,13 @@ public class DRLDatacenter extends PowerDatacenter {
         String loss = "Not learning!";
         try{
             if(getVmAllocationPolicy().getClass().getName().equals("org.cloudbus.cloudsim.power.DRLVmAllocationPolicy")){
-//                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
+                System.out.println("Training");
+                toPython.println("backprop\n"+getLoss()+"END"); toPython.flush();
             }
             else{
-//                toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
+                toPython.println(("sendMap\n"+getInputMap()+"END")); toPython.flush();
             }
-//            loss = DRLDatacenter.fromPython.readLine();
+           loss = DRLDatacenter.fromPython.readLine();
             System.out.println("DL Loss = " + loss);
             toPython.println(("setInput\n"+getInput()+"END")); toPython.flush();
         }

@@ -37,7 +37,6 @@ The key contributions of this work:
 * *MAD-MC:* schedules workloads dynamically based on Median Absolute Deviation (MAD)  and Maximum Correlation Policy (MC) heuristics for overload detection and task selection, respectively.
 * *DDQN:* standard Deep Q-Learning based RL approach, many works have used this technique in literature.  We implement the optimized Double DQN technique.
 * *DRL (Reinforce):* policy gradient based REINFORCE method with fully connected neural network.
-\end{itemize}
 
 ### Results
 <div align="center">

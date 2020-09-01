@@ -29,7 +29,7 @@ The key contributions of this work:
 
 ### Experimental Setup
 <div align="center">
-<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/env.PNG" width="700" align="middle">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/env.PNG" width="900" align="middle">
 </div>
 
 ### Baselines

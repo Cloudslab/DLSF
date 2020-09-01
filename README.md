@@ -22,7 +22,7 @@ The key contributions of this work:
 
 ## Neural Network Architecture
 <div align="center">
-<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/network.PNG" width="900" align="middle">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/network.PNG" width="700" align="middle">
 </div>
 
 ## Experiments
@@ -41,7 +41,7 @@ The key contributions of this work:
 
 ### Results
 <div align="center">
-<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/comparison.PNG" width="700" align="middle">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/comparison.PNG" width="900" align="middle">
 </div>
 
 ## Quick setup and run tutorial

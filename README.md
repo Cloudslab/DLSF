@@ -17,7 +17,7 @@ The key contributions of this work:
 
 ## Reinforcement Learning Framework
 <div align="center">
-<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/RL.PNG" width="700" align="middle">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/RL.PNG" width="500" align="middle">
 </div>
 
 ## Neural Network Architecture

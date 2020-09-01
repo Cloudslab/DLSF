@@ -5,9 +5,9 @@ The ubiquitous adoption of Internet-of-Things (IoT) based applications has resul
 
 The key contributions of this work:
 * We design an architectural system model for the data-driven deep reinforcement learning based scheduling for Edge-Cloud environments.   
-* We outline a generic \textit{asynchronous} learning model for scheduling in \textit{decentralized} environments.
-* We propose a \textit{Policy gradient} based Reinforcement learning method (A3C) for \textit{stochastic} dynamic scheduling method.
-* We demonstrate a \textit{Residual Recurrent Neural Network} (R2N2) based framework for exploiting temporal patterns for scheduling in a hybrid Edge-Cloud setup.
+* We outline a generic *asynchronous* learning model for scheduling in *decentralized* environments.
+* We propose a *Policy gradient* based Reinforcement learning method (A3C) for *stochastic* dynamic scheduling method.
+* We demonstrate a *Residual Recurrent Neural Network* (R2N2) based framework for exploiting temporal patterns for scheduling in a hybrid Edge-Cloud setup.
 * We show the superiority of the proposed solution through extensive simulation experiments and compare the results against several baseline policies.
 
 ## System Model

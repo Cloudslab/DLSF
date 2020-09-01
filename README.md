@@ -1,3 +1,78 @@
-# DLSF
-Deep Learning based Scheduler for Fog computing environments
+# Dynamic Scheduling for Stochastic Edge-Cloud Computing Environments using A3C learning and Residual Recurrent Neural Networks
+The ubiquitous adoption of Internet-of-Things (IoT) based applications has resulted in the emergence of the Fog computing paradigm, which allows seamlessly harnessing both mobile-edge and cloud resources. Efficient scheduling of application tasks in such environments is challenging due to constrained resource capabilities, mobility factors in IoT, resource heterogeneity, network hierarchy, and stochastic behaviors. \black{Existing heuristics and Reinforcement Learning based approaches lack generalizability and quick adaptability, thus failing to tackle this problem optimally.  They are also unable to utilize the temporal workload patterns and are suitable only for centralized setups. However, Asynchronous-Advantage-Actor-Critic (A3C) learning is known to quickly adapt to dynamic scenarios with less data and Residual Recurrent Neural Network (R2N2) to quickly update model parameters. Thus, we propose an  A3C based real-time scheduler for stochastic Edge-Cloud environments allowing decentralized learning, concurrently across multiple agents. We use the R2N2 architecture to capture a large number of host and task parameters together with temporal patterns to provide efficient scheduling decisions.}  The proposed model is adaptive and able to tune different hyper-parameters based on the application requirements. We explicate our choice of hyper-parameters through sensitivity analysis. The experiments conducted on real-world data set show a significant improvement in terms of energy consumption, response time, Service-Level-Agreement and running cost by 14.4\%, 7.74%, 31.9%, and 4.64%, respectively when compared to the state-of-the-art algorithms.
 
+## Contributions
+
+The key contributions of this work:
+* We design an architectural system model for the data-driven deep reinforcement learning based scheduling for Edge-Cloud environments.   
+* We outline a generic \textit{asynchronous} learning model for scheduling in \textit{decentralized} environments.
+* We propose a \textit{Policy gradient} based Reinforcement learning method (A3C) for \textit{stochastic} dynamic scheduling method.
+* We demonstrate a \textit{Residual Recurrent Neural Network} (R2N2) based framework for exploiting temporal patterns for scheduling in a hybrid Edge-Cloud setup.
+* We show the superiority of the proposed solution through extensive simulation experiments and compare the results against several baseline policies.
+
+## System Model
+<div align="center">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/system.PNG" width="700" align="middle">
+</div>
+
+## Reinforcement Learning Framework
+<div align="center">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/RL.PNG" width="700" align="middle">
+</div>
+
+## Neural Network Architecture
+<div align="center">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/network.PNG" width="700" align="middle">
+</div>
+
+## Experiments
+
+### Experimental Setup
+<div align="center">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/env.PNG" width="700" align="middle">
+</div>
+
+### Baselines
+* *LR-MMT:*  schedules workloads dynamically based on Local Regression (LR)  and Minimum Migration Time (MMT) heuristics for overload detection and task selection, respectively.
+* *MAD-MC:* schedules workloads dynamically based on Median Absolute Deviation (MAD)  and Maximum Correlation Policy (MC) heuristics for overload detection and task selection, respectively.
+* *DDQN:* standard Deep Q-Learning based RL approach, many works have used this technique in literature.  We implement the optimized Double DQN technique.
+* *DRL (Reinforce):* policy gradient based REINFORCE method with fully connected neural network.
+\end{itemize}
+
+### Results
+<div align="center">
+<img src="https://github.com/Cloudslab/DLSF/blob/master/Images/comparison.PNG" width="700" align="middle">
+</div>
+
+## Quick setup and run tutorial
+To run the experiments, clone the repo and open the "CloudSim/cloudsim-package.iml* in Idea IntelliJ IDE.
+1. Open terminal and change directory to *Deep-Leanring/* and run 
+```
+python3 DeepRL.py
+```
+2. On the IDE, open *DeepRL-Runner.java* and set the selection and placement algorithms:
+```
+String vmAllocationPolicy =  "lr"; // Local Regression (LR) VM allocation policy
+String vmSelectionPolicy = "mmt"; // Minimum Migration Time (MMT) VM selection policy
+```
+For training choose any selection, placement algorithm pair. For execution select: *'deeprl-sel'* and *'deeprl-alloc'*. All model files are store in *Cloudsim/model2/* directory.
+
+## Developer
+
+[Shreshth Tuli](https://www.github.com/shreshthtuli) (shreshthtuli@gmail.com)
+
+## Cite this work
+```
+@article{tuli2020dynamic,
+  title={{Dynamic Scheduling for Stochastic Edge-Cloud Computing Environments using A3C learning and Residual Recurrent Neural Networks}},
+  author={Tuli, Shreshth and Ilager, Shashikant and Ramamohanarao, Kotagiri and Buyya, Rajkumar},
+  journal={IEEE Transaction on Mobile Computing},
+  year={2020},
+  publisher={IEEE}
+}
+```
+
+## References
+* **Shreshth Tuli, Shashikant Ilager, Kotagiri Ramamohanarao, and Rajkumar Buyya, [Dynamic Scheduling for Stochastic Edge-Cloud Computing Environments using A3C Learning and Residual Recurrent Neural Networks](http://buyya.com/papers/DynSchedulingEdgeCloudNets.pdf), IEEE Transactions on Mobile Computing (TMC), ISSN: 1536-1233, IEEE Computer Society Press, USA**
+
+[![](http://www.cloudbus.org/logo/cloudbuslogo-v5a.png)](http://cloudbus.org/)

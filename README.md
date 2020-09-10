@@ -46,8 +46,8 @@ The key contributions of this work:
 </div>
 
 ## Quick setup and run tutorial
-To run the experiments, clone the repo and open the "CloudSim/cloudsim-package.iml* in Idea IntelliJ IDE.
-1. Open terminal and change directory to *Deep-Leanring/* and run 
+To run the experiments, clone the repo and open the *CloudSim/cloudsim-package.iml* in Idea IntelliJ IDE.
+1. Open terminal and change directory to *Deep-Learning/* and run 
 ```
 python3 DeepRL.py
 ```

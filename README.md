@@ -58,6 +58,10 @@ String vmSelectionPolicy = "mmt"; // Minimum Migration Time (MMT) VM selection p
 ```
 For training choose any selection, placement algorithm pair. For execution select: *'deeprl-sel'* and *'deeprl-alloc'*. All model files are store in *Cloudsim/model2/* directory.
 
+Note:
+1. The output file *DL.txt* can be used to create a combined performance '.pickle' file using *Results/saveData.py*. To generate graphs, you can use *Results/resultGen.py* on the pickle file. However, these codes are specific to the implementation and baseline models in the paper. You can use your own parser from the pickle or log outputs for other QoS parameters and/or baselines.
+2. *DeepRL.py* does not produce any output. All interaction with the java files is done using RPC.
+
 ## Developer
 
 [Shreshth Tuli](https://www.github.com/shreshthtuli) (shreshthtuli@gmail.com)
